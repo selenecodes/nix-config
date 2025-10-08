@@ -7,7 +7,9 @@
 
   # `brew list <>` can help pinpoint package name
   # for both ordinary packages and casks
-  homebrew.brews = lib.mkAfter [];
+  homebrew.brews = lib.mkAfter [
+    "pinentry-touchid"
+  ];
 
   homebrew.casks = lib.mkAfter [
     # Shared apps

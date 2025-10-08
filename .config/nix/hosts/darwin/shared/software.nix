@@ -44,6 +44,7 @@
       "helm"
       "terragrunt"
       "azure-cli"
+      "gnupg"
     ];
 
     taps = [];

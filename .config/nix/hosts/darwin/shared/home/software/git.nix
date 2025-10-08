@@ -9,5 +9,9 @@
       push.autosetupremote = true;
       init.defaultbranch="main";
     };
+    signing = {
+      format = "openpgp";
+      signByDefault = true;
+    };
   };
 }
