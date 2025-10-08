@@ -13,7 +13,7 @@ in {
     enableZshIntegration = true;
     package = ghostty-mock;
     settings = {
-      theme = "catppuccin-mocha";
+      theme = "Catppuccin Frappe";
       adjust-cell-height = "10%";
       copy-on-select = true;
       font-size = 16;
