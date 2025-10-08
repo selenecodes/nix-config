@@ -44,6 +44,7 @@
       "terragrunt"
       "azure-cli"
       "gnupg"
+      "pinentry-mac"
     ];
 
     taps = [];

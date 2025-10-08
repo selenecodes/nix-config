@@ -8,7 +8,6 @@
   # for both ordinary packages and casks
   homebrew.brews = lib.mkAfter [
     "asimov"
-    "pinentry-mac"
     # "opencode"
   ];
 
