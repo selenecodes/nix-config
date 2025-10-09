@@ -5,7 +5,7 @@
       contents = {
         user = {
           email = "selene.blok@rws.nl";
-          signingkey = "";
+          signingkey = "AF9D5798B1C25E76";
         };
       };
     }

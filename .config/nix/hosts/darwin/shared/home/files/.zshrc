@@ -92,6 +92,10 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fnm env)"
 
+# https://stackoverflow.com/questions/57591432/gpg-signing-failed-inappropriate-ioctl-for-device-on-macos-with-maven
+GPG_TTY=$(tty)
+export GPG_TTY
+
 # Application configurations
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
