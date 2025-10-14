@@ -24,8 +24,6 @@
         # arktypeio.arkdark
         unifiedjs.vscode-mdx
         yoavbls.pretty-ts-errors
-        # DBs
-        prisma.prisma
         # Python
         njpwerner.autodocstring
         ms-python.vscode-pylance
@@ -39,23 +37,31 @@
         ms-toolsai.vscode-jupyter-cell-tags
         # ms-toolsai.vscode-jupyter-renderers
         ms-toolsai.vscode-jupyter-slideshow
-        # ms-toolsai.vscode-jupyter-keymap
-        # kevinrose.vsc-python-indent
-        # Copilot
-        github.copilot
-        github.copilot-chat
-        # Git
-        eamodio.gitlens
+        ms-toolsai.datawrangler
         # Mermaid
         bierner.markdown-mermaid
         # Nix
         bbenoist.nix
+        # Terraform
+        hashicorp.hcl
         # Misc
         visualstudioexptteam.vscodeintellicode
         visualstudioexptteam.intellicode-api-usage-examples
         ms-vsliveshare.vsliveshare
         # vscodevim.vim
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "jupyter-keymap";
+          publisher = "ms-toolsai";
+          version = "1.1.2";
+          sha256 = "sha256-9BLyBZzZ0Z6QQ05QSxFJYNZmZDc5O3eYkCxe/UsmKws=";
+        }
+        {
+          name = "jupyter-renderers";
+          publisher = "ms-toolsai";
+          version = "1.3.0";
+          sha256 = "sha256-GBqHvXikCgLGW7Xm05Iq1xqs8j9H9k9c8iASsAjA87I=";
+        }
         {
           name = "vscode-theme-onedark";
           publisher = "akamud";
@@ -71,20 +77,14 @@
         {
           name = "vscode-versionlens";
           publisher = "pflannery";
-          version = "1.22.2";
-          sha256 = "sha256-gsMBB4veu4MWPEkW1sefHi5ZI6zDPNHicMdu0Z3c24Q=";
-        }
-        {
-          name = "hcl";
-          publisher = "hashicorp";
-          version = "0.6.0";
-          sha256 = "sha256-Za2ODrsHR/y0X/FOhVEtbg6bNs439G6rlBHW84EZS60=";
+          version = "1.22.4";
+          sha256 = "sha256-yEhFRRwaqq4OH1oEjD2E+8y7DCVbvvvwa3r6ujq7IGg=";
         }
         {
           name = "claude-code";
           publisher = "anthropic";
-          version = "1.0.51";
-          sha256 = "sha256-d66NhGxk7yjmzt9Lr+mFpia6W7FAnarurMeCl/YOGZQ=";
+          version = "2.0.15";
+          sha256 = "sha256-TKN0IR/0pzbcusO1J9n7sodqbrmzw4u4EEXkmFKb3co=";
         }
       ];
       userSettings = {
