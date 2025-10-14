@@ -8,6 +8,7 @@
   # for both ordinary packages and casks
   homebrew.brews = lib.mkAfter [
     "asimov"
+    "gh"
     # "opencode"
   ];
 
@@ -16,7 +17,7 @@
   ];
 
   homebrew.casks = lib.mkAfter [
-    # "lm-studio"
+    "lm-studio"
     # Shared apps
     # "mp3tag"
     # "audiobook-builder"
