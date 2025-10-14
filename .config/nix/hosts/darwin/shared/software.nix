@@ -45,6 +45,10 @@
       "azure-cli"
       "gnupg"
       "pinentry-mac"
+      "bat"
+      "lazygit"
+      "ripgrep"
+      "fd"
     ];
 
     taps = [];
