@@ -129,6 +129,26 @@
         "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
         "[restructuredtext]"."editor.wordWrap" = "on";
         "[markdown]"."files.trimTrailingWhitespace" = true;
+        "editor.tokenColorCustomizations" = {
+          "textMateRules" = [
+            {
+              "name" = "Comment";
+              "scope" = [
+                "comment"
+                "comment.block"
+                "comment.block.documentation"
+                "comment.line"
+                "comment.line.double-slash"
+                "punctuation.definition.comment"
+              ];
+              "settings" = {
+                "fontStyle" = "italic";
+                # "fontStyle" = "italic underline";
+                # "fontStyle" = "italic bold underline";
+              };
+            }
+          ];
+        };
       };
     };
   };
