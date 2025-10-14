@@ -1,7 +1,7 @@
 { pkgs, lib, ... }: 
 
 let
-  myFont = "JetBrainsMono Nerd Font Mono";
+  myFont = "JetBrainsMono Nerd Font";
 in
 
 {

@@ -90,14 +90,19 @@
       userSettings = {
         # Font family settings
         "editor.fontFamily" = "'${myFont}', monospace";
+        "editor.fontSize" = 13;
+        "editor.fontLigatures" = "'calt'";
         "debug.console.fontFamily" = "'${myFont}', monospace";
+        "debug.console.fontSize" = 13;
         "terminal.integrated.fontFamily" = "'${myFont}', monospace";
+        "terminal.integrated.fontSize" = 13;
+        "terminal.integrated.fontLigatures.enabled" = "'calt'";
         # Other settings
         "chat.commandCenter.enabled" = false;
         "chat.disableAIFeatures" = true;
-        "editor.fontLigatures" = true;
-        "editor.fontSize" = 13;
         "editor.formatOnPaste" = true;
+        "editor.letterSpacing" = 0.4;
+        "editor.smoothScrolling" = true;
         "editor.multiCursorModifier" = "ctrlCmd";
         "editor.rulers" = [80];
         "explorer.confirmDelete" = false;
@@ -117,7 +122,6 @@
         "python.createEnvironment.trigger" = "off";
         "python.terminal.activateEnvInCurrentTerminal" = false;
         "security.workspace.trust.untrustedFiles" = "open";
-        "terminal.integrated.fontSize" = 13;
         "terminal.integrated.inheritEnv" = true;
         "window.zoomLevel" = 2;
         "workbench.colorTheme" = "Atom One Dark";
