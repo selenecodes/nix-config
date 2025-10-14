@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, myFont, ... }: {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
@@ -25,17 +25,17 @@
         unifiedjs.vscode-mdx
         yoavbls.pretty-ts-errors
         # Python
-        njpwerner.autodocstring
-        ms-python.vscode-pylance
-        ms-python.python
+        charliermarsh.ruff
         ms-python.black-formatter
         ms-python.debugpy
+        ms-python.isort
+        ms-python.pylint
+        ms-python.python
+        ms-python.vscode-pylance
         ms-python.mypy-type-checker
         ms-python.flake8
-        ms-python.isort
         ms-toolsai.jupyter
         ms-toolsai.vscode-jupyter-cell-tags
-        # ms-toolsai.vscode-jupyter-renderers
         ms-toolsai.vscode-jupyter-slideshow
         ms-toolsai.datawrangler
         # Mermaid
@@ -88,7 +88,15 @@
         }
       ];
       userSettings = {
-        "autoDocstring.docstringFormat" = "numpy-notypes";
+        # Font family settings
+        "editor.fontFamily" = "'${myFont}', monospace";
+        "debug.console.fontFamily" = "'${myFont}', monospace";
+        "terminal.integrated.fontFamily" = "'${myFont}', monospace";
+        # Other settings
+        "chat.commandCenter.enabled" = false;
+        "chat.disableAIFeatures" = true;
+        "editor.fontLigatures" = true;
+        "editor.fontSize" = 13;
         "editor.formatOnPaste" = true;
         "editor.multiCursorModifier" = "ctrlCmd";
         "editor.rulers" = [80];
@@ -105,6 +113,7 @@
         "git.enableSmartCommit" = true;
         "git.replaceTagsWhenPull" = true;
         "javascript.updateImportsOnFileMove.enabled" = "always";
+        "python.analysis.typeCheckingMode" = "strict";
         "python.createEnvironment.trigger" = "off";
         "python.terminal.activateEnvInCurrentTerminal" = false;
         "security.workspace.trust.untrustedFiles" = "open";
@@ -113,7 +122,9 @@
         "window.zoomLevel" = 2;
         "workbench.colorTheme" = "Atom One Dark";
         "workbench.list.typeNavigationMode" = "trigger";
-        "yaml-compose-sorter.removeVersionKey" = true;
+        "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
+        "[restructuredtext]"."editor.wordWrap" = "on";
+        "[markdown]"."files.trimTrailingWhitespace" = true;
       };
     };
   };

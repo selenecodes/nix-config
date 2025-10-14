@@ -1,10 +1,16 @@
-{ pkgs, lib, ... }: {
+{ pkgs, lib, ... }: 
+
+let
+  myFont = "JetBrainsMono Nerd Font Mono";
+in
+
+{
   imports = [
     ./software/bun.nix
     ./software/ghostty.nix
     ./software/git.nix
     ./software/git-cliff.nix
-    ./software/vscode.nix
+    (import ./software/vscode.nix { inherit pkgs myFont; })
     ./software/zoxide.nix
     ./software/aerospace.nix
   ];
