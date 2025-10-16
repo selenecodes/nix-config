@@ -25,6 +25,7 @@
         unifiedjs.vscode-mdx
         yoavbls.pretty-ts-errors
         # Python
+        njpwerner.autodocstring
         charliermarsh.ruff
         ms-python.black-formatter
         ms-python.debugpy
