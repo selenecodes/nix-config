@@ -1,4 +1,5 @@
 { pkgs, ... }: {
+  # Pull GPG from 1Password 
   programs.git.signing.key = "DACDCE7E426244FC";
   programs.git.includes = [
     {
