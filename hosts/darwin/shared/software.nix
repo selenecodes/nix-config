@@ -14,6 +14,7 @@
     fzf
     tree
     docker
+    just
     # aerospace
     terraform
     # Git
@@ -59,6 +60,7 @@
       "plexamp"
       "raycast"
       "obsidian"
+      "datagrip"
       # "ollama-app"
       "claude"
       "claude-code"

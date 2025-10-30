@@ -45,6 +45,8 @@
         bbenoist.nix
         # Terraform
         hashicorp.hcl
+        # Just syntax highlighting
+        skellock.just
         # Misc
         visualstudioexptteam.vscodeintellicode
         visualstudioexptteam.intellicode-api-usage-examples
