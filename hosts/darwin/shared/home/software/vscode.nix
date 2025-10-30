@@ -46,7 +46,7 @@
         # Terraform
         hashicorp.hcl
         # Just syntax highlighting
-        skellock.just
+        nefrob.vscode-just-syntax
         # Misc
         visualstudioexptteam.vscodeintellicode
         visualstudioexptteam.intellicode-api-usage-examples
