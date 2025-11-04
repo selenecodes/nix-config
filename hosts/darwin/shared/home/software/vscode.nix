@@ -45,6 +45,8 @@
         bbenoist.nix
         # Terraform
         hashicorp.hcl
+        # Yaml
+        redhat.vscode-yaml
         # Just syntax highlighting
         nefrob.vscode-just-syntax
         # Misc
