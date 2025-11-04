@@ -110,30 +110,6 @@
         "editor.smoothScrolling" = true;
         "editor.multiCursorModifier" = "ctrlCmd";
         "editor.rulers" = [80];
-        "explorer.confirmDelete" = false;
-        "explorer.confirmDragAndDrop" = false;
-        "extensions.ignoreRecommendations" = true;
-        "files.associations" = {
-          "*.hcl" = "hcl";
-          "*.tf" = "hcl";
-          "*.tfvars" = "hcl";
-        };
-        "git.autofetch" = true;
-        "git.confirmSync" = false;
-        "git.enableSmartCommit" = true;
-        "git.replaceTagsWhenPull" = true;
-        "javascript.updateImportsOnFileMove.enabled" = "always";
-        "python.analysis.typeCheckingMode" = "strict";
-        "python.createEnvironment.trigger" = "off";
-        "python.terminal.activateEnvInCurrentTerminal" = false;
-        "security.workspace.trust.untrustedFiles" = "open";
-        "terminal.integrated.inheritEnv" = true;
-        "window.zoomLevel" = 2;
-        "workbench.colorTheme" = "Atom One Dark";
-        "workbench.list.typeNavigationMode" = "trigger";
-        "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
-        "[restructuredtext]"."editor.wordWrap" = "on";
-        "[markdown]"."files.trimTrailingWhitespace" = true;
         "editor.tokenColorCustomizations" = {
           "textMateRules" = [
             {
@@ -154,6 +130,32 @@
             }
           ];
         };
+        "explorer.confirmDelete" = false;
+        "explorer.confirmDragAndDrop" = false;
+        "extensions.ignoreRecommendations" = true;
+        "files.associations" = {
+          "*.hcl" = "hcl";
+          "*.tf" = "hcl";
+          "*.tfvars" = "hcl";
+          "*.yml" = "yaml";
+        };
+        "git.autofetch" = true;
+        "git.confirmSync" = false;
+        "git.enableSmartCommit" = true;
+        "git.replaceTagsWhenPull" = true;
+        "javascript.updateImportsOnFileMove.enabled" = "always";
+        "python.analysis.typeCheckingMode" = "strict";
+        "python.createEnvironment.trigger" = "off";
+        "python.terminal.activateEnvInCurrentTerminal" = false;
+        "redhat.telemetry.enabled" = false;
+        "security.workspace.trust.untrustedFiles" = "open";
+        "terminal.integrated.inheritEnv" = true;
+        "window.zoomLevel" = 2;
+        "workbench.colorTheme" = "Atom One Dark";
+        "workbench.list.typeNavigationMode" = "trigger";
+        "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
+        "[restructuredtext]"."editor.wordWrap" = "on";
+        "[markdown]"."files.trimTrailingWhitespace" = true;
       };
     };
   };
