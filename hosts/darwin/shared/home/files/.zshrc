@@ -87,6 +87,12 @@ alias c='clear'
 alias ca="conda activate"
 alias kubectl="minikube kubectl --"
 
+aoai-token-refresh() {
+  export AOAI_TOKEN="Bearer $(az account get-access-token \
+    --resource https://cognitiveservices.azure.com/ \
+    --query accessToken -o tsv)"
+}
+
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
