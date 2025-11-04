@@ -61,6 +61,8 @@
       "raycast"
       "obsidian"
       "datagrip"
+      "miniconda"
+      "codex"
       # "ollama-app"
       "claude"
       "claude-code"
