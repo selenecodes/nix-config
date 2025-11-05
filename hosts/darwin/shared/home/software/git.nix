@@ -2,12 +2,13 @@
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userName = "Selene Blok";
-    userEmail = "selene.blok@gmail.com";
     ignores = [ "CLAUDE.local.md" ".claude" ];
-    extraConfig = {
+    settings = {
+      user.email = "selene.blok@gmail.com";
+      user.name = "Selene Blok";
       push.autosetupremote = true;
       init.defaultbranch="main";
+      credential.helper="manager";
       http."https://gitlab.at.rws.nl" = {
         sslKey  = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
         sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.pem";
@@ -15,11 +16,6 @@
       http."https://git.rws.nl" = {
         sslKey  = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
         sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.pem";
-      };
-      credential."https://github.com" = {
-        helper = "manager";
-        credentialStore = "cache";
-        username = "selenecodes";
       };
     };
     signing = {
