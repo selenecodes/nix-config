@@ -50,6 +50,7 @@
       "lazygit"
       "ripgrep"
       "fd"
+      "backlog-md"
     ];
 
     taps = [];
