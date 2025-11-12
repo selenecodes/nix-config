@@ -87,7 +87,7 @@ alias c='clear'
 alias ca="conda activate"
 alias kubectl="minikube kubectl --"
 
-aoai-token-refresh() {
+aoai() {
   export AOAI_TOKEN="Bearer $(az account get-access-token \
     --resource https://cognitiveservices.azure.com/ \
     --query accessToken -o tsv)"
@@ -105,3 +105,6 @@ export GPG_TTY
 # Application configurations
 # Miniconda
 eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+
+# postgres
+export PATH="/usr/local/opt/libpq/bin:$PATH"
