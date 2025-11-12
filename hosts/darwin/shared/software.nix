@@ -77,7 +77,7 @@
       "soundsource"
       "git-credential-manager"
       "1password-cli"
-      # "1password"
+      "1password"
       # Messaging
       "microsoft-teams"
       "slack"
