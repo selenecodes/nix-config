@@ -105,5 +105,5 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # postgres
-export PATH="/usr/local/opt/libpq/bin:$PATH"
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
+export PATH="/usr/local/opt/libpq/bin:$PATH" # Intel macs
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # M1 macs
