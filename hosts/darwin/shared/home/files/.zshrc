@@ -86,6 +86,7 @@ alias vim='nvim'
 alias c='clear'
 alias ca="conda activate"
 alias kubectl="minikube kubectl --"
+alias composelint="npx dclint --fix"
 
 aoai() {
   export AOAI_TOKEN="Bearer $(az account get-access-token \
@@ -97,14 +98,12 @@ aoai() {
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 eval "$(fnm env)"
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"
 
 # https://stackoverflow.com/questions/57591432/gpg-signing-failed-inappropriate-ioctl-for-device-on-macos-with-maven
 GPG_TTY=$(tty)
 export GPG_TTY
 
-# Application configurations
-# Miniconda
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
-
 # postgres
 export PATH="/usr/local/opt/libpq/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
