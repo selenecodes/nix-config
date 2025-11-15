@@ -150,7 +150,7 @@
         "python.terminal.activateEnvInCurrentTerminal" = false;
         "redhat.telemetry.enabled" = false;
         "security.workspace.trust.untrustedFiles" = "open";
-        "svelte.enable-ts-plugin": true
+        "svelte.enable-ts-plugin" = true;
         "terminal.integrated.inheritEnv" = true;
         "window.zoomLevel" = 2;
         "workbench.colorTheme" = "Atom One Dark";
