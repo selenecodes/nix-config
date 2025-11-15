@@ -138,6 +138,7 @@
           "*.tf" = "hcl";
           "*.tfvars" = "hcl";
           "*.yml" = "yaml";
+          "*.env" = "shellscript";
         };
         "git.autofetch" = true;
         "git.confirmSync" = false;
