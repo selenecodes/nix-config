@@ -1,5 +1,3 @@
 { pkgs, lib, ... }: {
-  imports = [
-    ./software/git.nix
-  ];
+  imports = [ ];
 }
