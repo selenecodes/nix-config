@@ -13,6 +13,7 @@ in
     (import ./software/vscode.nix { inherit pkgs myFont; })
     ./software/zoxide.nix
     ./software/aerospace.nix
+    ./software/codex.nix
   ];
 
   home = {
