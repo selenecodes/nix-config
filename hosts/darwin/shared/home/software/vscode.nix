@@ -50,8 +50,6 @@
         # Just syntax highlighting
         nefrob.vscode-just-syntax
         # Misc
-        visualstudioexptteam.vscodeintellicode
-        visualstudioexptteam.intellicode-api-usage-examples
         ms-vsliveshare.vsliveshare
         # vscodevim.vim
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
