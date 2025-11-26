@@ -1,5 +1,5 @@
 { ... }: let
-  username = "seleneblok";
+  username = "selene";
 in {
   imports = [
     ../shared/configuration.nix
@@ -8,7 +8,7 @@ in {
   system.primaryUser = username;
   users.users.${username} = {
     name = username;
-    home = "/Users/seleneblok";
+    home = "/Users/selene";
   };
   nix-homebrew = {
     enable = true;
