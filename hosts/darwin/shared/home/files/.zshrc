@@ -104,6 +104,9 @@ eval "$(conda "shell.$(basename "${SHELL}")" hook)"
 GPG_TTY=$(tty)
 export GPG_TTY
 
+# Bun binaries
+export PATH="/Users/selene/.bun/bin:$PATH"
+
 # postgres
 export PATH="/usr/local/opt/libpq/bin:$PATH" # Intel macs
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # M1 macs
