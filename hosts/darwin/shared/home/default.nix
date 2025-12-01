@@ -13,10 +13,14 @@ in
     (import ./software/vscode.nix { inherit pkgs myFont; })
     ./software/zoxide.nix
     ./software/aerospace.nix
-    ./software/codex.nix
+    # ./software/codex.nix
   ];
 
   home = {
+    file."./.codex/config.toml" = {
+      source = "${./files/codex-config.toml}";
+      force = true;
+    };
     file.".config/linearmouse/linearmouse.json".source = "${./files/linearmouse.json}";
     file.".p10k.zsh".source = "${./files/.p10k.zsh}";
     file.".zshrc".source = "${./files/.zshrc}";
