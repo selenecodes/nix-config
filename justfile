@@ -8,3 +8,9 @@ update:
 
 clean:
   nix-collect-garbage
+
+versions:
+  sudo darwin-rebuild --list-generations
+
+rollback:
+  sudo darwin-rebuild switch --rollback
