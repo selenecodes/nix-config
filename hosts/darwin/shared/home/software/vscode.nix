@@ -2,6 +2,7 @@
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
+    package = pkgs.vscode;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         # General
@@ -49,8 +50,6 @@
         redhat.vscode-yaml
         # Just syntax highlighting
         nefrob.vscode-just-syntax
-        # Misc
-        ms-vsliveshare.vsliveshare
         # vscodevim.vim
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
@@ -62,7 +61,7 @@
         {
           name = "jupyter-renderers";
           publisher = "ms-toolsai";
-          version = "1.3.0";
+          version = "1.3.2025062701";
           sha256 = "sha256-GBqHvXikCgLGW7Xm05Iq1xqs8j9H9k9c8iASsAjA87I=";
         }
         {
@@ -86,7 +85,7 @@
         {
           name = "claude-code";
           publisher = "anthropic";
-          version = "2.0.15";
+          version = "2.0.57";
           sha256 = "sha256-TKN0IR/0pzbcusO1J9n7sodqbrmzw4u4EEXkmFKb3co=";
         }
       ];

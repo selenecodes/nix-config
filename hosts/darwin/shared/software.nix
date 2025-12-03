@@ -22,13 +22,10 @@
     git-lfs
     # Node.js
     fnm
-    vscode
   ];
 
   homebrew = {
     enable = true;
-    # disabling quarantine would mean no stupid macOS do-you-really-want-to-open dialogs
-    caskArgs.no_quarantine = true;
     onActivation = {
       autoUpdate = true;
       upgrade = true;
