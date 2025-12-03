@@ -28,20 +28,17 @@
         # Python
         njpwerner.autodocstring
         charliermarsh.ruff
-        ms-python.black-formatter
-        ms-python.debugpy
-        ms-python.isort
+        #ms-python.debugpy
         ms-python.pylint
         ms-python.python
-        ms-python.vscode-pylance
         ms-python.mypy-type-checker
-        ms-python.flake8
-        ms-toolsai.jupyter
-        ms-toolsai.jupyter-renderers
-        ms-toolsai.jupyter-keymap
-        ms-toolsai.vscode-jupyter-cell-tags
-        ms-toolsai.vscode-jupyter-slideshow
-        ms-toolsai.datawrangler
+        ms-pyright.pyright
+        #ms-toolsai.jupyter
+        #ms-toolsai.jupyter-renderers
+        #ms-toolsai.jupyter-keymap
+        #ms-toolsai.vscode-jupyter-cell-tags
+        #ms-toolsai.vscode-jupyter-slideshow
+        #ms-toolsai.datawrangler
         # Mermaid
         bierner.markdown-mermaid
         # Nix
@@ -138,6 +135,7 @@
         "redhat.telemetry.enabled" = false;
         "security.workspace.trust.untrustedFiles" = "open";
         "svelte.enable-ts-plugin" = true;
+        "telemetry.telemetryLevel" = "off";
         "terminal.integrated.inheritEnv" = true;
         "window.zoomLevel" = 2;
         "workbench.colorTheme" = "Atom One Dark";
