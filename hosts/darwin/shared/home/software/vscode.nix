@@ -37,6 +37,8 @@
         ms-python.mypy-type-checker
         ms-python.flake8
         ms-toolsai.jupyter
+        ms-toolsai.jupyter-renderers
+        ms-toolsai.jupyter-keymap
         ms-toolsai.vscode-jupyter-cell-tags
         ms-toolsai.vscode-jupyter-slideshow
         ms-toolsai.datawrangler
@@ -52,18 +54,6 @@
         nefrob.vscode-just-syntax
         # vscodevim.vim
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "jupyter-keymap";
-          publisher = "ms-toolsai";
-          version = "1.1.2";
-          sha256 = "sha256-9BLyBZzZ0Z6QQ05QSxFJYNZmZDc5O3eYkCxe/UsmKws=";
-        }
-        {
-          name = "jupyter-renderers";
-          publisher = "ms-toolsai";
-          version = "1.3.2025062701";
-          sha256 = "sha256-GBqHvXikCgLGW7Xm05Iq1xqs8j9H9k9c8iASsAjA87I=";
-        }
         {
           name = "vscode-theme-onedark";
           publisher = "akamud";
@@ -86,7 +76,7 @@
           name = "claude-code";
           publisher = "anthropic";
           version = "2.0.57";
-          sha256 = "sha256-TKN0IR/0pzbcusO1J9n7sodqbrmzw4u4EEXkmFKb3co=";
+          sha256 = "sha256-vqlW54Ck9Q2N0gUsfCEEt4dTqiaQOi3eAAK43umcEK4=";
         }
       ];
       userSettings = {
