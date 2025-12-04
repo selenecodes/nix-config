@@ -44,7 +44,9 @@
       "libpq"
       "mas"
       "minikube"
+      "socket_vmnet"
       "pinentry-mac"
+      "qemu"
       "terragrunt"
       "ripgrep"
     ];
