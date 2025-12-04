@@ -8,20 +8,17 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    # Terminal
-    zoxide
-    neovim
-    fzf
-    tree
-    docker
-    just
     # aerospace
-    terraform
-    # Git
+    docker
+    fnm
+    fzf
     git
     git-lfs
-    # Node.js
-    fnm
+    just
+    neovim
+    terraform
+    tree
+    zoxide
   ];
 
   homebrew = {
@@ -37,52 +34,49 @@
     # `brew list <>` can help pinpoint package name
     # for both ordinary packages and casks
     brews = [
-      "mas"
-      "helm"
-      "terragrunt"
       "azure-cli"
-      "gnupg"
-      "pinentry-mac"
-      "bat"
-      "lazygit"
-      "ripgrep"
-      "fd"
       "backlog-md"
+      "bat"
+      "fd"
+      "gnupg"
+      "helm"
+      "lazygit"
       "libpq"
+      "mas"
+      "pinentry-mac"
+      "terragrunt"
+      "ripgrep"
     ];
 
     taps = [];
 
     greedyCasks = true;
     casks = [
-      "arc"
-      "plexamp"
-      "raycast"
-      "obsidian"
-      "datagrip"
-      "miniconda"
-      # "ollama-app"
-      "claude"
-      "claude-code"
-      # Mac fixes
-      "cleanshot"
-      # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken
-      "ghostty"
-      "linearmouse"
-      "monitorcontrol"
-      "soundsource"
-      "git-credential-manager"
       "1password-cli"
       "1password"
-      # Messaging
+      "arc"
+      "claude"
+      "claude-code"
+      "cleanshot"
+      "datagrip"
+      "ghostty"  # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken
+      "git-credential-manager"
+      "linearmouse"
       "microsoft-teams"
+      "miniconda"
+      "monitorcontrol"
+      "obsidian"
+      # "ollama-app"
+      "plexamp"
+      "raycast"
       "slack"
+      "soundsource"
     ];
 
     # `mas search <>` can help pinpoint package name
     masApps = {
-      "Amphetamine" = 937984704;
       "1Password for Safari" = 1569813296;
+      "Amphetamine" = 937984704;
       "Tailscale" = 1475387142;
     };
   };
