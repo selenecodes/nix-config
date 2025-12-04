@@ -43,6 +43,7 @@
       "lazygit"
       "libpq"
       "mas"
+      "minikube"
       "pinentry-mac"
       "terragrunt"
       "ripgrep"
