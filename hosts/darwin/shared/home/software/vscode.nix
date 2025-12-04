@@ -77,6 +77,7 @@
         }
       ];
       userSettings = {
+        "autoDocstring.docstringFormat" = "numpy-notypes";
         # Font family settings
         "editor.fontFamily" = "'${myFont}', monospace";
         "editor.fontSize" = 13;
