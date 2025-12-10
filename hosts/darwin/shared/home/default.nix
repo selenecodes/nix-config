@@ -17,6 +17,7 @@ in
   ];
 
   home = {
+    file."./.config/pip/pip.conf".source = "${./files/pip.conf}";
     file."./.config/opencode/opencode.json".source = "${./files/opencode-config.json}";
     file."./.codex/config.toml".source = "${./files/codex-config.toml}";
     file.".config/linearmouse/linearmouse.json".source = "${./files/linearmouse.json}";
