@@ -1,5 +1,5 @@
 { inputs, config, pkgs, lib, ... }: let
-  username = "seleneblok";
+  username = "selene.blok";
 in {
   imports = [
     ../shared/configuration.nix
@@ -8,7 +8,7 @@ in {
   system.primaryUser = username;
   users.users.${username} = {
     name = username;
-    home = "/Users/seleneblok";
+    home = "/Users/selene.blok";
   };
   nix-homebrew = {
     enable = true;
@@ -18,7 +18,7 @@ in {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
-  nixpkgs.hostPlatform = "x86_64-darwin";
+  nixpkgs.hostPlatform = "aarch64-darwin";
   security.pam.services.sudo_local.touchIdAuth = true;
   networking.knownNetworkServices = [
     "Thunderbolt Bridge"

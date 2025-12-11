@@ -26,8 +26,8 @@
         ];
       };
 
-      work = nix-darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
+      rwslaptop = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
         specialArgs = { inherit self; };
         modules = [
           ./hosts/darwin/work-laptop/default.nix
