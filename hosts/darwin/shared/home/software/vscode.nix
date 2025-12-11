@@ -138,6 +138,7 @@
         "svelte.enable-ts-plugin" = true;
         "telemetry.telemetryLevel" = "off";
         "terminal.integrated.inheritEnv" = true;
+        "update.showReleaseNotes" = false;
         "window.zoomLevel" = 2;
         "workbench.colorTheme" = "Atom One Dark";
         "workbench.list.typeNavigationMode" = "trigger";
