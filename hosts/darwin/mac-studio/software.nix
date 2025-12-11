@@ -40,6 +40,7 @@
   # `mas search <>` can help pinpoint package name
   homebrew.masApps = lib.mkAfter{
     "Infuse" = 1136220934;
+    "Tailscale" = 1475387142;
     # TODO: fix prologue issue
     # "Prologue" = 1459223267;
   };

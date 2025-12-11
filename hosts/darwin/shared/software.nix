@@ -80,7 +80,6 @@
     masApps = {
       "1Password for Safari" = 1569813296;
       "Amphetamine" = 937984704;
-      "Tailscale" = 1475387142;
     };
   };
 }
