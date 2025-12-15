@@ -7,8 +7,7 @@ model_reasoning_effort = "high"
 [model_providers.azure]
 name = "Azure"
 # Make sure you set the appropriate subdomain for this URL.
-base_url = "https://apim.datalab-01.azure.grid.rws.nl/openai/deployments/gpt-5"
+base_url = "https://apim.datalab-01.azure.grid.rws.nl/openai/v1"
 env_http_headers = { Authorization = "AOAI_TOKEN" }
-query_params = { api-version = "2025-01-01-preview" }
-wire_api = "chat"
+wire_api = "responses"
 model_reasoning_effort = "high"
