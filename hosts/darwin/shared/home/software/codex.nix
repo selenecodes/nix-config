@@ -1,14 +1,7 @@
-{ pkgs, ... }:
-# Add codex mock since we're managing it through npm and the
-# pkgs.codex is at a version above 0.5.55 which doesn't work with Azure OpenAI
-let
-  codex-mock = pkgs.writeShellScriptBin "codex-mock" ''
-    true
-    '';
-in {
+{ pkgs, ... }: {
   programs.codex = {
     enable = true;
-    package = codex-mock;
+    package = pkgs.codex;
     settings = {
       model = "gpt-5";
       model_provider = "azure";
