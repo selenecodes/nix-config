@@ -66,6 +66,7 @@
       "ghostty"  # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken
       "git-credential-manager"
       "linearmouse"
+      "logi-options+"
       "microsoft-teams"
       "miniconda"
       "obsidian"
