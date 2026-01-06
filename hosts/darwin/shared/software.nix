@@ -67,7 +67,6 @@
       "git-credential-manager"
       "linearmouse"
       "logi-options+"
-      "microsoft-teams"
       "miniconda"
       "obsidian"
       # "ollama-app"
