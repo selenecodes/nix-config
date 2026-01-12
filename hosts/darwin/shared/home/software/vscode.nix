@@ -8,6 +8,7 @@
         # General
         gruntfuggly.todo-tree
         naumovs.color-highlight
+        ms-vscode-remote.remote-ssh
         # Themes
         # ayakosky.fluffy-theme
         # mgwg.light-pink-theme
