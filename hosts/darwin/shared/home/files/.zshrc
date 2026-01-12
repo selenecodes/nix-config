@@ -109,6 +109,3 @@ export PATH="/Users/selene/.bun/bin:$PATH" # bun
 export PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket-vmnet
 export PATH="/usr/local/opt/libpq/bin:$PATH" # psql x86_64 macs
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # psql aarch64 macs
-
-# 1Password SSH agent
-SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
