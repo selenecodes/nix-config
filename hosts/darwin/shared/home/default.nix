@@ -21,6 +21,7 @@ in
     file."./.config/opencode/opencode.json".source = "${./files/opencode-config.json}";
     file."./.ssh/config".source = "${./files/ssh-config}";
     file.".config/linearmouse/linearmouse.json".source = "${./files/linearmouse.json}";
+    file.".condarc".source = "${./files/.condarc}";
     file.".p10k.zsh".source = "${./files/.p10k.zsh}";
     file.".zshrc".source = "${./files/.zshrc}";
   };
