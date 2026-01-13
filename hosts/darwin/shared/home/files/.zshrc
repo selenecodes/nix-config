@@ -1,13 +1,17 @@
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+eval "$(fnm env)"
+eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+
+launchctl setenv OLLAMA_HOST "0.0.0.0"
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-if [[ -f "/opt/homebrew/bin/brew" ]] then
-  # If you're using macOS, you'll want this enabled
-  eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 # Set the directory we want to store zinit and plugins
@@ -44,7 +48,7 @@ zinit snippet OMZP::conda
 
 
 # Load completions
-autoload -Uz compinit && compinit
+# autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
@@ -77,9 +81,6 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Environment
-launchctl setenv OLLAMA_HOST "0.0.0.0"
-
 # Aliases
 alias ls='ls --color'
 alias vim='nvim'
@@ -97,8 +98,6 @@ aoai() {
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
-eval "$(fnm env)"
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
 
 # https://stackoverflow.com/questions/57591432/gpg-signing-failed-inappropriate-ioctl-for-device-on-macos-with-maven
 GPG_TTY=$(tty)
