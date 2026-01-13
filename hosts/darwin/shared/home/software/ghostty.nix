@@ -13,8 +13,8 @@ in {
     enableZshIntegration = true;
     package = ghostty-mock;
     settings = {
-      theme = "Catppuccin Frappe";
       adjust-cell-height = "10%";
+      confirm-close-surface = false;
       copy-on-select = true;
       font-size = 16;
       font-thicken = true;
@@ -22,7 +22,9 @@ in {
       macos-non-native-fullscreen=false;
       macos-option-as-alt = true;
       # macos-titlebar-style = "hidden";
+      quit-after-last-window-closed = true;
       scrollback-limit = 1000000;
+      theme = "Catppuccin Frappe";
       window-padding-y = 0;
       window-padding-x = 0;
       window-padding-color = "extend";
