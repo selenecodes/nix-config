@@ -2,6 +2,6 @@ Match host * exec "test -z $SSH_CONNECTION"
   IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
 
 Host rwslaptop
-  HostName 10.10.20.123
+  HostName Bloks-MacBook-Air.local
   User selene.blok
   ForwardAgent yes
