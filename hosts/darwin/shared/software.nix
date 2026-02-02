@@ -60,8 +60,6 @@
       "arc"
       "betterdisplay"
       "bettermouse"
-      "claude"
-      "claude-code"
       "cleanshot"
       "datagrip"
       "ghostty"  # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken
