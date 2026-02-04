@@ -58,6 +58,7 @@
       "arc"
       "betterdisplay"
       "bettermouse"
+      "citrix-workspace"
       "cleanshot"
       # "datagrip"
       "ghostty"  # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken

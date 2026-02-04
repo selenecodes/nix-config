@@ -13,7 +13,6 @@
 
   homebrew.casks = lib.mkAfter [
     # Shared apps
-    "citrix-workspace"
     "displaylink"
     "microsoft-teams"
   ];
