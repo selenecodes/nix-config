@@ -8,7 +8,6 @@
   # for both ordinary packages and casks
   homebrew.brews = lib.mkAfter [
     "asimov"
-    "gh"
     # "opencode"
   ];
 
@@ -17,22 +16,20 @@
   ];
 
   homebrew.casks = lib.mkAfter [
-    "lm-studio"
+    # "lm-studio"
     # Shared apps
     # "mp3tag"
     # "audiobook-builder"
     # Mac fixes
-    "daisydisk"
+    # "daisydisk"
     # VPN
-    "protonvpn"
+    # "protonvpn"
     # Messaging
     # discord: Install discord manually for now because Krisp doesn't work
     "signal"
-    "whatsapp"
     # Gaming
     "moonlight"
     "virtualhereserver"
-    "nvidia-geforce-now"
     # "steam"
     # "prismlauncher"
   ];

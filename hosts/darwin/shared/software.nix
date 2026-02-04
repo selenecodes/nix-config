@@ -34,8 +34,6 @@
     # `brew list <>` can help pinpoint package name
     # for both ordinary packages and casks
     brews = [
-      "azure-cli"
-      "backlog-md"
       "bat"
       "fd"
       "gnupg"
@@ -61,7 +59,7 @@
       "betterdisplay"
       "bettermouse"
       "cleanshot"
-      "datagrip"
+      # "datagrip"
       "ghostty"  # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken
       "git-credential-manager"
       "miniconda"
@@ -76,7 +74,7 @@
     # `mas search <>` can help pinpoint package name
     masApps = {
       "1Password for Safari" = 1569813296;
-      "Amphetamine" = 937984704;
+      # "Amphetamine" = 937984704;
     };
   };
 }
