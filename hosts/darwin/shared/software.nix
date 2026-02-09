@@ -63,6 +63,7 @@
       # "datagrip"
       "ghostty"  # Remove ghostty and enable ./home/ghostty once the pkg is no longer broken
       "git-credential-manager"
+      "libreoffice-still"
       "miniconda"
       "obsidian"
       # "ollama-app"
