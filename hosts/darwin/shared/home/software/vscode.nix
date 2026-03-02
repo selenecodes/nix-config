@@ -14,6 +14,8 @@
         # mgwg.light-pink-theme
         # TOML
         tamasfe.even-better-toml
+        # Helm
+        tim-koehler.helm-intellisense
         # Docker & Containers
         ms-vscode-remote.remote-containers
         # ms-azuretools.vscode-containers
