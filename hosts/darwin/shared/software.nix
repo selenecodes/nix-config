@@ -45,8 +45,9 @@
       "socket_vmnet"
       "pinentry-mac"
       "qemu"
-      "terragrunt"
       "ripgrep"
+      "terragrunt"
+      "uv"
     ];
 
     taps = [];
