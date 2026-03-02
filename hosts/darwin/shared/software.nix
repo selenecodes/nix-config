@@ -76,7 +76,6 @@
 
     # `mas search <>` can help pinpoint package name
     masApps = {
-      "1Password for Safari" = 1569813296;
       # "Amphetamine" = 937984704;
     };
   };
