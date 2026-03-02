@@ -1,8 +1,18 @@
-{ pkgs, myFont, ... }: {
+{ pkgs, myFont, ... }:
+# Add vscode mock since we're managing it through homebrew and the
+# pkgs.vscode is an old version.
+let
+  vscode-mock = (pkgs.writeShellScriptBin "code" ''
+    true
+  '').overrideAttrs (oldAttrs: {
+    pname = "vscode";
+    version = "1.109.5";
+  });
+in {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    package = pkgs.vscode;
+    package = vscode-mock;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         # General

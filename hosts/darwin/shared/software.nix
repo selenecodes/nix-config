@@ -72,6 +72,7 @@
       "raycast"
       "slack"
       "soundsource"
+      "visual-studio-code"
     ];
 
     # `mas search <>` can help pinpoint package name
