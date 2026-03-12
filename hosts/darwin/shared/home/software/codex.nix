@@ -1,9 +1,15 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+# Add ghostty mock since we're managing it through npm
+let
+  codex-mock = pkgs.writeShellScriptBin "codex-mock" ''
+    true
+    '';
+in {
   programs.codex = {
     enable = true;
-    package = pkgs.codex;
+    package = codex-mock;
     settings = {
-      model = "gpt-5";
+      model = "gpt-5.1";
       model_provider = "azure";
       model_reasoning_effort = "high";
       model_providers = {
