@@ -1,6 +1,7 @@
 { pkgs, myFont, ... }:
-# Add vscode mock since we're managing it through homebrew and the
-# pkgs.vscode is an old version.
+# On Darwin: vscode is managed by Homebrew, so we use a mock to get home-manager
+# to manage extensions/settings without it trying to install the package itself.
+# On Linux: use the real nixpkgs package.
 let
   vscode-mock = (pkgs.writeShellScriptBin "code" ''
     true
@@ -12,46 +13,32 @@ in {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    package = vscode-mock;
+    package = if pkgs.stdenv.isDarwin then vscode-mock else pkgs.vscode;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         # General
         gruntfuggly.todo-tree
         naumovs.color-highlight
         ms-vscode-remote.remote-ssh
-        # Themes
-        # ayakosky.fluffy-theme
-        # mgwg.light-pink-theme
         # TOML
         tamasfe.even-better-toml
         # Helm
         tim-koehler.helm-intellisense
         # Docker & Containers
         ms-vscode-remote.remote-containers
-        # ms-azuretools.vscode-containers
         ms-azuretools.vscode-docker
-        # docker.docker
-        # sashabusinaro.yaml-compose-sorter
         # Node & JS
         usernamehw.errorlens
         svelte.svelte-vscode
-        # arktypeio.arkdark
         unifiedjs.vscode-mdx
         yoavbls.pretty-ts-errors
         # Python
         njpwerner.autodocstring
         charliermarsh.ruff
-        #ms-python.debugpy
         ms-python.pylint
         ms-python.python
         ms-python.mypy-type-checker
         ms-pyright.pyright
-        #ms-toolsai.jupyter
-        #ms-toolsai.jupyter-renderers
-        #ms-toolsai.jupyter-keymap
-        #ms-toolsai.vscode-jupyter-cell-tags
-        #ms-toolsai.vscode-jupyter-slideshow
-        #ms-toolsai.datawrangler
         # Mermaid
         bierner.markdown-mermaid
         # Nix
@@ -62,7 +49,6 @@ in {
         redhat.vscode-yaml
         # Just syntax highlighting
         nefrob.vscode-just-syntax
-        # vscodevim.vim
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "vscode-theme-onedark";
@@ -85,7 +71,6 @@ in {
       ];
       userSettings = {
         "autoDocstring.docstringFormat" = "numpy-notypes";
-        # Font family settings
         "editor.fontFamily" = "'${myFont}', monospace";
         "editor.fontSize" = 13;
         "editor.fontLigatures" = "'calt'";
@@ -94,7 +79,6 @@ in {
         "terminal.integrated.fontFamily" = "'${myFont}', monospace";
         "terminal.integrated.fontSize" = 13;
         "terminal.integrated.fontLigatures.enabled" = "'calt'";
-        # Other settings
         "chat.commandCenter.enabled" = false;
         "chat.disableAIFeatures" = true;
         "editor.formatOnPaste" = true;
@@ -114,11 +98,7 @@ in {
                 "comment.line.double-slash"
                 "punctuation.definition.comment"
               ];
-              "settings" = {
-                "fontStyle" = "italic";
-                # "fontStyle" = "italic underline";
-                # "fontStyle" = "italic bold underline";
-              };
+              "settings"."fontStyle" = "italic";
             }
           ];
         };

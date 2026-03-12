@@ -1,9 +1,10 @@
 { pkgs, ... }:
-# Add ghostty mock since we're managing it through npm
+# codex is managed through npm, so we use a mock package to let home-manager
+# manage settings without it trying to install the package itself.
 let
   codex-mock = pkgs.writeShellScriptBin "codex-mock" ''
     true
-    '';
+  '';
 in {
   programs.codex = {
     enable = true;

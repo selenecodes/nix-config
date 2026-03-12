@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: 
+{ pkgs, lib, ... }:
 
 let
   myFont = "JetBrainsMono Nerd Font";
@@ -6,25 +6,25 @@ in
 
 {
   imports = [
-    ./software/bun.nix
-    ./software/ghostty.nix
-    ./software/git.nix
-    ./software/git-cliff.nix
-    (import ./software/vscode.nix { inherit pkgs myFont; })
-    ./software/zoxide.nix
+    ../../../../shared/home/software/bun.nix
+    ../../../../shared/home/software/ghostty.nix
+    ../../../../shared/home/software/git.nix
+    ../../../../shared/home/software/git-cliff.nix
+    (import ../../../../shared/home/software/vscode.nix { inherit pkgs myFont; })
+    ../../../../shared/home/software/zoxide.nix
     ./software/aerospace.nix
-    # ./software/codex.nix
+    # (import ../../../../shared/home/software/codex.nix { inherit pkgs; })
   ];
 
   home = {
-    file."./.config/pip/pip.conf".source = "${./files/pip.conf}";
-    file."./.config/opencode/opencode.json".source = "${./files/opencode-config.json}";
-    file."./.codex/config.toml".source = "${./files/codex-config.toml}";
-    file."./.ssh/config".source = "${./files/ssh-config}";
-    # file.".config/linearmouse/linearmouse.json".source = "${./files/linearmouse.json}";
-    file.".condarc".source = "${./files/.condarc}";
-    file.".p10k.zsh".source = "${./files/.p10k.zsh}";
+    file."./.config/pip/pip.conf".source = "${../../../../shared/home/files/work/pip.conf}";
+    file."./.config/opencode/opencode.json".source = "${../../../../shared/home/files/common/opencode-config.json}";
+    file."./.codex/config.toml".source = "${../../../../shared/home/files/work/codex-config.toml}";
+    file."./.ssh/config".source = "${../../../../shared/home/files/common/ssh-config}";
+    file."./.condarc".source = "${../../../../shared/home/files/common/.condarc}";
+    file.".p10k.zsh".source = "${../../../../shared/home/files/common/.p10k.zsh}";
     file.".zshrc".source = "${./files/.zshrc}";
+    # file.".config/linearmouse/linearmouse.json".source = "${./files/linearmouse.json}";
   };
 
   editorconfig = {
