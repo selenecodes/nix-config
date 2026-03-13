@@ -22,15 +22,9 @@
 
     greedyCasks = true;
     casks = [
-      "1password-cli"
-      "1password"
       "arc"
-      "ghostty"  # Remove ghostty and enable home/ghostty once the pkg is no longer broken
-      "git-credential-manager"
       "libreoffice-still"
-      "obsidian"
       "plexamp"
-      "visual-studio-code"
     ];
 
     # `mas search <>` can help pinpoint package name

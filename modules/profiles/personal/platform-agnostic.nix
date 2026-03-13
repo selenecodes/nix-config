@@ -1,6 +1,7 @@
-# Work-related software
+# Personal software
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
-    terraform
+    netbird
+    discord
   ];
 }

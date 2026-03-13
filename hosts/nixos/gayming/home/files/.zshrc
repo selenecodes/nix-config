@@ -1,5 +1,5 @@
 eval "$(fnm env)"
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+eval "$(micromamba shell hook --shell=bash)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
@@ -36,7 +36,6 @@ zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::docker
 zinit snippet OMZP::docker-compose
-zinit snippet OMZP::conda
 
 zinit cdreplay -q
 
@@ -73,8 +72,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
-alias ca="conda activate"
-alias kubectl="minikube kubectl --"
+alias ma="micromamba activate"
 alias composelint="npx dclint --fix"
 
 aoai() {

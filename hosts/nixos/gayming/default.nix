@@ -10,6 +10,8 @@ in {
     ./services.nix
     ./wayland.nix
     ./gaming.nix
+    ../../../modules/profiles/common
+    ../../../modules/profiles/personal
   ];
 
   networking.hostName = "gayming";

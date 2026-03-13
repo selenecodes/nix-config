@@ -1,16 +1,8 @@
-{ pkgs, lib, ... }:
-# On Darwin: ghostty is managed by Homebrew (pkgs.ghostty is broken on macOS),
-# so we use a mock to let home-manager manage settings without installing the package.
-# On Linux: use the real nixpkgs package.
-let
-  ghostty-mock = pkgs.writeShellScriptBin "ghostty-mock" ''
-    true
-  '';
-in {
+{ pkgs, lib, ... }: {
   programs.ghostty = {
     enable = true;
     enableZshIntegration = true;
-    package = if pkgs.stdenv.isDarwin then ghostty-mock else pkgs.ghostty;
+    package = if pkgs.stdenv.isDarwin then pkgs.ghostty-bin else pkgs.ghostty;
     settings = {
       adjust-cell-height = "10%";
       confirm-close-surface = false;

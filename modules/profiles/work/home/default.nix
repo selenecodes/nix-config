@@ -1,5 +1,5 @@
 # Work-related home-manager software modules
-{ pkgs }: {
+{ pkgs, ... }: {
   imports = [
     # (import ./codex.nix { inherit pkgs; })
   ];

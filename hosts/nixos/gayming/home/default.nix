@@ -5,21 +5,19 @@ let
 in {
   imports = [
     inputs.vicinae.homeManagerModules.default
-    (import ../../../../shared/home/software/common/default.nix { inherit pkgs myFont; })
     # (import ../../../../shared/home/software/work/default.nix { inherit pkgs; })
     (import ./software/vicinae.nix { inherit pkgs inputs; })
   ];
 
   home = {
     # Shared Work
-    file.".config/pip/pip.conf".source = "${../../../../shared/home/files/work/pip.conf}";
-    file.".codex/config.toml".source = "${../../../../shared/home/files/work/codex-config.toml}";
+    file.".config/pip/pip.conf".source = "${../../../../modules/profiles/work/home/files/pip.conf}";
+    file.".codex/config.toml".source = "${../../../../modules/profiles/work/home/files/codex-config.toml}";
     # Shared Personal
     # Shared Common
-    file.".config/opencode/opencode.json".source = "${../../../../shared/home/files/common/opencode-config.json}";
-    file.".ssh/config".source = "${../../../../shared/home/files/common/ssh-config.linux}";
-    file.".condarc".source = "${../../../../shared/home/files/common/.condarc}";
-    file.".p10k.zsh".source = "${../../../../shared/home/files/common/.p10k.zsh}";
+    file.".config/opencode/opencode.json".source = "${../../../../modules/profiles/common/home/files/opencode-config.json}";
+    file.".condarc".source = "${../../../../modules/profiles/common/home/files/.condarc}";
+    file.".p10k.zsh".source = "${../../../../modules/profiles/common/home/files/.p10k.zsh}";
     # Platform specific
     file.".zshrc".source = "${./files/.zshrc}";
   };
@@ -41,11 +39,12 @@ in {
     nautilus
 
     # Python env manager (replaces miniconda cask)
-    conda
+    micromamba
   ];
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    NIXOS_OZONE_WL = "1";  # Electron/Wayland support (discord, etc.)
   };
 
   xdg.enable = true;

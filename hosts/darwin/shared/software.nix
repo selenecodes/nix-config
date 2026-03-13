@@ -3,11 +3,5 @@
 # ./home/{appname}.nix folder and will be installed from there. DO NOT DUPLICATE
 # THESE APPS HERE!
 { ... }: {
-  imports = [
-    ../../../shared/software/common/default.nix
-    ../../../shared/software/common/darwin.nix
-    ../../../shared/software/work/default.nix
-    ../../../shared/software/work/darwin.nix
-    ../../../shared/software/personal/darwin.nix
-  ];
+  imports = [ ];
 }

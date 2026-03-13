@@ -4,6 +4,9 @@ in {
   imports = [
     ../shared/configuration.nix
     ./software.nix
+    ../../../modules/profiles/common
+    ../../../modules/profiles/personal
+    ../../../modules/profiles/work
   ];
   system.primaryUser = username;
   users.users.${username} = {

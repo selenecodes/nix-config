@@ -19,7 +19,7 @@
     darwinConfigurations = {
       studio = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit self; };
+        specialArgs = { inherit self; isDarwin = true; };
         modules = [
           ./hosts/darwin/mac-studio/default.nix
           nix-homebrew.darwinModules.nix-homebrew
@@ -29,7 +29,7 @@
 
       rwslaptop = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit self; };
+        specialArgs = { inherit self; isDarwin = true; };
         modules = [
           ./hosts/darwin/work-laptop/default.nix
           nix-homebrew.darwinModules.nix-homebrew
@@ -41,7 +41,7 @@
     nixosConfigurations = {
       gayming = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit self inputs; };
+        specialArgs = { inherit self inputs; isDarwin = false; };
         modules = [
           # { nixpkgs.overlays = [ cachyos-nixpkgs.overlays.default ]; }
           home-manager.nixosModules.home-manager
