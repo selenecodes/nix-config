@@ -3,20 +3,17 @@
     ../shared/software.nix
   ];
 
+  # Work-laptop specific packages
   environment.systemPackages = lib.mkAfter (with pkgs; []);
 
-  # `brew list <>` can help pinpoint package name
-  # for both ordinary packages and casks
   homebrew.brews = lib.mkAfter [
     "azure-cli"
   ];
 
   homebrew.casks = lib.mkAfter [
-    # Shared apps
     "displaylink"
     "microsoft-teams"
   ];
 
-  # `mas search <>` can help pinpoint package name
   homebrew.masApps = lib.mkAfter {};
 }

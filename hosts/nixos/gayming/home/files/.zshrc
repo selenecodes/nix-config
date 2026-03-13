@@ -1,13 +1,7 @@
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
 eval "$(fnm env)"
 eval "$(conda "shell.$(basename "${SHELL}")" hook)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
@@ -43,10 +37,6 @@ zinit snippet OMZP::command-not-found
 zinit snippet OMZP::docker
 zinit snippet OMZP::docker-compose
 zinit snippet OMZP::conda
-
-
-# Load completions
-# autoload -Uz compinit && compinit
 
 zinit cdreplay -q
 
@@ -97,12 +87,10 @@ aoai() {
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
-# https://stackoverflow.com/questions/57591432/gpg-signing-failed-inappropriate-ioctl-for-device-on-macos-with-maven
+# GPG TTY
 GPG_TTY=$(tty)
 export GPG_TTY
 
 # Path changes
-export PATH="/Users/selene/.bun/bin:$PATH" # bun
-export PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket-vmnet
-export PATH="/usr/local/opt/libpq/bin:$PATH" # psql x86_64 macs
-export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # psql aarch64 macs
+export PATH="$HOME/.bun/bin:$PATH"  # bun
+export PATH="$HOME/.local/bin:$PATH"

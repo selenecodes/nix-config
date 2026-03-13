@@ -2,10 +2,10 @@
   imports = [
     ../shared/software.nix
   ];
+
+  # Mac-studio (personal) specific packages
   environment.systemPackages = lib.mkAfter (with pkgs; []);
 
-  # `brew list <>` can help pinpoint package name
-  # for both ordinary packages and casks
   homebrew.brews = lib.mkAfter [
     "asimov"
     "gh"
@@ -20,15 +20,11 @@
   homebrew.casks = lib.mkAfter [
     "claude-code"
     # "lm-studio"
-    # Shared apps
     # "mp3tag"
     "netbirdio/tap/netbird-ui"
     # "audiobook-builder"
-    # Mac fixes
     # "daisydisk"
-    # VPN
     # "protonvpn"
-    # Messaging
     # discord: Install discord manually for now because Krisp doesn't work
     "signal"
     # Gaming
@@ -38,7 +34,6 @@
     # "prismlauncher"
   ];
 
-  # `mas search <>` can help pinpoint package name
   homebrew.masApps = lib.mkAfter {
     "1Password for Safari" = 1569813296;
     "Infuse" = 1136220934;
