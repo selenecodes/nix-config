@@ -17,7 +17,7 @@ in {
     # Shared Personal
     # Shared Common
     file.".config/opencode/opencode.json".source = "${../../../../shared/home/files/common/opencode-config.json}";
-    file.".ssh/config".source = "${../../../../shared/home/files/common/ssh-config}";
+    file.".ssh/config".source = "${../../../../shared/home/files/common/ssh-config.linux}";
     file.".condarc".source = "${../../../../shared/home/files/common/.condarc}";
     file.".p10k.zsh".source = "${../../../../shared/home/files/common/.p10k.zsh}";
     # Platform specific
