@@ -72,6 +72,7 @@ in {
     settings = {
       "$mod" = "SUPER";
       general = { gaps_out = 10; allow_tearing = true; };
+      decoration.rounding = 10;
       input.follow_mouse = 2;
       misc = {
         key_press_enables_dpms = true;
