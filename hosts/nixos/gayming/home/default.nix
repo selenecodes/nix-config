@@ -130,4 +130,21 @@ in {
   };
 
   services.network-manager-applet.enable = true;
+
+  services.hyprpaper = {
+    enable = true;
+    settings = {
+      splash = false;
+      wallpaper = [
+        {
+          monitor = "DP-2";
+          path = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+        }
+        {
+          monitor = "DP-1";
+          path = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+        }
+      ];
+    };
+  };
 }
