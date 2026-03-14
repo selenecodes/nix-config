@@ -20,6 +20,7 @@ in {
     file.".p10k.zsh".source = "${../../../../modules/profiles/common/home/files/.p10k.zsh}";
     # Platform specific
     file.".zshrc".source = "${./files/.zshrc}";
+    file.".face".source = "${../../../../assets/avatars/yachiyo.png}";
   };
 
   home.packages = with pkgs; [

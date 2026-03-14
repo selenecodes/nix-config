@@ -14,10 +14,12 @@ in {
     ../../../modules/profiles/personal
   ];
 
+  # Networking
   networking.hostName = "gayming";
   networking.networkmanager.enable = true;
+  networking.firewall.enable = true;
 
-  # Adjust to your timezone
+  # Localization
   time.timeZone = "Europe/Amsterdam";
   i18n.defaultLocale = "en_GB.UTF-8";
 
@@ -38,7 +40,7 @@ in {
 
   nix.gc = {
     automatic = true;
-    dates = "daily";
+    dates = "weekly";
     options = "--delete-older-than 7d";
   };
 

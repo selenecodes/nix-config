@@ -49,6 +49,9 @@
   # D-Bus
   services.dbus.enable = true;
 
+  # GVFS for trash support in file managers
+  services.gvfs.enable = true;
+
   # XDG portals (required for Hyprland screen sharing, file picker, etc.)
   xdg.portal = {
     enable = true;
