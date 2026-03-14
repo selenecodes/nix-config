@@ -37,9 +37,6 @@ in {
 
     # Terminal & productivity
     nautilus
-
-    # Python env manager (replaces miniconda cask)
-    micromamba
   ];
 
   home.sessionVariables = {

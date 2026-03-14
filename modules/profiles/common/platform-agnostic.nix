@@ -15,9 +15,10 @@
     gnupg
     just
     lazygit
+    micromamba
     neovim
-    tree
     ripgrep
+    tree
     uv
     zoxide
   ] ++ lib.optionals pkgs.stdenv.isLinux [
