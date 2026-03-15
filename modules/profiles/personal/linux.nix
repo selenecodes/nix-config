@@ -2,6 +2,7 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     google-chrome
+    discord
     plezy
   ];
 }
