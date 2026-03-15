@@ -1,25 +1,18 @@
-{ pkgs, lib, ... }:
-
-let
-  myFont = "JetBrainsMono Nerd Font";
-in
+{ lib, ... }:
 
 {
   imports = [
-    (import ../../../../shared/home/software/common/default.nix { inherit pkgs myFont; })
-    # (import ../../../../shared/home/software/work/default.nix { inherit pkgs; })
     ./software/aerospace.nix
   ];
 
   home = {
     # Shared Work
-    file."./.config/pip/pip.conf".source = "${../../../../shared/home/files/work/pip.conf}";
-    file."./.codex/config.toml".source = "${../../../../shared/home/files/work/codex-config.toml}";
-    # Shared Personal
+    file."./.config/pip/pip.conf".source = "${../../../../modules/profiles/work/home/files/pip.conf}";
+    file."./.codex/config.toml".source = "${../../../../modules/profiles/work/home/files/codex-config.toml}";
     # Shared Common
-    file."./.config/opencode/opencode.json".source = "${../../../../shared/home/files/common/opencode-config.json}";
-    file."./.condarc".source = "${../../../../shared/home/files/common/.condarc}";
-    file.".p10k.zsh".source = "${../../../../shared/home/files/common/.p10k.zsh}";
+    file."./.config/opencode/opencode.json".source = "${../../../../modules/profiles/common/home/files/opencode-config.json}";
+    file."./.condarc".source = "${../../../../modules/profiles/common/home/files/.condarc}";
+    file.".p10k.zsh".source = "${../../../../modules/profiles/common/home/files/.p10k.zsh}";
     # Platform specific
     file.".zshrc".source = "${./files/.zshrc}";
   };

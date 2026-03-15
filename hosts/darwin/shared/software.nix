@@ -3,5 +3,4 @@
 # ./home/{appname}.nix folder and will be installed from there. DO NOT DUPLICATE
 # THESE APPS HERE!
 { ... }: {
-  imports = [ ];
 }

@@ -6,8 +6,7 @@
     enableDefaultConfig = false;
     matchBlocks = lib.mkMerge [
       (lib.mkIf pkgs.stdenv.isDarwin {
-        "1password" = {
-          match = ''host * exec "test -z $SSH_CONNECTION"'';
+        "*" = {
           identityAgent = "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
         };
         "rwslaptop" = {

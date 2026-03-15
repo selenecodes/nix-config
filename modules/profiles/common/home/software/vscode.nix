@@ -1,19 +1,8 @@
-{ pkgs, myFont, ... }:
-# On Darwin: vscode is managed by Homebrew, so we use a mock to get home-manager
-# to manage extensions/settings without it trying to install the package itself.
-# On Linux: use the real nixpkgs package.
-let
-  vscode-mock = (pkgs.writeShellScriptBin "code" ''
-    true
-  '').overrideAttrs (oldAttrs: {
-    pname = "vscode";
-    version = "1.109.5";
-  });
-in {
+{ pkgs, myFont, ... }: {
   programs.vscode = {
     enable = true;
     mutableExtensionsDir = false;
-    package = if pkgs.stdenv.isDarwin then vscode-mock else pkgs.vscode;
+    package = pkgs.vscode;
     profiles.default = {
       extensions = with pkgs.vscode-extensions; [
         # General

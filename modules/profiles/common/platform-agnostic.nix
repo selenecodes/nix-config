@@ -31,8 +31,7 @@
   programs._1password.enable = true;
 
   # Linux-only 1Password GUI & Polkit integration
-  # This section will be completely ignored on macOS
-  programs._1password-gui = lib.mkIf pkgs.stdenv.isLinux {
+  programs._1password-gui = lib.optionalAttrs pkgs.stdenv.isLinux {
     enable = true;
     polkitPolicyOwners = [ "selene" ];
   };
