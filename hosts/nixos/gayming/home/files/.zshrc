@@ -75,12 +75,6 @@ alias c='clear'
 alias ma="micromamba activate"
 alias composelint="npx dclint --fix"
 
-aoai() {
-  export AOAI_TOKEN="Bearer $(az account get-access-token \
-    --resource https://cognitiveservices.azure.com/ \
-    --query accessToken -o tsv)"
-}
-
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"

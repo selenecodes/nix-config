@@ -3,7 +3,7 @@ if [[ -f "/opt/homebrew/bin/brew" ]]; then
 fi
 
 eval "$(fnm env)"
-eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+eval "$(micromamba shell hook --shell=bash)"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -42,7 +42,6 @@ zinit snippet OMZP::kubectx
 zinit snippet OMZP::command-not-found
 zinit snippet OMZP::docker
 zinit snippet OMZP::docker-compose
-zinit snippet OMZP::conda
 
 
 # Load completions
@@ -83,8 +82,7 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 alias ls='ls --color'
 alias vim='nvim'
 alias c='clear'
-alias ca="conda activate"
-alias kubectl="minikube kubectl --"
+alias ma="micromamba activate"
 alias composelint="npx dclint --fix"
 
 aoai() {
@@ -103,6 +101,4 @@ export GPG_TTY
 
 # Path changes
 export PATH="/Users/selene/.bun/bin:$PATH" # bun
-export PATH="/opt/homebrew/opt/socket_vmnet/bin:$PATH" # socket-vmnet
-export PATH="/usr/local/opt/libpq/bin:$PATH" # psql x86_64 macs
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # psql aarch64 macs
