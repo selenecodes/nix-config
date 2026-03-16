@@ -1,4 +1,4 @@
-{ ... }: let
+{ inputs, ... }: let
   username = "selene";
 in {
   imports = [
@@ -19,6 +19,7 @@ in {
     enableRosetta = true;
   };
   home-manager.users.${username} = import ./home.nix;
+  home-manager.sharedModules = [ inputs.catppuccin.homeModules.catppuccin ];
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";

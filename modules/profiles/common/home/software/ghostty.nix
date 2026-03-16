@@ -12,7 +12,6 @@
       mouse-hide-while-typing = true;
       quit-after-last-window-closed = true;
       scrollback-limit = 1000000;
-      theme = "Catppuccin Frappe";
       window-padding-y = 0;
       window-padding-x = 0;
       window-padding-color = "extend";

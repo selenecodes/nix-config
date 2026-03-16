@@ -13,13 +13,23 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vicinae.url = "github:vicinaehq/vicinae";
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.noctalia-qs.follows = "noctalia-qs";
+    };
+    noctalia-qs = {
+      url = "github:noctalia-dev/noctalia-qs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager, vicinae, ... }: {
     darwinConfigurations = {
       studio = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit self; isDarwin = true; };
+        specialArgs = { inherit self inputs; isDarwin = true; };
         modules = [
           ./hosts/darwin/mac-studio/default.nix
           nix-homebrew.darwinModules.nix-homebrew
@@ -29,7 +39,7 @@
 
       rwslaptop = nix-darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        specialArgs = { inherit self; isDarwin = true; };
+        specialArgs = { inherit self inputs; isDarwin = true; };
         modules = [
           ./hosts/darwin/work-laptop/default.nix
           nix-homebrew.darwinModules.nix-homebrew

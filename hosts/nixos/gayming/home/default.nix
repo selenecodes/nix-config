@@ -5,9 +5,14 @@ let
 in {
   imports = [
     inputs.vicinae.homeManagerModules.default
+    inputs.noctalia.homeModules.default
     # (import ../../../../shared/home/software/work/default.nix { inherit pkgs; })
     (import ./software/vicinae.nix { inherit pkgs inputs; })
   ];
+
+  programs.noctalia-shell = {
+    enable = true;
+  };
 
   home = {
     # Shared Work
@@ -21,17 +26,20 @@ in {
     # Platform specific
     file.".zshrc".source = "${./files/.zshrc}";
     file.".face".source = "${../../../../assets/avatars/yachiyo.png}";
+    file.".cache/noctalia/wallpapers.json".text = builtins.toJSON {
+      defaultWallpaper = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+      wallpapers = {
+        "DP-1" = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+        "DP-2" = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+      };
+    };
   };
 
   home.packages = with pkgs; [
     # Wayland / desktop tools
-    waybar
-    mako           # notifications
     wl-clipboard
     cliphist
-    hyprpaper
     hypridle
-    hyprlock
     grimblast      # screenshots
     wf-recorder    # screen recording
     easyeffects    # PipeWire audio effects
@@ -83,9 +91,7 @@ in {
       render.direct_scanout = 2;
       exec-once = [
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "mako"
         "easyeffects --gapplication-service"
-        "waybar"
         "wl-paste --watch cliphist store"
       ];
       monitor = [
@@ -102,7 +108,7 @@ in {
         "$mod, F, fullscreen"
         "$mod, B, togglefloating,"
         "$mod, E, exec, nautilus"
-        "$mod, L, exec, hyprlock"
+        "$mod, L, exec, noctalia-shell lock"
         "$mod, Space, exec, vicinae open"
         "$mod, H, exec, vicinae deeplink vicinae://extensions/vicinae/clipboard/history"
         "ALT, Tab, cyclenext"
@@ -120,33 +126,5 @@ in {
     };
   };
 
-  programs.waybar.enable = true;
-
-  services.mako = {
-    enable = true;
-    settings = {
-      anchor = "top-right";
-      layer = "top";
-      default-timeout = 5000;
-    };
-  };
-
   services.network-manager-applet.enable = true;
-
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      splash = false;
-      wallpaper = [
-        {
-          monitor = "DP-2";
-          path = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
-        }
-        {
-          monitor = "DP-1";
-          path = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
-        }
-      ];
-    };
-  };
 }

@@ -62,6 +62,7 @@ in {
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
   home-manager.extraSpecialArgs = { inherit inputs; };
+  home-manager.sharedModules = [ inputs.catppuccin.homeModules.catppuccin ];
   home-manager.users.${username} = import ./home.nix;
 
   system.stateVersion = "25.11";

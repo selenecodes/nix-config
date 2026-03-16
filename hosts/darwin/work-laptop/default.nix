@@ -17,6 +17,7 @@ in {
     user = username;
   };
   home-manager.users.${username} = import ./home.nix;
+  home-manager.sharedModules = [ inputs.catppuccin.homeModules.catppuccin ];
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
