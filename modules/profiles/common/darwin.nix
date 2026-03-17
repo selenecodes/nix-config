@@ -22,6 +22,7 @@
 
     greedyCasks = true;
     casks = [
+      "raycast"
       "arc"
       "libreoffice-still"
       "plexamp"

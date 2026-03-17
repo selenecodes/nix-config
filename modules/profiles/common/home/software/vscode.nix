@@ -38,13 +38,8 @@
         redhat.vscode-yaml
         # Just syntax highlighting
         nefrob.vscode-just-syntax
+        # Theme - NOT CONFIGURED HERE, SET IN modules/profiles/common/home/software/catppuccin.nix
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "vscode-theme-onedark";
-          publisher = "akamud";
-          version = "2.3.0";
-          sha256 = "sha256-8GGv4L4poTYjdkDwZxgNYajuEmIB5XF1mhJMxO2Ho84=";
-        }
         {
           name = "atom-keybindings";
           publisher = "ms-vscode";
@@ -116,7 +111,6 @@
         "terminal.integrated.inheritEnv" = true;
         "update.showReleaseNotes" = false;
         "window.zoomLevel" = 2;
-        "workbench.colorTheme" = "Atom One Dark";
         "workbench.list.typeNavigationMode" = "trigger";
         "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
         "[restructuredtext]"."editor.wordWrap" = "on";

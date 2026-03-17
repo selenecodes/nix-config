@@ -6,7 +6,6 @@
     "betterdisplay"
     "bettermouse"
     "cleanshot"
-    "raycast"
     "soundsource"
   ];
 }
