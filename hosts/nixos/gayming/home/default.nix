@@ -36,11 +36,13 @@ in {
   };
 
   home.packages = with pkgs; [
+    inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.default
     # Wayland / desktop tools
     wl-clipboard
     cliphist
-    hypridle
-    grimblast      # screenshots
+    grim           # screenshots
+    slurp          # screenshot region selection
+    xwayland-satellite  # X11 app compatibility
     wf-recorder    # screen recording
     easyeffects    # PipeWire audio effects
 
@@ -70,61 +72,63 @@ in {
     };
   };
 
-  # Hyprland config — customise monitors/workspaces to your setup
-  wayland.windowManager.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-    package = null;
-    portalPackage = null;
-    systemd = { enable = true; variables = [ "--all" ]; };
-    settings = {
-      "$mod" = "SUPER";
-      general = { gaps_out = 10; allow_tearing = true; };
-      decoration.rounding = 10;
-      input.follow_mouse = 2;
-      misc = {
-        key_press_enables_dpms = true;
-        mouse_move_enables_dpms = true;
-        disable_hyprland_logo = true;
-        disable_splash_rendering = true;
-      };
-      render.direct_scanout = 2;
-      exec-once = [
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "easyeffects --gapplication-service"
-        "wl-paste --watch cliphist store"
-      ];
-      monitor = [
-        # 4K Monitor (Left) - Positioned at 0,0
-        # Using 150% scaling to make text more readablep
-        "DP-2, 3840x2160@60, 0x0, 1.25"
-        # Ultrawide (Right) - Positioned to the right of the 4k monitor
-        # Note: If DP-2 is scaled by 1.5, it's logical width is 3440 / 1.5 = 2293
-        "DP-1, 3440x1440@120, 3072x0, 1"
-      ];
-      bind = [
-        "$mod, T, exec, ghostty"
-        "$mod, Q, killactive,"
-        "$mod, F, fullscreen"
-        "$mod, B, togglefloating,"
-        "$mod, E, exec, nautilus"
-        "$mod, L, exec, noctalia-shell lock"
-        "$mod, Space, exec, vicinae open"
-        "$mod, H, exec, vicinae deeplink vicinae://extensions/vicinae/clipboard/history"
-        "ALT, Tab, cyclenext"
-        "ALT, Tab, bringactivetotop"
-        ", Print, exec, grimblast copy area"
-        "$mod SHIFT, A, resizeactive, -30 0"
-        "$mod SHIFT, D, resizeactive, 30 0"
-        "$mod SHIFT, W, resizeactive, 0 -30"
-        "$mod SHIFT, S, resizeactive, 0 30"
-      ];
-      bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
-      ];
-    };
-  };
+  # Niri compositor config
+  xdg.configFile."niri/config.kdl".source = "${./niri-default-config.kdl}";
+  #xdg.configFile."niri/config.kdl".text = ''
+  #  input {
+  #    keyboard {
+  #      xkb {
+  #        layout "us"
+  #      }
+  #    }
+  #    focus-follows-mouse
+  #  }
+  #
+  #  output "DP-2" {
+  #    mode "3840x2160@60.000"
+  #    scale 1.25
+  #    position x=0 y=0
+  #  }
+  #
+  #  output "DP-1" {
+  #    mode "3440x1440@120.000"
+  #    scale 1.0
+  #    position x=3072 y=0
+  #  }
+  #
+  #  layout {
+  #    gaps 10
+  #    border {
+  #      width 2
+  #    }
+  #  }
+  #
+  #  prefer-no-csd
+  #
+  #  window-rule {
+  #    geometry-corner-radius 10
+  #    clip-to-geometry true
+  #  }
+  #
+  #  spawn-at-startup "dbus-update-activation-environment" "--systemd" "WAYLAND_DISPLAY" "XDG_CURRENT_DESKTOP"
+  #  spawn-at-startup "qs" "-c" "noctalia-shell" "-d"
+  #  spawn-at-startup "easyeffects" "--gapplication-service"
+  #  spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+  #  spawn-at-startup "xwayland-satellite"
+  #
+  #  binds {
+  #   Mod+T { spawn "ghostty"; }
+  #    Mod+Q { close-window; }
+  #    Mod+F { fullscreen-window; }
+  #    Mod+B { toggle-window-floating; }
+  #    Mod+E { spawn "nautilus"; }
+  #    Mod+L { spawn "noctalia-shell" "lock"; }
+  #    Mod+Space { spawn "vicinae" "open"; }
+  #    Mod+H { spawn "vicinae" "deeplink" "vicinae://extensions/vicinae/clipboard/history"; }
+  #    Alt+Tab { focus-window-down-or-column-right; }
+  #    Print { spawn "bash" "-c" "grim -g \"$(slurp)\" - | wl-copy"; }
+  #  }
+  #'';
 
   services.network-manager-applet.enable = true;
 }
