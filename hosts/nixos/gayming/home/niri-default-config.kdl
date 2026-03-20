@@ -318,25 +318,6 @@ animations {
 // Find more information on the wiki:
 // https://niri-wm.github.io/niri/Configuration:-Window-Rules
 
-// Add this to your window-rules section
-window-rule {
-    // Matches most Steam games via their common window class/title patterns
-    match app-id=r#"^steam_app_(\d+)$"#
-    
-    // Forces the window to start maximized
-    // maximize-column
-    // maximize-window
-    open-fullscreen true
-    
-    // Optional: Removes borders for a cleaner look
-    draw-border-with-background false
-    
-    // Ensures the game stays on top of the stack if needed
-    exclude-from-layout false
-}
-
-// Work around WezTerm's initial configure bug
-// by setting an empty default-column-width.
 window-rule {
     // This regular expression is intentionally made as specific as possible,
     // since this is the default config, and we want no false positives.

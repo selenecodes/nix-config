@@ -8,7 +8,7 @@
   services.greetd = {
     enable = true;
     settings.default_session.command =
-      "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'niri --session'";
+      "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'niri'";
   };
 
   # Wayland / NVIDIA environment variables
