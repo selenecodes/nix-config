@@ -105,7 +105,7 @@
   };
 
   # Make sure to set networking.knownNetworkServices to the services you want to use.
-  # in the hosts/{hostname}/default.nix file.
+  # in the hosts/darwin/{hostname}/default.nix file.
   networking.dns = [
     "1.1.1.1"
     "1.0.0.1"
