@@ -22,10 +22,11 @@
 
     greedyCasks = true;
     casks = [
-      "raycast"
       "arc"
       "libreoffice-still"
+      "lm-studio"
       "plexamp"
+      "raycast"
     ];
 
     # `mas search <>` can help pinpoint package name
