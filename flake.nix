@@ -2,14 +2,14 @@
   description = "Zenful system flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nix-darwin = {
-      url = "github:nix-darwin/nix-darwin/master";
+      url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     vicinae.url = "github:vicinaehq/vicinae";
@@ -22,7 +22,7 @@
       url = "github:noctalia-dev/noctalia-qs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
   };
 
   outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager, vicinae, ... }: {
