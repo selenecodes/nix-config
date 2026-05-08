@@ -40,6 +40,12 @@
   # GNOME keyring (for secrets / credentials)
   services.gnome.gnome-keyring.enable = true;
 
+  # Wire gnome-keyring into greetd's PAM stack so the daemon starts and the
+  # keyring is auto-unlocked at login. Without this greetd logs:
+  #   "gkr-pam: unable to locate daemon control file"
+  # https://search.nixos.org/options?query=enableGnomeKeyring
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   # SSH server (key-only)
   services.openssh = {
     enable = true;
