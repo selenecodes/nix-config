@@ -1,5 +1,5 @@
 # Gaming: Steam + CachyOS Proton + Gamemode + Gamescope
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   programs.steam = {
@@ -21,6 +21,11 @@
       };
     };
   };
+
+  # gamemoded defaults to WantedBy=default.target, which causes it to start in
+  # the greetd greeter session (before a D-Bus session bus exists), resulting in
+  # "Connection reset by peer". Restrict it to graphical sessions only.
+  systemd.user.services.gamemoded.wantedBy = lib.mkForce [ "graphical-session.target" ];
 
   programs.gamescope = {
     enable = true;

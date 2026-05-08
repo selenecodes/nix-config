@@ -15,10 +15,14 @@
     options = [ "noatime" ];
   };
 
+  # fmask=0077/dmask=0077 restricts /boot to root-only (600/700), silencing
+  # the bootctl random-seed security warning.
+  # https://wiki.nixos.org/wiki/Bootloader
+  # https://www.freedesktop.org/software/systemd/man/bootctl.html
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/boot";
     fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
+    options = [ "fmask=0077" "dmask=0077" ];
   };
 
   swapDevices = [ ];

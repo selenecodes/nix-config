@@ -10,6 +10,7 @@ let myFont = "JetBrainsMono Nerd Font"; in {
     ./obsidian.nix
     ./ssh.nix
     (import ./vscode.nix { inherit pkgs myFont; })
+    (import ./zed-editor.nix { inherit pkgs myFont; })
     ./zoxide.nix
   ];
 }

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   # PipeWire audio with low-latency config
@@ -40,6 +40,12 @@
   # GNOME keyring (for secrets / credentials)
   services.gnome.gnome-keyring.enable = true;
 
+  # Wire gnome-keyring into greetd's PAM stack so the daemon starts and the
+  # keyring is auto-unlocked at login. Without this greetd logs:
+  #   "gkr-pam: unable to locate daemon control file"
+  # https://search.nixos.org/options?query=enableGnomeKeyring
+  security.pam.services.greetd.enableGnomeKeyring = true;
+
   # SSH server (key-only)
   services.openssh = {
     enable = true;
@@ -52,12 +58,20 @@
   # GVFS for trash support in file managers
   services.gvfs.enable = true;
 
-  # XDG portals (required for Hyprland screen sharing, file picker, etc.)
+  # XDG portals — only gtk; gnome portal requires an active GNOME session and
+  # causes ~90s startup delays in niri (D-Bus timeout on failed ConditionEnvironment)
   xdg.portal = {
     enable = true;
-    extraPortals = [
-      pkgs.xdg-desktop-portal-hyprland
-      pkgs.xdg-desktop-portal-gtk
+    config = {
+      common = {
+        default = ["gtk"];
+      };
+      niri = {
+        default = lib.mkForce ["gtk"];
+      };
+    };
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
     ];
   };
 }

@@ -1,27 +1,15 @@
 { pkgs, ... }:
 
 {
-  # Hyprland Wayland compositor with XWayland compatibility
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
+  # Niri Wayland compositor
+  programs.niri.enable = true;
 
-  # SDDM display manager (Wayland mode)
-  services.displayManager.sddm = {
+  # greetd + tuigreet display manager
+  services.greetd = {
     enable = true;
-    wayland.enable = true;
-    package = pkgs.kdePackages.sddm;
-    theme = "catppuccin-mocha";
+    settings.default_session.command =
+      "${pkgs.tuigreet}/bin/tuigreet --time --cmd 'niri'";
   };
-
-  environment.systemPackages = [
-    (pkgs.catppuccin-sddm.override {
-      flavor = "mocha";
-      font = "JetBrainsMono Nerd Font";
-      fontSize = "14";
-    })
-  ];
 
   # Wayland / NVIDIA environment variables
   environment.sessionVariables = {
@@ -32,11 +20,10 @@
     GBM_BACKEND = "nvidia-drm";
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     LIBVA_DRIVER_NAME = "nvidia";
-    WLR_NO_HARDWARE_CURSORS = "1";
     # Session hints
     XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "niri";
+    XDG_CURRENT_DESKTOP = "niri";
   };
 
   # X server (provides XWayland + xkb config)

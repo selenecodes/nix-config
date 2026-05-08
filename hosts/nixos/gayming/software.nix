@@ -1,5 +1,7 @@
 # System packages for gayming NixOS host
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
   # Host-specific packages
-  environment.systemPackages = with pkgs; [ ];
+  environment.systemPackages = with pkgs; [
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+  ];
 }

@@ -23,7 +23,7 @@
     zoxide
   ] ++ lib.optionals pkgs.stdenv.isLinux [
     # Linux only apps
-    libreoffice
+    # libreoffice
     plexamp
   ];
 

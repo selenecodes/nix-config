@@ -2,7 +2,8 @@
 { pkgs, ... }: {
   environment.systemPackages = with pkgs; [
     google-chrome
-    discord
-    plezy
+    firefox
+    # discord
+    # plezy # not in nixos-25.11
   ];
 }
