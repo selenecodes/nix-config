@@ -26,6 +26,18 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  # 75% power limit (RTX 5090 TDP = 575W → 431W)
+  systemd.services.nvidia-power-limit = {
+    description = "NVIDIA GPU 75% power limit";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "nvidia-persistenced.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+      ExecStart = "${config.hardware.nvidia.package.bin}/bin/nvidia-smi -pl 431";
+    };
+  };
+
   hardware.graphics = {
     enable = true;
     enable32Bit = true;  # Required for Steam/Wine/Proton
