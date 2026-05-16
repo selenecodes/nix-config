@@ -58,20 +58,13 @@
   # GVFS for trash support in file managers
   services.gvfs.enable = true;
 
-  # XDG portals — only gtk; gnome portal requires an active GNOME session and
-  # causes ~90s startup delays in niri (D-Bus timeout on failed ConditionEnvironment)
+  # XDG portals — gnome for ScreenCast/Screenshot (window picker in Chrome etc.), gtk for the rest
   xdg.portal = {
     enable = true;
-    config = {
-      common = {
-        default = ["gtk"];
-      };
-      niri = {
-        default = lib.mkForce ["gtk"];
-      };
-    };
+    config.niri.default = [ "gnome" "gtk" ];
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
+      xdg-desktop-portal-gnome
     ];
   };
 }
