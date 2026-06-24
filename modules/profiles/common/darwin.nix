@@ -14,7 +14,6 @@
     # for both ordinary packages and casks
     brews = [
       "gnupg"
-      "mas"
       "pinentry-mac"
     ];
 
@@ -28,8 +27,5 @@
       "plexamp"
       "raycast"
     ];
-
-    # `mas search <>` can help pinpoint package name
-    masApps = {};
   };
 }

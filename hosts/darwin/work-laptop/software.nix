@@ -14,6 +14,4 @@
     "displaylink"
     "microsoft-teams"
   ];
-
-  homebrew.masApps = lib.mkAfter {};
 }

@@ -31,12 +31,4 @@
     # "steam"
     # "prismlauncher"
   ];
-
-  homebrew.masApps = lib.mkAfter {
-    # "1Password for Safari" = 1569813296;
-    "Infuse" = 1136220934;
-    "Tailscale" = 1475387142;
-    # TODO: fix prologue issue
-    # "Prologue" = 1459223267;
-  };
 }

@@ -5,6 +5,8 @@
     ./software/aerospace.nix
   ];
 
+  programs.zed-editor.enable = lib.mkForce false;
+
   home = {
     # Shared Work
     file."./.config/pip/pip.conf".source = "${../../../../modules/profiles/work/home/files/pip.conf}";
