@@ -14,28 +14,26 @@
 
   homebrew.taps = lib.mkAfter [
     # "sst/tap"
-    "netbirdio/tap"
   ];
 
   homebrew.casks = lib.mkAfter [
-    "claude-code"
     # "lm-studio"
     # "mp3tag"
-    "netbirdio/tap/netbird-ui"
     # "audiobook-builder"
     # "daisydisk"
     # "protonvpn"
     # discord: Install discord manually for now because Krisp doesn't work
     "signal"
     # Gaming
-    "moonlight"
-    "virtualhereserver"
+    # "moonlight"
+    # "virtualhereserver"
+    "logitech-g-hub"
     # "steam"
     # "prismlauncher"
   ];
 
   homebrew.masApps = lib.mkAfter {
-    "1Password for Safari" = 1569813296;
+    # "1Password for Safari" = 1569813296;
     "Infuse" = 1136220934;
     "Tailscale" = 1475387142;
     # TODO: fix prologue issue
