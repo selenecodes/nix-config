@@ -2,6 +2,7 @@
 { pkgs, ... }: {
   homebrew.brews = [
     "helm"
+    "azure-cli"
   ];
 
   homebrew.casks = [

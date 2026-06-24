@@ -6,9 +6,7 @@
   # Work-laptop specific packages
   environment.systemPackages = lib.mkAfter (with pkgs; []);
 
-  homebrew.brews = lib.mkAfter [
-    "azure-cli"
-  ];
+  homebrew.brews = lib.mkAfter [ ];
 
   homebrew.casks = lib.mkAfter [
     "displaylink"
