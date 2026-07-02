@@ -64,4 +64,8 @@
   boot.kernel.sysctl = {
     "vm.swappiness" = 10;
   };
+
+  # Peripherals
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true; # This handles the Solaar GUI properly
 }

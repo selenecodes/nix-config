@@ -60,7 +60,7 @@ in {
   users.users.${username} = {
     isNormalUser = true;
     home = "/home/${username}";
-    extraGroups = [ "wheel" "networkmanager" "docker" "audio" "gamemode" "video" "render" ];
+    extraGroups = [ "wheel" "networkmanager" "input" "docker" "audio" "gamemode" "video" "render" "plugdev" ];
     shell = pkgs.zsh;
   };
 
