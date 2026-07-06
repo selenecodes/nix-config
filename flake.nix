@@ -19,27 +19,25 @@
     catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager, vicinae, ... }: {
+  outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager, ... }:
+  let
+    mkDarwinSystem = { hostname, system ? "aarch64-darwin" }:
+      nix-darwin.lib.darwinSystem {
+        inherit system;
+        specialArgs = { inherit self inputs; isDarwin = true; };
+        modules = [
+          ./modules/options.nix
+          ./modules/system
+          ./modules/packages
+          ./hosts/darwin/${hostname}/default.nix
+          nix-homebrew.darwinModules.nix-homebrew
+          home-manager.darwinModules.home-manager
+        ];
+      };
+  in {
     darwinConfigurations = {
-      studio = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = { inherit self inputs; isDarwin = true; };
-        modules = [
-          ./hosts/darwin/mac-studio/default.nix
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
-        ];
-      };
-
-      rwslaptop = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = { inherit self inputs; isDarwin = true; };
-        modules = [
-          ./hosts/darwin/work-laptop/default.nix
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
-        ];
-      };
+      studio    = mkDarwinSystem { hostname = "mac-studio"; };
+      rwslaptop = mkDarwinSystem { hostname = "work-laptop"; };
     };
 
     nixosConfigurations = {
@@ -47,7 +45,9 @@
         system = "x86_64-linux";
         specialArgs = { inherit self inputs; isDarwin = false; };
         modules = [
-          # { nixpkgs.overlays = [ cachyos-nixpkgs.overlays.default ]; }
+          ./modules/options.nix
+          ./modules/system
+          ./modules/packages
           home-manager.nixosModules.home-manager
           ./hosts/nixos/gayming/default.nix
         ];

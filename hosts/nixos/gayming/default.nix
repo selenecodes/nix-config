@@ -1,25 +1,18 @@
-{ pkgs, lib, inputs, ... }:
+{ config, inputs, pkgs, lib, ... }:
+let username = "selene"; in
+{
+  myconfig.isPersonal = true;
+  myconfig.isGaming = true;
 
-let
-  username = "selene";
-in {
   imports = [
     ./hardware-configuration.nix
     ./hardware.nix
-    ./software.nix
-    ./services.nix
-    ./wayland.nix
-    ./gaming.nix
-    ../../../modules/profiles/common
-    ../../../modules/profiles/personal
   ];
 
-  # Networking
   networking.hostName = "gayming";
   networking.networkmanager.enable = true;
   networking.firewall.enable = true;
 
-  # Localization
   time.timeZone = "Europe/Amsterdam";
   i18n.defaultLocale = "en_GB.UTF-8";
 
@@ -64,6 +57,11 @@ in {
     shell = pkgs.zsh;
   };
 
+  environment.systemPackages = with pkgs; [
+    inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
+    solaar
+  ];
+
   security.sudo.wheelNeedsPassword = false;
   security.rtkit.enable = true;
 
@@ -72,8 +70,17 @@ in {
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "backup";
-  home-manager.extraSpecialArgs = { inherit inputs; };
-  home-manager.sharedModules = [ inputs.catppuccin.homeModules.catppuccin ];
+  home-manager.sharedModules = [
+    inputs.catppuccin.homeModules.catppuccin
+    ../../../modules/home
+  ];
+  home-manager.extraSpecialArgs = {
+    inherit inputs;
+    isDarwin = false;
+    isWork = config.myconfig.isWork;
+    isPersonal = config.myconfig.isPersonal;
+    isGaming = config.myconfig.isGaming;
+  };
   home-manager.users.${username} = import ./home.nix;
 
   system.stateVersion = "25.11";
