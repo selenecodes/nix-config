@@ -8,11 +8,9 @@ in {
     inputs.noctalia.homeModules.default
     # (import ../../../../shared/home/software/work/default.nix { inherit pkgs; })
     (import ./software/vicinae.nix { inherit pkgs inputs; })
+    (import ./software/noctalia.nix { inherit inputs; })
   ];
 
-  programs.noctalia-shell = {
-    enable = true;
-  };
 
   home = {
     # Shared Work
@@ -26,17 +24,9 @@ in {
     # Platform specific
     file.".zshrc".source = "${./files/.zshrc}";
     file.".face".source = "${../../../../assets/avatars/yachiyo.png}";
-    file.".cache/noctalia/wallpapers.json".text = builtins.toJSON {
-      defaultWallpaper = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
-      wallpapers = {
-        "DP-1" = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
-        "DP-2" = "${../../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
-      };
-    };
   };
 
   home.packages = with pkgs; [
-    inputs.noctalia-qs.packages.${pkgs.stdenv.hostPlatform.system}.default
     # Wayland / desktop tools
     wl-clipboard
     cliphist
