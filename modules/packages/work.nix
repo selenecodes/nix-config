@@ -1,18 +1,16 @@
-_: {
-  nixos.work = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
+let
+  packages = pkgs:
+    with pkgs; [
       libpq
+      opentofu
       slack
-      terraform
-      terragrunt
     ];
-  };
-  darwin.work = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      libpq
-      slack
-      terraform
-      terragrunt
-    ];
-  };
-}
+in
+  _: {
+    nixos.work = {pkgs, ...}: {
+      environment.systemPackages = packages pkgs;
+    };
+    darwin.work = {pkgs, ...}: {
+      environment.systemPackages = packages pkgs;
+    };
+  }

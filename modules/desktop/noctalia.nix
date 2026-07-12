@@ -9,7 +9,7 @@
           source = "builtin";
           builtin = "Catppuccin";
         };
-        wallpaper.default.path = "${../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+        wallpaper.default.path = "${../assets/wallpapers/kaguya-iroha-yachiyo.png}";
       };
     };
   };

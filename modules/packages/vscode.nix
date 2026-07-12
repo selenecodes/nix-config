@@ -42,7 +42,7 @@ _: {
             redhat.vscode-yaml
             # Just syntax highlighting
             nefrob.vscode-just-syntax
-            # Theme — set by modules/home/programs/catppuccin.nix
+            # Theme — set by modules/desktop/catppuccin.nix
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
