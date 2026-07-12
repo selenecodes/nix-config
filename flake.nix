@@ -12,6 +12,14 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+    import-tree = {
+      url = "github:vic/import-tree";
+      flake = false;
+    };
     vicinae.url = "github:vicinaehq/vicinae";
     noctalia = {
       url = "github:noctalia-dev/noctalia";
@@ -19,54 +27,9 @@
     catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    nix-darwin,
-    nix-homebrew,
-    home-manager,
-    ...
-  }: let
-    mkDarwinSystem = {
-      hostname,
-      system ? "aarch64-darwin",
-    }:
-      nix-darwin.lib.darwinSystem {
-        inherit system;
-        specialArgs = {
-          inherit self inputs;
-          isDarwin = true;
-        };
-        modules = [
-          ./modules/options.nix
-          ./modules/system
-          ./modules/packages
-          ./hosts/darwin/${hostname}/default.nix
-          nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
-        ];
-      };
-  in {
-    darwinConfigurations = {
-      studio = mkDarwinSystem {hostname = "mac-studio";};
-      rwslaptop = mkDarwinSystem {hostname = "work-laptop";};
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      imports = [(import inputs.import-tree ./modules)];
+      _module.args.lib = inputs.nixpkgs.lib;
     };
-
-    nixosConfigurations = {
-      gayming = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit self inputs;
-          isDarwin = false;
-        };
-        modules = [
-          ./modules/options.nix
-          ./modules/system
-          ./modules/packages
-          home-manager.nixosModules.home-manager
-          ./hosts/nixos/gayming/default.nix
-        ];
-      };
-    };
-  };
 }

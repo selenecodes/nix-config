@@ -1,3 +1,5 @@
 _: {
-  programs.obsidian.enable = true;
+  homeManager.base = _: {
+    programs.obsidian.enable = true;
+  };
 }

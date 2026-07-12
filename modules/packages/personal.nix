@@ -1,16 +1,12 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-lib.mkIf config.myconfig.isPersonal {
-  environment.systemPackages = with pkgs;
-    [
+_: {
+  nixos.personal = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
       claude-code
-    ]
-    ++ lib.optionals pkgs.stdenv.isLinux [
       google-chrome
       firefox
     ];
+  };
+  darwin.personal = {pkgs, ...}: {
+    environment.systemPackages = [pkgs.claude-code];
+  };
 }

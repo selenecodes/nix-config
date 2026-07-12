@@ -1,15 +1,6 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  isDarwin ? false,
-  ...
-}: {
-  imports = lib.optionals (!isDarwin) [
-    inputs.vicinae.homeManagerModules.default
-  ];
-
-  config = lib.mkIf pkgs.stdenv.isLinux {
+{inputs, ...}: {
+  homeManager.vicinae = {
+    imports = [inputs.vicinae.homeManagerModules.default];
     programs.vicinae = {
       enable = true;
       systemd = {

@@ -1,15 +1,6 @@
-{
-  pkgs,
-  lib,
-  inputs,
-  isDarwin ? false,
-  ...
-}: {
-  imports = lib.optionals (!isDarwin) [
-    inputs.noctalia.homeModules.default
-  ];
-
-  config = lib.mkIf pkgs.stdenv.isLinux {
+{inputs, ...}: {
+  homeManager.noctalia = {
+    imports = [inputs.noctalia.homeModules.default];
     programs.noctalia = {
       enable = true;
       settings = {
@@ -18,7 +9,7 @@
           source = "builtin";
           builtin = "Catppuccin";
         };
-        wallpaper.default.path = "${../../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
+        wallpaper.default.path = "${../../assets/wallpapers/kaguya-iroha-yachiyo.png}";
       };
     };
   };

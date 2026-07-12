@@ -1,13 +1,7 @@
-{
-  pkgs,
-  lib,
-  isWork ? false,
-  ...
-}:
-# codex is managed through npm; a mock package lets home-manager manage
-# settings without trying to install the package itself.
-lib.mkIf isWork (
-  let
+_: {
+  # codex is managed through npm; a mock package lets home-manager manage
+  # settings without trying to install the package itself.
+  homeManager.work = {pkgs, ...}: let
     codex-mock = pkgs.writeShellScriptBin "codex-mock" ''
       true
     '';
@@ -32,5 +26,5 @@ lib.mkIf isWork (
         };
       };
     };
-  }
-)
+  };
+}

@@ -1,6 +1,8 @@
 _: {
-  programs.zoxide = {
-    enable = true;
-    enableZshIntegration = true;
+  homeManager.base = _: {
+    programs.zoxide = {
+      enable = true;
+      enableZshIntegration = true;
+    };
   };
 }
