@@ -1,6 +1,11 @@
-{ config, inputs, pkgs, ... }:
-let username = "selene"; in
 {
+  config,
+  inputs,
+  pkgs,
+  ...
+}: let
+  username = "selene";
+in {
   myconfig.isPersonal = true;
   myconfig.isGaming = true;
 
@@ -19,7 +24,7 @@ let username = "selene"; in
   i18n.defaultLocale = "en_GB.UTF-8";
 
   nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
+    experimental-features = ["nix-command" "flakes"];
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
@@ -28,8 +33,8 @@ let username = "selene"; in
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
     ];
-    extra-substituters = [ "https://vicinae.cachix.org" ];
-    extra-trusted-public-keys = [ "vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc=" ];
+    extra-substituters = ["https://vicinae.cachix.org"];
+    extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
     auto-optimise-store = true;
   };
 
@@ -55,7 +60,7 @@ let username = "selene"; in
   users.users.${username} = {
     isNormalUser = true;
     home = "/home/${username}";
-    extraGroups = [ "wheel" "networkmanager" "input" "docker" "audio" "gamemode" "video" "render" "plugdev" ];
+    extraGroups = ["wheel" "networkmanager" "input" "docker" "audio" "gamemode" "video" "render" "plugdev"];
     shell = pkgs.zsh;
   };
 

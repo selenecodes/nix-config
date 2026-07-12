@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 lib.mkIf config.myconfig.isGaming {
   services = {
     pipewire = {
@@ -37,8 +42,10 @@ lib.mkIf config.myconfig.isGaming {
   };
 
   networking.nameservers = [
-    "1.1.1.1" "1.0.0.1"
-    "2606:4700:4700::1111" "2606:4700:4700::1001"
+    "1.1.1.1"
+    "1.0.0.1"
+    "2606:4700:4700::1111"
+    "2606:4700:4700::1001"
   ];
 
   # Unlocks gnome-keyring at greetd login
@@ -46,7 +53,7 @@ lib.mkIf config.myconfig.isGaming {
 
   xdg.portal = {
     enable = true;
-    config.niri.default = [ "gnome" "gtk" ];
+    config.niri.default = ["gnome" "gtk"];
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome

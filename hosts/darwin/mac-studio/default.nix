@@ -1,7 +1,11 @@
-{ config, inputs, ... }:
-let username = "selene"; in
 {
-  imports = [ ./packages.nix ];
+  config,
+  inputs,
+  ...
+}: let
+  username = "selene";
+in {
+  imports = [./packages.nix];
 
   myconfig.isPersonal = true;
   myconfig.isWork = true;

@@ -1,7 +1,10 @@
 # NVIDIA RTX 5090 (Blackwell / GB202) + CachyOS kernel
-{ config, pkgs, lib, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   boot = {
     # Zen kernel — performance-oriented, in nixpkgs, good fit for gaming/desktop
     kernelPackages = pkgs.linuxPackages_zen;
@@ -14,8 +17,8 @@
     };
 
     # Required for NVIDIA Wayland + KMS
-    kernelParams = [ "quiet" "splash" "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" ];
-    initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+    kernelParams = ["quiet" "splash" "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1"];
+    initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
 
     kernel.sysctl = {
       "vm.swappiness" = 10;
@@ -35,7 +38,7 @@
 
     graphics = {
       enable = true;
-      enable32Bit = true;  # Required for Steam/Wine/Proton
+      enable32Bit = true; # Required for Steam/Wine/Proton
     };
 
     # CPU — swap for intel.updateMicrocode if using Intel
@@ -53,13 +56,13 @@
     logitech.wireless.enableGraphical = true; # This handles the Solaar GUI properly
   };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
 
   # 75% power limit (RTX 5090 TDP = 575W → 431W)
   systemd.services.nvidia-power-limit = {
     description = "NVIDIA GPU 75% power limit";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "nvidia-persistenced.service" ];
+    wantedBy = ["multi-user.target"];
+    after = ["nvidia-persistenced.service"];
     serviceConfig = {
       Type = "oneshot";
       RemainAfterExit = true;

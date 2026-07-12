@@ -1,3 +1,3 @@
-{ lib, ... }: {
-  homebrew.casks = lib.mkAfter [ "displaylink" "microsoft-teams" ];
+{lib, ...}: {
+  homebrew.casks = lib.mkAfter ["displaylink" "microsoft-teams"];
 }

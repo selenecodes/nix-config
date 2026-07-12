@@ -1,8 +1,8 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.git = {
     enable = true;
     lfs.enable = true;
-    ignores = [ "CLAUDE.local.md" ".claude" ];
+    ignores = ["CLAUDE.local.md" ".claude"];
     includes = [
       {
         condition = "gitdir:~/Documents/code/rws/";
@@ -20,17 +20,18 @@
       init.defaultbranch = "main";
       credential.helper = "manager";
       http."https://gitlab.at.rws.nl" = {
-        sslKey  = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
+        sslKey = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
         sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.pem";
       };
       http."https://git.rws.nl" = {
-        sslKey  = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
+        sslKey = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
         sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.pem";
       };
     };
     signing = {
       format = "ssh";
-      signer = if pkgs.stdenv.isDarwin
+      signer =
+        if pkgs.stdenv.isDarwin
         then "${pkgs._1password-gui}/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
         else "${pkgs._1password-gui}/bin/op-ssh-sign";
       signByDefault = true;

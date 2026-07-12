@@ -1,4 +1,9 @@
-{ pkgs, lib, isWork ? false, ... }:
+{
+  pkgs,
+  lib,
+  isWork ? false,
+  ...
+}:
 # codex is managed through npm; a mock package lets home-manager manage
 # settings without trying to install the package itself.
 lib.mkIf isWork (

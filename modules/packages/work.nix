@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 lib.mkIf config.myconfig.isWork {
   environment.systemPackages = with pkgs; [
     libpq

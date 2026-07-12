@@ -1,4 +1,10 @@
-{ pkgs, lib, inputs, isDarwin ? false, ... }: {
+{
+  pkgs,
+  lib,
+  inputs,
+  isDarwin ? false,
+  ...
+}: {
   imports = lib.optionals (!isDarwin) [
     inputs.vicinae.homeManagerModules.default
   ];

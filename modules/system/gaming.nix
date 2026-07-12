@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 lib.mkIf config.myconfig.isGaming {
   programs = {
     steam = {
@@ -6,7 +11,7 @@ lib.mkIf config.myconfig.isGaming {
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
       gamescopeSession.enable = true;
-      extraCompatPackages = [ pkgs.proton-ge-bin ];
+      extraCompatPackages = [pkgs.proton-ge-bin];
     };
 
     gamemode = {
@@ -28,7 +33,7 @@ lib.mkIf config.myconfig.isGaming {
   };
 
   # gamemoded starts before D-Bus exists in the greeter session without this
-  systemd.user.services.gamemoded.wantedBy = lib.mkForce [ "graphical-session.target" ];
+  systemd.user.services.gamemoded.wantedBy = lib.mkForce ["graphical-session.target"];
 
   environment.systemPackages = with pkgs; [
     protonup-qt

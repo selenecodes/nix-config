@@ -1,5 +1,5 @@
-{ pkgs, ... }: {
-  services.udev.packages = [ pkgs.yubikey-personalization ];
+{pkgs, ...}: {
+  services.udev.packages = [pkgs.yubikey-personalization];
 
   environment.systemPackages = with pkgs; [
     wget

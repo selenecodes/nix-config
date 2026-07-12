@@ -19,12 +19,24 @@
     catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin, nix-homebrew, home-manager, ... }:
-  let
-    mkDarwinSystem = { hostname, system ? "aarch64-darwin" }:
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    nix-darwin,
+    nix-homebrew,
+    home-manager,
+    ...
+  }: let
+    mkDarwinSystem = {
+      hostname,
+      system ? "aarch64-darwin",
+    }:
       nix-darwin.lib.darwinSystem {
         inherit system;
-        specialArgs = { inherit self inputs; isDarwin = true; };
+        specialArgs = {
+          inherit self inputs;
+          isDarwin = true;
+        };
         modules = [
           ./modules/options.nix
           ./modules/system
@@ -36,14 +48,17 @@
       };
   in {
     darwinConfigurations = {
-      studio    = mkDarwinSystem { hostname = "mac-studio"; };
-      rwslaptop = mkDarwinSystem { hostname = "work-laptop"; };
+      studio = mkDarwinSystem {hostname = "mac-studio";};
+      rwslaptop = mkDarwinSystem {hostname = "work-laptop";};
     };
 
     nixosConfigurations = {
       gayming = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit self inputs; isDarwin = false; };
+        specialArgs = {
+          inherit self inputs;
+          isDarwin = false;
+        };
         modules = [
           ./modules/options.nix
           ./modules/system

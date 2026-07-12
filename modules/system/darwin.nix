@@ -1,4 +1,4 @@
-{ self, ... }: {
+{self, ...}: {
   nix.settings = {
     experimental-features = "nix-command flakes";
     substituters = [
@@ -102,7 +102,7 @@
       autoUpdate = true;
       upgrade = true;
       cleanup = "zap";
-      extraFlags = [ "--verbose" ];
+      extraFlags = ["--verbose"];
     };
     brews = [
       "gnupg"

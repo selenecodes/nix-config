@@ -1,4 +1,4 @@
-{ ... }: {
+{...}: {
   imports = [
     ./bun.nix
     ./catppuccin.nix
