@@ -5,12 +5,11 @@ let
       opentofu
       slack
     ];
+  workConfig = {pkgs, ...}: {
+    environment.systemPackages = packages pkgs;
+  };
 in
   _: {
-    nixos.work = {pkgs, ...}: {
-      environment.systemPackages = packages pkgs;
-    };
-    darwin.work = {pkgs, ...}: {
-      environment.systemPackages = packages pkgs;
-    };
+    nixos.work = workConfig;
+    darwin.work = workConfig;
   }

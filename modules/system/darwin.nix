@@ -99,13 +99,11 @@
         extraFlags = ["--verbose"];
       };
       brews = [
-        "gnupg"
         "pinentry-mac"
       ];
       taps = [];
       greedyCasks = true;
       casks = [
-        "arc"
         "libreoffice-still"
         "lm-studio"
         "raycast"

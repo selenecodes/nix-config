@@ -1,12 +1,9 @@
-_: {
-  nixos.personal = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      claude-code
-      google-chrome
-      firefox
-    ];
-  };
-  darwin.personal = {pkgs, ...}: {
+let
+  personalConfig = {pkgs, ...}: {
     environment.systemPackages = [pkgs.claude-code];
   };
-}
+in
+  _: {
+    nixos.personal = personalConfig;
+    darwin.personal = personalConfig;
+  }
