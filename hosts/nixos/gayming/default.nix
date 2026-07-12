@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, lib, ... }:
+{ config, inputs, pkgs, ... }:
 let username = "selene"; in
 {
   myconfig.isPersonal = true;
@@ -9,9 +9,11 @@ let username = "selene"; in
     ./hardware.nix
   ];
 
-  networking.hostName = "gayming";
-  networking.networkmanager.enable = true;
-  networking.firewall.enable = true;
+  networking = {
+    hostName = "gayming";
+    networkmanager.enable = true;
+    firewall.enable = true;
+  };
 
   time.timeZone = "Europe/Amsterdam";
   i18n.defaultLocale = "en_GB.UTF-8";
@@ -43,7 +45,7 @@ let username = "selene"; in
   # Hydra consistently builds openldap green.
   # See: https://github.com/NixOS/nixpkgs/issues/513245
   nixpkgs.overlays = [
-    (final: prev: {
+    (_: prev: {
       openldap = prev.openldap.overrideAttrs (_: {
         doCheck = false;
       });
@@ -67,21 +69,23 @@ let username = "selene"; in
 
   programs.zsh.enable = true;
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "backup";
-  home-manager.sharedModules = [
-    inputs.catppuccin.homeModules.catppuccin
-    ../../../modules/home
-  ];
-  home-manager.extraSpecialArgs = {
-    inherit inputs;
-    isDarwin = false;
-    isWork = config.myconfig.isWork;
-    isPersonal = config.myconfig.isPersonal;
-    isGaming = config.myconfig.isGaming;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "backup";
+    sharedModules = [
+      inputs.catppuccin.homeModules.catppuccin
+      ../../../modules/home
+    ];
+    extraSpecialArgs = {
+      inherit inputs;
+      isDarwin = false;
+      isWork = config.myconfig.isWork;
+      isPersonal = config.myconfig.isPersonal;
+      isGaming = config.myconfig.isGaming;
+    };
+    users.${username} = import ./home.nix;
   };
-  home-manager.users.${username} = import ./home.nix;
 
   system.stateVersion = "25.11";
 }

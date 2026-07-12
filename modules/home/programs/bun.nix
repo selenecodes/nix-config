@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+_: {
   programs.bun = {
     enable = true;
     enableGitIntegration = true;

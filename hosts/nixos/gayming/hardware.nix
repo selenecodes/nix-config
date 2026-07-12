@@ -2,26 +2,55 @@
 { config, pkgs, lib, ... }:
 
 {
-  # Zen kernel — performance-oriented, in nixpkgs, good fit for gaming/desktop
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  boot = {
+    # Zen kernel — performance-oriented, in nixpkgs, good fit for gaming/desktop
+    kernelPackages = pkgs.linuxPackages_zen;
 
-  # Bootloader
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.configurationLimit = 5;
+    # Bootloader
+    loader = {
+      systemd-boot.enable = true;
+      systemd-boot.configurationLimit = 5;
+      efi.canTouchEfiVariables = true;
+    };
 
-  # Required for NVIDIA Wayland + KMS
-  boot.kernelParams = [ "quiet" "splash" "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" ];
-  boot.initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+    # Required for NVIDIA Wayland + KMS
+    kernelParams = [ "quiet" "splash" "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" ];
+    initrd.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
-  # NVIDIA RTX 5090 — open kernel modules are mandatory for Blackwell
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = false;
-    powerManagement.finegrained = false;
-    open = true;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
+  };
+
+  hardware = {
+    # NVIDIA RTX 5090 — open kernel modules are mandatory for Blackwell
+    nvidia = {
+      modesetting.enable = true;
+      powerManagement.enable = false;
+      powerManagement.finegrained = false;
+      open = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
+
+    graphics = {
+      enable = true;
+      enable32Bit = true;  # Required for Steam/Wine/Proton
+    };
+
+    # CPU — swap for intel.updateMicrocode if using Intel
+    cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+
+    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+
+    logitech.wireless.enable = true;
+    logitech.wireless.enableGraphical = true; # This handles the Solaar GUI properly
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -38,34 +67,14 @@
     };
   };
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;  # Required for Steam/Wine/Proton
-  };
-
-  # CPU — swap for intel.updateMicrocode if using Intel
-  powerManagement.cpuFreqGovernor = "performance";
-  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
-
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-
   # zram compressed swap (reduces disk I/O, good for gaming)
   zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
 
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 10;
-  };
+  # CPU governor
+  powerManagement.cpuFreqGovernor = "performance";
 
   # Peripherals
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true; # This handles the Solaar GUI properly
 }
