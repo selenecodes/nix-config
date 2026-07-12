@@ -10,6 +10,11 @@ in {
   nixos.configurations.gayming.module = {pkgs, ...}: {
     imports = [
       config.nixos.base
+      config.nixos.audio
+      config.nixos.bluetooth
+      config.nixos.networking
+      config.nixos.nvidia
+      config.nixos.desktop
       config.nixos.gaming
       config.nixos.wayland
       config.nixos.personal
@@ -66,10 +71,9 @@ in {
       shell = pkgs.zsh;
     };
 
-    environment.systemPackages = [noctaliaPackage pkgs.solaar];
+    environment.systemPackages = [noctaliaPackage];
 
     security.sudo.wheelNeedsPassword = false;
-    security.rtkit.enable = true;
 
     programs.zsh.enable = true;
 

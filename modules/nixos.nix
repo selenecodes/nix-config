@@ -9,6 +9,11 @@
 in {
   options.nixos = {
     base = mod;
+    audio = mod;
+    bluetooth = mod;
+    networking = mod;
+    nvidia = mod;
+    desktop = mod;
     gaming = mod;
     wayland = mod;
     personal = mod;

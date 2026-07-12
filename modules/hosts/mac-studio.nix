@@ -50,6 +50,6 @@ in {
     ];
 
     homebrew.brews = lib.mkAfter ["asimov" "gh"];
-    homebrew.casks = lib.mkAfter ["signal" "logitech-g-hub"];
+    homebrew.casks = lib.mkAfter ["signal"];
   };
 }
