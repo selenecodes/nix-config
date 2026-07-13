@@ -13,6 +13,7 @@ let
       ripgrep
       tree
       uv
+      lmstudio
     ];
   fonts = pkgs: [pkgs.nerd-fonts.jetbrains-mono];
   systemConfig = {pkgs, ...}: {

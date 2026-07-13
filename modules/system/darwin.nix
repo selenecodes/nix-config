@@ -105,7 +105,6 @@
       greedyCasks = true;
       casks = [
         "libreoffice-still"
-        "lm-studio"
         "raycast"
       ];
     };
