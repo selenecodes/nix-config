@@ -90,7 +90,7 @@ in {
           config.homeManager.vicinae
         ];
         home = {
-          stateVersion = "25.11";
+          stateVersion = "26.05";
           file.".zshrc".source = ./gayming/files/.zshrc;
           file.".face".source = ../assets/avatars/yachiyo.png;
         };
