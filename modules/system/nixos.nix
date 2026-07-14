@@ -1,17 +1,13 @@
-{pkgs, ...}: {
-  services.udev.packages = [pkgs.yubikey-personalization];
+_: {
+  nixos.base = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      wget
+      curl
+      htop
+      pinentry-qt
+      signal-desktop
+    ];
 
-  environment.systemPackages = with pkgs; [
-    wget
-    curl
-    pciutils
-    usbutils
-    pinentry-qt
-    signal-desktop
-    yubikey-manager
-    yubioath-flutter
-    yubikey-touch-detector
-  ];
-
-  virtualisation.docker.enable = true;
+    virtualisation.docker.enable = true;
+  };
 }

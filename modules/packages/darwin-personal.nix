@@ -1,13 +1,10 @@
-{
-  lib,
-  config,
-  ...
-}:
-lib.mkIf config.myconfig.isPersonal {
-  homebrew.casks = [
-    "betterdisplay"
-    "bettermouse"
-    "cleanshot"
-    "soundsource"
-  ];
+_: {
+  darwin.personal = _: {
+    homebrew.casks = [
+      "betterdisplay"
+      "bettermouse"
+      "cleanshot"
+      "soundsource"
+    ];
+  };
 }

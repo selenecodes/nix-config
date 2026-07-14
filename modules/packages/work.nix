@@ -1,14 +1,15 @@
-{
-  pkgs,
-  lib,
-  config,
-  ...
-}:
-lib.mkIf config.myconfig.isWork {
-  environment.systemPackages = with pkgs; [
-    libpq
-    slack
-    terraform
-    terragrunt
-  ];
-}
+let
+  packages = pkgs:
+    with pkgs; [
+      libpq
+      opentofu
+      slack
+    ];
+  workConfig = {pkgs, ...}: {
+    environment.systemPackages = packages pkgs;
+  };
+in
+  _: {
+    nixos.work = workConfig;
+    darwin.work = workConfig;
+  }

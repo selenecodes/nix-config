@@ -1,11 +1,8 @@
-{
-  lib,
-  config,
-  ...
-}:
-lib.mkIf config.myconfig.isWork {
-  homebrew = {
-    brews = ["helm" "azure-cli"];
-    casks = ["citrix-workspace"];
+_: {
+  darwin.work = _: {
+    homebrew = {
+      brews = ["helm" "azure-cli"];
+      casks = ["citrix-workspace"];
+    };
   };
 }
