@@ -1,7 +1,9 @@
 let
   packages = pkgs:
     with pkgs; [
+      alejandra
       bat
+      deadnix
       docker
       fd
       fnm
@@ -11,6 +13,7 @@ let
       micromamba
       neovim
       ripgrep
+      statix
       tree
       uv
       lmstudio
