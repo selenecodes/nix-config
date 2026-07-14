@@ -11,7 +11,6 @@ let
       gnupg
       just
       micromamba
-      neovim
       ripgrep
       statix
       tree
