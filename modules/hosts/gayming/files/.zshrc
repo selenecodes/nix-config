@@ -74,5 +74,4 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # Path changes
-export PATH="$HOME/.bun/bin:$PATH"  # bun
 export PATH="$HOME/.local/bin:$PATH"

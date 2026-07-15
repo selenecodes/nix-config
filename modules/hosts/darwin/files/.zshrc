@@ -88,5 +88,4 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 # Path changes
-export PATH="/Users/selene/.bun/bin:$PATH" # bun
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH" # psql aarch64 macs
