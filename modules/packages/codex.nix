@@ -1,16 +1,12 @@
 _: {
   # codex is managed through npm; a mock package lets home-manager manage
   # settings without trying to install the package itself.
-  homeManager.work = {pkgs, ...}: let
-    codex-mock = pkgs.writeShellScriptBin "codex-mock" ''
-      true
-    '';
-  in {
+  homeManager.work = {pkgs, ...}: {
     programs.codex = {
       enable = true;
-      package = codex-mock;
+      package = pkgs.codex;
       settings = {
-        model = "gpt-5.5";
+        model = "gpt-5.6-luna";
         model_provider = "azure";
         model_reasoning_effort = "medium";
         model_providers = {
