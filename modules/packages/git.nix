@@ -13,6 +13,7 @@ in
     homeManager.base = {
       lib,
       config,
+      pkgs,
       ...
     }: {
       options.myConfig.git.signing = {
@@ -46,6 +47,7 @@ in
           push.autosetupremote = true;
           init.defaultbranch = "main";
           credential.helper = "manager";
+          credential.credentialStore = lib.mkIf pkgs.stdenv.isDarwin "keychain";
           http."https://gitlab.at.rws.nl" = rwsSslConfig;
           http."https://git.rws.nl" = rwsSslConfig;
         };
