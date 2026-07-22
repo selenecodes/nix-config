@@ -1,6 +1,6 @@
 _: {
-  homeManager.base = _: {
-    catppuccin.starship.enable = true;
+  homeManager.base = {pkgs, ...}: {
+    catppuccin.starship.enable = pkgs.stdenv.isLinux;
 
     programs.starship = {
       enable = true;
@@ -48,10 +48,6 @@ _: {
           style = "dimmed white";
         };
 
-        virtualenv = {
-          format = "[$symbol$environment]($style) ";
-          style = "yellow";
-        };
       };
     };
   };
