@@ -9,6 +9,12 @@ _: {
         model = "gpt-5.6-luna";
         model_provider = "azure";
         model_reasoning_effort = "medium";
+        mcp_servers = {
+          sigrid = {
+            url = "https://sigrid-says.com/mcp";
+            bearer_token_env_var = "SIGRID_MCP_TOKEN";
+          };
+        };
         model_providers = {
           azure = {
             name = "Azure";
