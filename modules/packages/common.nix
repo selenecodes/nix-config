@@ -11,10 +11,13 @@ let
       gnupg
       just
       ripgrep
+      pyright
+      ruff
       statix
       tree
       uv
       lmstudio
+      nixd
     ];
   fonts = pkgs: [pkgs.nerd-fonts.jetbrains-mono];
   systemConfig = {pkgs, ...}: {
