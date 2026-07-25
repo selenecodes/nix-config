@@ -18,9 +18,9 @@ _: {
         model_providers = {
           azure = {
             name = "Azure";
-            base_url = "https://apim.datalab-01.azure.grid.rws.nl/openai/v1";
+            base_url = "http://127.0.0.1:4000/v1";
             env_http_headers = {
-              Authorization = "AOAI_TOKEN";
+              Authorization = "LITELLM_TOKEN";
             };
             wire_api = "responses";
             model_reasoning_effort = "medium";
