@@ -4,6 +4,8 @@ _: {
 
     home.file.".config/opencode/opencode.json".text = builtins.toJSON {
       "$schema" = "https://opencode.ai/config.json";
+      enabled_providers = ["litellm"];
+      model = "litellm/gpt-5.6-luna";
       provider.litellm = {
         npm = "@ai-sdk/openai-compatible";
         name = "LiteLLM";
