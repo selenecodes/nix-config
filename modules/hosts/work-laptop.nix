@@ -36,7 +36,6 @@ in {
           config.homeManager.work
         ];
         home.stateVersion = "26.05";
-        home.file.".zshrc".source = ./darwin/files/.zshrc;
       };
     };
 

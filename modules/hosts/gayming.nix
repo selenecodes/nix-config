@@ -91,7 +91,6 @@ in {
         ];
         home = {
           stateVersion = "26.05";
-          file.".zshrc".source = ./gayming/files/.zshrc;
           file.".face".source = ../assets/avatars/yachiyo.png;
         };
         xdg.configFile."niri/config.kdl".source = ./gayming/niri-default-config.kdl;
