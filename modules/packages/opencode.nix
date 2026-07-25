@@ -32,6 +32,21 @@ in {
             apiKey = "{env:LITELLM_API_KEY}";
           };
         };
+        mcp = {
+          context7 = {
+            type = "remote";
+            url = "https://mcp.context7.com/mcp";
+          };
+          gh_grep = {
+            type = "remote";
+            url = "https://mcp.grep.app";
+          };
+          sigrid-says = {
+            type = "remote";
+            url = "https://sigrid-says.com/mcp";
+            headers.Authorization = "Bearer {env:SIGRID_MCP_TOKEN}";
+          };
+        };
       };
       tui.theme = "catppuccin";
     };
