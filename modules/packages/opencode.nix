@@ -1,4 +1,9 @@
-_: {
+{lib, ...}: let
+  modelConfig = import ../../lib/litellm-models.nix {
+    inherit lib;
+    upstreamBaseUrl = null;
+  };
+in {
   homeManager.work = {pkgs, ...}: {
     catppuccin.opencode.enable = false;
     programs.opencode = {
@@ -11,6 +16,7 @@ _: {
         provider.litellm = {
           npm = "@ai-sdk/openai-compatible";
           name = "LiteLLM (proxy)";
+          models = modelConfig.opencodeModels;
           options = {
             baseURL = "http://127.0.0.1:4000/v1";
             apiKey = "{env:LITELLM_API_KEY}";

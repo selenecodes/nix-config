@@ -1,4 +1,7 @@
-_: {
+{lib, ...}: let
+  upstreamBaseUrl = "https://apim.datalab-01.azure.grid.rws.nl/";
+  modelConfig = import ../../lib/litellm-models.nix {inherit upstreamBaseUrl lib;};
+in {
   homeManager.work = {
     config,
     lib,
@@ -6,7 +9,6 @@ _: {
     ...
   }: let
     localApiKey = "sk-litellm-local";
-    upstreamBaseUrl = "https://apim.datalab-01.azure.grid.rws.nl/";
     litellmPort = "4000";
     litellmPackage = pkgs.litellm.overridePythonAttrs (oldAttrs: {
       dependencies = lib.filter (dependency: (dependency.pname or null) != "a2a-sdk") oldAttrs.dependencies;
@@ -37,63 +39,7 @@ _: {
     '';
     litellmConfigYaml = pkgs.writeText "litellm-config.yaml" ''
       model_list:
-        - model_name: gpt-5.1
-          litellm_params:
-            model: azure/gpt-5.1
-            api_base: ${upstreamBaseUrl}
-          model_info:
-            input_cost_per_token: 1.38e-06
-            output_cost_per_token: 1.1e-05
-            cache_read_input_token_cost: 1.4e-07
-        - model_name: gpt-5.4
-          litellm_params:
-            model: azure/gpt-5.4
-            api_base: ${upstreamBaseUrl}
-          model_info:
-            cache_read_input_token_cost: 2.8e-07
-            cache_read_input_token_cost_above_272k_tokens: 5e-07
-            cache_read_input_token_cost_priority: 5.5e-07
-            cache_read_input_token_cost_above_272k_tokens_priority: 1e-06
-            input_cost_per_token: 2.75e-06
-            input_cost_per_token_above_272k_tokens: 5e-06
-            input_cost_per_token_priority: 5.5e-06
-            input_cost_per_token_above_272k_tokens_priority: 1e-05
-            output_cost_per_token: 1.65e-05
-            output_cost_per_token_above_272k_tokens: 2.25e-05
-            output_cost_per_token_priority: 3.3e-05
-            output_cost_per_token_above_272k_tokens_priority: 4.5e-05
-        - model_name: gpt-5.5
-          litellm_params:
-            model: azure/gpt-5.5
-            api_base: ${upstreamBaseUrl}
-          model_info:
-            input_cost_per_token: 5.5e-06
-            cache_read_input_token_cost: 5.5e-07
-            output_cost_per_token: 3.3e-05
-            input_cost_per_token_priority: 1.375e-05
-            cache_read_input_token_cost_priority: 1.38e-06
-            output_cost_per_token_priority: 8.25e-05
-            input_cost_per_token_above_272k_tokens: 1.1e-05
-            cache_read_input_token_cost_above_272k_tokens: 1.1e-06
-            output_cost_per_token_above_272k_tokens: 4.95e-05
-        - model_name: gpt-5.6-luna
-          litellm_params:
-            model: azure/gpt-5.6-luna
-            api_base: ${upstreamBaseUrl}
-        - model_name: gpt-5.6-sol
-          litellm_params:
-            model: azure/gpt-5.6-sol
-            api_base: ${upstreamBaseUrl}
-        - model_name: gpt-5.6-terra
-          litellm_params:
-            model: azure/gpt-5.6-terra
-            api_base: ${upstreamBaseUrl}
-        - model_name: text-embedding-3-large
-          litellm_params:
-            model: azure/text-embedding-3-large
-            api_base: ${upstreamBaseUrl}
-          model_info:
-            input_cost_per_token: 1.43e-07
+      ${modelConfig.litellmModelList}
 
       litellm_settings:
         enable_azure_ad_token_refresh: true
