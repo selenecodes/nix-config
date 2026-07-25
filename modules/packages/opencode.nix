@@ -13,6 +13,16 @@ in {
         plugin = ["opencode-plugin-litellm@latest"];
         enabled_providers = ["litellm"];
         model = "litellm/gpt-5.6-luna";
+        lsp = true;
+        formatter = {
+          alejandra = {
+            command = ["alejandra" "$FILE"];
+            extensions = [".nix"];
+          };
+          nixfmt.disabled = true;
+          ruff = {};
+          uv = {};
+        };
         provider.litellm = {
           npm = "@ai-sdk/openai-compatible";
           name = "LiteLLM (proxy)";
