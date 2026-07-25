@@ -13,6 +13,7 @@ in {
         plugin = ["opencode-plugin-litellm@latest"];
         enabled_providers = ["litellm"];
         model = "litellm/gpt-5.6-luna";
+        share = "disabled";
         lsp = true;
         formatter = {
           alejandra = {
