@@ -11,7 +11,31 @@ _: {
     litellmPackage = pkgs.litellm.overridePythonAttrs (oldAttrs: {
       dependencies = lib.filter (dependency: (dependency.pname or null) != "a2a-sdk") oldAttrs.dependencies;
     });
-    litellmConfig = pkgs.writeText "litellm-config.yaml" ''
+    responseCostCallback = pkgs.writeText "litellm_response_cost_callback.py" ''
+      from litellm.integrations.custom_logger import CustomLogger
+
+      class ResponseCostCallback(CustomLogger):
+          async def async_post_call_success_hook(self, data, user_api_key_dict, response):
+              hidden_params = getattr(response, "_hidden_params", {}) or {}
+              cost = hidden_params.get("response_cost")
+              if cost is None:
+                  return response
+
+              usage = getattr(response, "usage", None)
+              if usage is None:
+                  return response
+
+              if isinstance(usage, dict):
+                  usage["cost"] = cost
+              else:
+                  setattr(usage, "cost", cost)
+
+              return response
+
+
+      proxy_handler_instance = ResponseCostCallback()
+    '';
+    litellmConfigYaml = pkgs.writeText "litellm-config.yaml" ''
       model_list:
         - model_name: gpt-5.1
           litellm_params:
@@ -73,9 +97,15 @@ _: {
 
       litellm_settings:
         enable_azure_ad_token_refresh: true
+        callbacks: ["litellm_response_cost_callback.proxy_handler_instance"]
 
       general_settings:
         master_key: os.environ/LITELLM_MASTER_KEY
+    '';
+    litellmConfigDir = pkgs.runCommand "litellm-config-dir" {} ''
+      mkdir -p $out
+      cp ${litellmConfigYaml} $out/litellm-config.yaml
+      cp ${responseCostCallback} $out/litellm_response_cost_callback.py
     '';
     startScript = pkgs.writeShellScript "litellm-start" ''
       export PATH="/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:$PATH"
@@ -84,7 +114,7 @@ _: {
       ${pkgs.lsof}/bin/lsof -tiTCP:${litellmPort} -sTCP:LISTEN | xargs -r kill -9
 
       exec ${lib.getExe litellmPackage} \
-        --config ${litellmConfig} \
+        --config ${litellmConfigDir}/litellm-config.yaml \
         --port ${litellmPort}
     '';
   in {
@@ -92,7 +122,7 @@ _: {
 
     home.sessionVariables.LITELLM_API_KEY = localApiKey;
 
-    home.file.".config/litellm/config.yaml".source = litellmConfig;
+    home.file.".config/litellm/config.yaml".source = litellmConfigDir + "/litellm-config.yaml";
 
     systemd.user.services.litellm = lib.mkIf pkgs.stdenv.isLinux {
       Unit = {
