@@ -10,7 +10,6 @@ let
       fzf
       gnupg
       just
-      micromamba
       ripgrep
       statix
       tree
