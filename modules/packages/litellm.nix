@@ -61,7 +61,7 @@ _: {
   in {
     home.packages = [litellmPackage];
 
-    home.sessionVariables.LITELLM_TOKEN = "Bearer ${localApiKey}";
+    home.sessionVariables.LITELLM_API_KEY = localApiKey;
 
     home.file.".config/litellm/config.yaml".source = litellmConfig;
 

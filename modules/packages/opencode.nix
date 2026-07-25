@@ -12,7 +12,7 @@ _: {
           name = "LiteLLM";
           options = {
             baseURL = "http://127.0.0.1:4000/v1";
-            apiKey = "sk-litellm-local";
+            apiKey = "{env:LITELLM_API_KEY}";
           };
           models = {
             "gpt-5.1".name = "GPT-5.1";

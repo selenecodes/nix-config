@@ -19,9 +19,7 @@ _: {
           azure = {
             name = "Azure";
             base_url = "http://127.0.0.1:4000/v1";
-            env_http_headers = {
-              Authorization = "LITELLM_TOKEN";
-            };
+            env_key = "LITELLM_API_KEY";
             wire_api = "responses";
             model_reasoning_effort = "medium";
           };
