@@ -57,6 +57,13 @@ _: {
 
         eval "$(fnm env)"
 
+        if [[ -z "$SIGRID_MCP_TOKEN" ]] && command -v op >/dev/null 2>&1; then
+          SIGRID_MCP_TOKEN="$(op item get "SIGRID MCP TOKEN" --field credential --reveal 2>/dev/null)"
+          if [[ -n "$SIGRID_MCP_TOKEN" ]]; then
+            export SIGRID_MCP_TOKEN
+          fi
+        fi
+
         ZINIT_HOME="''${XDG_DATA_HOME:-''${HOME}/.local/share}/zinit/zinit.git"
 
         if [[ ! -d "$ZINIT_HOME" ]]; then
