@@ -1,7 +1,20 @@
 _: {
   # codex is managed through npm; a mock package lets home-manager manage
   # settings without trying to install the package itself.
-  homeManager.work = {pkgs, ...}: {
+  homeManager.work = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    programs.zsh.initContent = lib.mkAfter ''
+      codex_litellm() {
+        local key token
+        key="$(litellm_master_key)" || return
+        token="$(sigrid_mcp_token)" || return
+        LITELLM_API_KEY="$key" SIGRID_MCP_TOKEN="$token" command codex "$@"
+      }
+    '';
+
     programs.codex = {
       enable = true;
       package = pkgs.codex;

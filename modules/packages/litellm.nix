@@ -8,7 +8,6 @@ in {
     pkgs,
     ...
   }: let
-    localApiKey = "sk-litellm-local";
     litellmPort = "4000";
     litellmPackage = pkgs.litellm.overridePythonAttrs (oldAttrs: {
       dependencies = lib.filter (dependency: (dependency.pname or null) != "a2a-sdk") oldAttrs.dependencies;
@@ -56,17 +55,24 @@ in {
     startScript = pkgs.writeShellScript "litellm-start" ''
       export PATH="/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:$PATH"
 
+      export LITELLM_MASTER_KEY="$(${pkgs._1password-cli}/bin/op item get "LiteLLM" --field master_key --reveal)"
+
       # kill anything still bound to our port from a previous generation/run
       ${pkgs.lsof}/bin/lsof -tiTCP:${litellmPort} -sTCP:LISTEN | xargs -r kill -9
 
       exec ${lib.getExe litellmPackage} \
         --config ${litellmConfigDir}/litellm-config.yaml \
+        --host 127.0.0.1 \
         --port ${litellmPort}
     '';
   in {
     home.packages = [litellmPackage];
 
-    home.sessionVariables.LITELLM_API_KEY = localApiKey;
+    programs.zsh.initContent = lib.mkAfter ''
+      litellm_master_key() {
+        command op item get "LiteLLM" --field master_key --reveal
+      }
+    '';
 
     home.file.".config/litellm/config.yaml".source = litellmConfigDir + "/litellm-config.yaml";
 
@@ -77,7 +83,6 @@ in {
         Wants = ["network-online.target"];
       };
       Service = {
-        Environment = ["LITELLM_MASTER_KEY=${localApiKey}"];
         ExecStart = "${startScript}";
         Restart = "always";
         RestartSec = 5;
@@ -91,7 +96,6 @@ in {
         ProgramArguments = ["${startScript}"];
         EnvironmentVariables = {
           PATH = "/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:/usr/bin:/bin";
-          LITELLM_MASTER_KEY = localApiKey;
         };
         KeepAlive = true;
         RunAtLoad = true;

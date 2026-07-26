@@ -4,7 +4,20 @@
     upstreamBaseUrl = null;
   };
 in {
-  homeManager.work = {pkgs, ...}: {
+  homeManager.work = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    programs.zsh.initContent = lib.mkAfter ''
+      opencode_litellm() {
+        local key token
+        key="$(litellm_master_key)" || return
+        token="$(sigrid_mcp_token)" || return
+        LITELLM_API_KEY="$key" SIGRID_MCP_TOKEN="$token" command opencode "$@"
+      }
+    '';
+
     catppuccin.opencode.enable = false;
     programs.opencode = {
       enable = true;
