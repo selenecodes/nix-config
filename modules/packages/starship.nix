@@ -48,7 +48,6 @@ _: {
           format = "[@$hostname]($style) ";
           style = "dimmed white";
         };
-
       };
     };
   };

@@ -41,7 +41,10 @@ _: {
           type = "lua";
           config = ''require("gitsigns").setup()'';
         }
-        { plugin = plenary-nvim; type = "lua"; }
+        {
+          plugin = plenary-nvim;
+          type = "lua";
+        }
         {
           plugin = todo-comments-nvim;
           type = "lua";
@@ -57,8 +60,14 @@ _: {
             vim.keymap.set("n", "<leader>fb", t.buffers)
           '';
         }
-        { plugin = nvim-web-devicons; type = "lua"; }
-        { plugin = nui-nvim; type = "lua"; }
+        {
+          plugin = nvim-web-devicons;
+          type = "lua";
+        }
+        {
+          plugin = nui-nvim;
+          type = "lua";
+        }
         # {
         #   plugin = neo-tree-nvim;
         #   type = "lua";
@@ -81,7 +90,10 @@ _: {
         #     end)
         #   '';
         # }
-        { plugin = cmp-nvim-lsp; type = "lua"; }
+        {
+          plugin = cmp-nvim-lsp;
+          type = "lua";
+        }
         {
           plugin = nvim-cmp;
           type = "lua";
