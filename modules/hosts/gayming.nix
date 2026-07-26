@@ -73,7 +73,7 @@ in {
 
     environment.systemPackages = [noctaliaPackage];
 
-    security.sudo.wheelNeedsPassword = false;
+    security.sudo.wheelNeedsPassword = true;
 
     programs.zsh.enable = true;
 

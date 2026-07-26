@@ -2,7 +2,14 @@ _: {
   nixos.networking = _: {
     services.openssh = {
       enable = true;
-      settings.PasswordAuthentication = false;
+      settings = {
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+        PermitRootLogin = "no";
+        X11Forwarding = false;
+        AllowAgentForwarding = false;
+        AllowUsers = ["selene"];
+      };
     };
   };
   homeManager.base = {
