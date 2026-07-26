@@ -18,7 +18,7 @@ Boot from the USB, then run the install script:
 sudo -i
 nix-shell -p git
 git clone https://github.com/selenecodes/nix-config.git
-bash nix-config/hosts/nixos/gayming/install.sh
+bash nix-config/modules/hosts/gayming/install.sh
 ```
 
 The script will show you exactly what it will do, ask for the target disk, and require **two confirmations** before touching anything.

@@ -125,15 +125,16 @@ nixos-generate-config --root /mnt
 info "Cloning config repo..."
 nix-shell -p git --run "git clone ${FLAKE_URL} /mnt/etc/nixos/nix-config"
 
+HARDWARE_CONFIG_DEST="/mnt/etc/nixos/nix-config/modules/hosts/gayming/hardware-configuration.nix"
+[[ -d "$(dirname "$HARDWARE_CONFIG_DEST")" ]] || die "repository layout is missing $(dirname "$HARDWARE_CONFIG_DEST")"
 info "Copying generated hardware-configuration.nix into repo..."
-cp /mnt/etc/nixos/hardware-configuration.nix \
-   /mnt/etc/nixos/nix-config/hosts/nixos/gayming/hardware-configuration.nix
+cp /mnt/etc/nixos/hardware-configuration.nix "$HARDWARE_CONFIG_DEST"
 
 # -----------------------------------------------------------------------------
 # Install
 # -----------------------------------------------------------------------------
 
-info "Running nixos-install — you will be prompted to set a root password..."
+info "Running nixos-install without setting a root password..."
 nixos-install --flake /mnt/etc/nixos/nix-config#${HOST} --no-root-passwd
 
 # -----------------------------------------------------------------------------
