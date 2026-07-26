@@ -110,7 +110,7 @@ _: {
           "python.createEnvironment.trigger" = "off";
           "python.terminal.activateEnvInCurrentTerminal" = false;
           "redhat.telemetry.enabled" = false;
-          "security.workspace.trust.untrustedFiles" = "open";
+          "security.workspace.trust.untrustedFiles" = "prompt";
           "svelte.enable-ts-plugin" = true;
           "telemetry.telemetryLevel" = "off";
           "terminal.integrated.inheritEnv" = true;
