@@ -1,20 +1,28 @@
-flake_dir := "~/nix-config"
+flake_dir := "$HOME/nix-config"
+set positional-arguments
 
 # Build darwin configuration
 build-darwin device:
-  sudo darwin-rebuild switch --flake {{flake_dir}}#{{device}}
+  #!/usr/bin/env bash
+  set -euo pipefail
+  [[ "$1" =~ ^[A-Za-z0-9_-]+$ ]] || { echo "invalid device name" >&2; exit 2; }
+  sudo darwin-rebuild switch --flake "{{flake_dir}}#$1"
 
 # Build nixos configuration
 build-nixos device:
-  sudo nixos-rebuild switch --flake {{flake_dir}}#{{device}}
+  #!/usr/bin/env bash
+  set -euo pipefail
+  [[ "$1" =~ ^[A-Za-z0-9_-]+$ ]] || { echo "invalid device name" >&2; exit 2; }
+  sudo nixos-rebuild switch --flake "{{flake_dir}}#$1"
 
 # Auto-detect and build current system
 build device:
   #!/usr/bin/env bash
+  set -euo pipefail
   if [[ "$OSTYPE" == "darwin"* ]]; then
-    just build-darwin {{device}}
+    just build-darwin "$1"
   else
-    just build-nixos {{device}}
+    just build-nixos "$1"
   fi
 
 # Check flake configuration
