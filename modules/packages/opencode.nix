@@ -10,7 +10,7 @@ in {
       enable = true;
       package = pkgs.opencode;
       settings = {
-        plugin = ["opencode-plugin-litellm@latest"];
+        plugin = ["opencode-plugin-litellm@0.7.0"];
         enabled_providers = ["litellm"];
         model = "litellm/gpt-5.6-luna";
         share = "disabled";
