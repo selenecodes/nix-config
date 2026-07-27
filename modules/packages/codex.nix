@@ -7,11 +7,13 @@ _: {
     ...
   }: {
     programs.zsh.initContent = lib.mkAfter ''
-      codex_litellm() {
-        local key token
-        key="$(litellm_master_key)" || return
+      codex_sig() {
+        local token
         token="$(sigrid_mcp_token)" || return
-        LITELLM_API_KEY="$key" SIGRID_MCP_TOKEN="$token" command codex "$@"
+        SIGRID_MCP_TOKEN="$token" command codex \
+          -c 'mcp_servers.sigrid.url="https://sigrid-says.com/mcp"' \
+          -c 'mcp_servers.sigrid.bearer_token_env_var="SIGRID_MCP_TOKEN"' \
+          "$@"
       }
     '';
 
@@ -20,19 +22,12 @@ _: {
       package = pkgs.codex;
       settings = {
         model = "gpt-5.6-luna";
-        model_provider = "azure";
+        model_provider = "bifrost";
         model_reasoning_effort = "medium";
-        mcp_servers = {
-          sigrid = {
-            url = "https://sigrid-says.com/mcp";
-            bearer_token_env_var = "SIGRID_MCP_TOKEN";
-          };
-        };
         model_providers = {
-          azure = {
-            name = "Azure";
+          bifrost = {
+            name = "Bifrost (proxy)";
             base_url = "http://127.0.0.1:4000/v1";
-            env_key = "LITELLM_API_KEY";
             wire_api = "responses";
             model_reasoning_effort = "medium";
           };

@@ -1,52 +1,4 @@
-{
-  upstreamBaseUrl,
-  lib,
-}: let
-  costPerToken = cost:
-    lib.mapAttrs (
-      key: value:
-        if key == "context_over_200k"
-        then costPerToken value
-        else value / 1000000.0
-    )
-    cost;
-  toLiteLLMModelInfo = cost: let
-    perToken = costPerToken cost;
-  in
-    {
-      input_cost_per_token = perToken.input;
-      output_cost_per_token = perToken.output;
-    }
-    // lib.optionalAttrs (perToken ? cache_read) {
-      cache_read_input_token_cost = perToken.cache_read;
-    }
-    // lib.optionalAttrs (perToken ? context_over_200k) {
-      input_cost_per_token_above_272k_tokens = perToken.context_over_200k.input;
-      output_cost_per_token_above_272k_tokens = perToken.context_over_200k.output;
-    }
-    // lib.optionalAttrs (perToken.context_over_200k or {} ? cache_read) {
-      cache_read_input_token_cost_above_272k_tokens = perToken.context_over_200k.cache_read;
-    };
-  toYaml = value:
-    if builtins.isString value
-    then value
-    else builtins.toJSON value;
-  renderModelInfo = modelInfo:
-    lib.concatStringsSep "\n" (
-      lib.mapAttrsToList (key: value: "          ${key}: ${toYaml value}") modelInfo
-    );
-  renderModel = id: model:
-    ''
-      - model_name: ${id}
-        litellm_params:
-          model: azure/${id}
-          api_base: ${upstreamBaseUrl}
-    ''
-    + lib.optionalString (model ? cost) ''
-        model_info:
-      ${renderModelInfo (toLiteLLMModelInfo model.cost)}
-    '';
-in rec {
+{lib}: rec {
   models = {
     "gpt-5.1" = {
       name = "GPT 5.1";
@@ -141,5 +93,4 @@ in rec {
   };
 
   opencodeModels = lib.filterAttrs (_: model: model.tool_call or false) models;
-  litellmModelList = lib.concatStringsSep "" (lib.mapAttrsToList renderModel models);
 }

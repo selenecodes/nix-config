@@ -25,6 +25,7 @@
       url = "github:noctalia-dev/noctalia";
     };
     catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
+    bifrost.url = "github:maximhq/bifrost?ref=transports/v1.6.6";
   };
 
   outputs = inputs:

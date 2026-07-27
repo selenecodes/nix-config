@@ -1,8 +1,5 @@
 {lib, ...}: let
-  modelConfig = import ../../lib/litellm-models.nix {
-    inherit lib;
-    upstreamBaseUrl = null;
-  };
+  modelConfig = import ../../lib/llm-models.nix {inherit lib;};
 in {
   homeManager.work = {
     lib,
@@ -10,11 +7,11 @@ in {
     ...
   }: {
     programs.zsh.initContent = lib.mkAfter ''
-      opencode_litellm() {
-        local key token
-        key="$(litellm_master_key)" || return
+      opencode_sig() {
+        local token
         token="$(sigrid_mcp_token)" || return
-        LITELLM_API_KEY="$key" SIGRID_MCP_TOKEN="$token" command opencode "$@"
+        OPENCODE_CONFIG_CONTENT='{"mcp":{"sigrid-says":{"type":"remote","url":"https://sigrid-says.com/mcp","headers":{"Authorization":"Bearer {env:SIGRID_MCP_TOKEN}"}}}}' \
+          SIGRID_MCP_TOKEN="$token" command opencode "$@"
       }
     '';
 
@@ -23,9 +20,8 @@ in {
       enable = true;
       package = pkgs.opencode;
       settings = {
-        plugin = ["opencode-plugin-litellm@0.7.0"];
-        enabled_providers = ["litellm"];
-        model = "litellm/gpt-5.6-luna";
+        enabled_providers = ["bifrost"];
+        model = "bifrost/gpt-5.6-luna";
         share = "disabled";
         lsp = true;
         formatter = {
@@ -37,13 +33,13 @@ in {
           ruff = {};
           uv = {};
         };
-        provider.litellm = {
-          npm = "@ai-sdk/openai-compatible";
-          name = "LiteLLM (proxy)";
+        provider.bifrost = {
+          npm = "@ai-sdk/openai";
+          name = "Bifrost (proxy)";
           models = modelConfig.opencodeModels;
           options = {
             baseURL = "http://127.0.0.1:4000/v1";
-            apiKey = "{env:LITELLM_API_KEY}";
+            apiKey = "";
           };
         };
         mcp = {
@@ -54,11 +50,6 @@ in {
           gh_grep = {
             type = "remote";
             url = "https://mcp.grep.app";
-          };
-          sigrid-says = {
-            type = "remote";
-            url = "https://sigrid-says.com/mcp";
-            headers.Authorization = "Bearer {env:SIGRID_MCP_TOKEN}";
           };
         };
       };
