@@ -1,6 +1,6 @@
 {lib}: rec {
   models = {
-    "gpt-5.1" = {
+    "eu/gpt-5.1" = {
       name = "GPT 5.1";
       reasoning = true;
       tool_call = true;
@@ -14,7 +14,7 @@
         cache_read = 0.14;
       };
     };
-    "gpt-5.4" = {
+    "eu/gpt-5.4" = {
       name = "GPT 5.4";
       reasoning = true;
       tool_call = true;
@@ -33,7 +33,7 @@
         };
       };
     };
-    "gpt-5.5" = {
+    "eu/gpt-5.5" = {
       name = "GPT 5.5";
       reasoning = true;
       tool_call = true;
@@ -52,7 +52,7 @@
         };
       };
     };
-    "gpt-5.6-luna" = {
+    "eu/gpt-5.6-luna" = {
       name = "GPT 5.6 Luna";
       reasoning = true;
       tool_call = true;
@@ -61,7 +61,7 @@
         output = 128000;
       };
     };
-    "gpt-5.6-sol" = {
+    "eu/gpt-5.6-sol" = {
       name = "GPT 5.6 Sol";
       reasoning = true;
       tool_call = true;
@@ -70,7 +70,7 @@
         output = 128000;
       };
     };
-    "gpt-5.6-terra" = {
+    "eu/gpt-5.6-terra" = {
       name = "GPT 5.6 Terra";
       reasoning = true;
       tool_call = true;

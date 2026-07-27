@@ -21,7 +21,7 @@ in {
       package = pkgs.opencode;
       settings = {
         enabled_providers = ["bifrost"];
-        model = "bifrost/gpt-5.6-luna";
+        model = "bifrost/eu/gpt-5.6-luna";
         share = "disabled";
         lsp = true;
         formatter = {

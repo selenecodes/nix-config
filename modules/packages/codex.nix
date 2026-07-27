@@ -21,7 +21,7 @@ _: {
       enable = true;
       package = pkgs.codex;
       settings = {
-        model = "gpt-5.6-luna";
+        model = "eu/gpt-5.6-luna";
         model_provider = "bifrost";
         model_reasoning_effort = "medium";
         model_providers = {
