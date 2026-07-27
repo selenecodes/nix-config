@@ -7,5 +7,9 @@ in {
     noctalia = mod;
     vicinae = mod;
     work = mod;
+    osxphotosArchive = lib.mkOption {
+      type = lib.types.deferredModule;
+      default = {};
+    };
   };
 }

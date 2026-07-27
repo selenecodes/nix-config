@@ -12,6 +12,10 @@ in {
     base = mod;
     personal = mod;
     work = mod;
+    osxphotosArchive = lib.mkOption {
+      type = lib.types.deferredModule;
+      default = {};
+    };
 
     configurations = lib.mkOption {
       type = lib.types.lazyAttrsOf (

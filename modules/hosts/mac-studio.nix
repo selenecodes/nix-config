@@ -10,6 +10,7 @@ in {
       config.darwin.base
       config.darwin.personal
       config.darwin.work
+      config.darwin.osxphotosArchive
       inputs.nix-homebrew.darwinModules.nix-homebrew
       inputs.home-manager.darwinModules.home-manager
     ];
@@ -36,6 +37,7 @@ in {
         imports = [
           config.homeManager.base
           config.homeManager.work
+          config.homeManager.osxphotosArchive
         ];
         home.stateVersion = "26.05";
       };
