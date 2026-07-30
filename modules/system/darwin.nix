@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  darwin.base = _: {
+  darwin.base = {pkgs, ...}: {
     nix.settings = {
       experimental-features = "nix-command flakes";
       substituters = [
@@ -88,6 +88,11 @@
       };
     };
 
+    environment.systemPackages = with pkgs; [
+      betterdisplay
+      raycast
+    ];
+
     programs.zsh.enable = true;
 
     homebrew = {
@@ -103,10 +108,7 @@
       ];
       taps = [];
       greedyCasks = true;
-      casks = [
-        "libreoffice-still"
-        "raycast"
-      ];
+      casks = [ ];
     };
   };
 }
