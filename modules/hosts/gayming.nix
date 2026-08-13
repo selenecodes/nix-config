@@ -27,6 +27,22 @@ in {
       firewall.enable = true;
     };
 
+    systemd.services.wake-on-lan = {
+      description = "Enable wake on LAN";
+      wantedBy = ["multi-user.target"];
+      after = ["network-pre.target"];
+      before = ["network.target"];
+      path = [pkgs.ethtool];
+      serviceConfig.Type = "oneshot";
+      script = ''
+        for interface in /sys/class/net/*; do
+          interface="''${interface##*/}"
+          [ "$interface" = "lo" ] && continue
+          ethtool -s "$interface" wol g || true
+        done
+      '';
+    };
+
     time.timeZone = "Europe/Amsterdam";
     i18n.defaultLocale = "en_GB.UTF-8";
 
