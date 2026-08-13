@@ -16,7 +16,6 @@ let
       statix
       tree
       uv
-      lmstudio
       nixd
     ];
   fonts = pkgs: [pkgs.nerd-fonts.jetbrains-mono];
