@@ -21,7 +21,7 @@ in {
       package = pkgs.opencode;
       settings = {
         enabled_providers = ["bifrost" "ollama"];
-        model = "ollama/qwen3.6:27b";
+        model = "ollama/qwen3.6:27b-128k";
         share = "disabled";
         lsp = true;
         formatter = {

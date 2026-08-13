@@ -1,0 +1,23 @@
+# Modelfile for qwen3.6:27b with a 128k context window
+# Docs: https://docs.ollama.com/modelfile
+
+FROM qwen3.6:27b
+
+# Context window size (128k tokens)
+PARAMETER num_ctx 131072
+
+# Optional: uncomment and tune if you want to push prefill throughput
+# on longer prompts. Higher batch size = faster prompt processing,
+# at the cost of a bit more VRAM.
+# PARAMETER num_batch 1024
+
+# Optional: lower temperature tends to work better for coding/tool-use
+# tasks where you want more deterministic output. Comment out to use
+# the model's default.
+# PARAMETER temperature 0.3
+
+# Optional: quantized KV cache to reduce memory footprint at large
+# context sizes (requires OLLAMA_FLASH_ATTENTION=1 on the server).
+# This isn't a PARAMETER line -- it's set via env var on the server,
+# not here, but leaving the note for reference:
+#   OLLAMA_FLASH_ATTENTION=1 OLLAMA_KV_CACHE_TYPE=q8_0 ollama serve
