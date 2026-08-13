@@ -7,13 +7,13 @@ FROM qwen3.6:27b
 PARAMETER num_ctx 131072
 
 # Optional: uncomment and tune if you want to push prefill throughput
-# on longer prompts. Higher batch size = faster prompt processing,
-# at the cost of a bit more VRAM.
+# on longer prompts. Higher batch size = faster prompt processing, at the
+# cost of more VRAM.
 # PARAMETER num_batch 1024
 
 # Optional: lower temperature tends to work better for coding/tool-use
-# tasks where you want more deterministic output. Comment out to use
-# the model's default.
+# tasks where you want more deterministic output. Comment out to use the
+# model's default.
 # PARAMETER temperature 0.3
 
 # Optional: quantized KV cache to reduce memory footprint at large
