@@ -1,4 +1,9 @@
-{lib}: rec {
+{
+  lib,
+  modelOptions ? {},
+}: let
+  qwen36_27bContext = modelOptions."qwen3.6:27b".context or 262144;
+in rec {
   bifrostModels = {
     "eu/gpt-5.1" = {
       name = "GPT 5.1";
@@ -95,6 +100,13 @@
   ollamaModels = {
     "qwen3.6:27b" = {
       name = "Qwen 3.6 27B";
+      tool_call = true;
+      reasoning = true;
+      limit = {
+        context = qwen36_27bContext;
+        output = qwen36_27bContext;
+      };
+      options.num_ctx = qwen36_27bContext;
     };
   };
 
