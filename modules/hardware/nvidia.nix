@@ -1,7 +1,14 @@
 # NVIDIA RTX 5090 (Blackwell / GB202)
 _: {
   nixos.nvidia = {config, ...}: {
-    nixpkgs.config.cudaSupport = true;
+    nix.settings = {
+      substituters = [
+        "https://cache.nixos-cuda.org"
+      ];
+      trusted-public-keys = [
+        "cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M="
+      ];
+    };
 
     boot = {
       # Required for NVIDIA Wayland + KMS
