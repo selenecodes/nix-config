@@ -88,8 +88,6 @@ in {
 
     security.sudo.wheelNeedsPassword = true;
 
-    programs.zsh.enable = true;
-
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;

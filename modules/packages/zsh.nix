@@ -1,4 +1,8 @@
 _: {
+  nixos.base = {
+    programs.zsh.enable = true;
+  };
+
   homeManager.base = {
     lib,
     pkgs,
