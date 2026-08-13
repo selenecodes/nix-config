@@ -1,6 +1,8 @@
 # NVIDIA RTX 5090 (Blackwell / GB202)
 _: {
   nixos.nvidia = {config, ...}: {
+    nixpkgs.config.cudaSupport = true;
+
     boot = {
       # Required for NVIDIA Wayland + KMS
       kernelParams = ["quiet" "splash" "nvidia_drm.modeset=1" "nvidia_drm.fbdev=1"];
