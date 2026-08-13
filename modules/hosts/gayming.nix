@@ -43,9 +43,6 @@ in {
       '';
     };
 
-    time.timeZone = "Europe/Amsterdam";
-    i18n.defaultLocale = "en_GB.UTF-8";
-
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
       substituters = [
