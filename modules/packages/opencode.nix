@@ -1,7 +1,7 @@
 {lib, ...}: let
   modelConfig = import ../../lib/llm-models.nix {inherit lib;};
 in {
-  homeManager.work = {
+  homeManager.base = {
     lib,
     pkgs,
     ...
@@ -20,8 +20,8 @@ in {
       enable = true;
       package = pkgs.opencode;
       settings = {
-        enabled_providers = ["bifrost"];
-        model = "bifrost/eu/gpt-5.6-luna";
+        enabled_providers = ["bifrost" "ollama"];
+        model = "ollama/qwen3.6:27b";
         share = "disabled";
         lsp = true;
         formatter = {
@@ -36,11 +36,17 @@ in {
         provider.bifrost = {
           npm = "@ai-sdk/openai";
           name = "Bifrost (proxy)";
-          models = modelConfig.opencodeModels;
+          models = modelConfig.opencodeModels.bifrost;
           options = {
             baseURL = "http://127.0.0.1:4000/v1";
             apiKey = "";
           };
+        };
+        provider.ollama = {
+          npm = "@ai-sdk/openai-compatible";
+          name = "Ollama (gayming)";
+          options.baseURL = "http://10.10.50.10:11434/v1";
+          models = modelConfig.opencodeModels.ollama;
         };
         mcp = {
           context7 = {

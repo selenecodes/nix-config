@@ -1,5 +1,5 @@
 {lib}: rec {
-  models = {
+  bifrostModels = {
     "eu/gpt-5.1" = {
       name = "GPT 5.1";
       reasoning = true;
@@ -92,5 +92,14 @@
     };
   };
 
-  opencodeModels = lib.filterAttrs (_: model: model.tool_call or false) models;
+  ollamaModels = {
+    "qwen3.6:27b" = {
+      name = "Qwen 3.6 27B";
+    };
+  };
+
+  opencodeModels = {
+    bifrost = lib.filterAttrs (_: model: model.tool_call or false) bifrostModels;
+    ollama = ollamaModels;
+  };
 }
