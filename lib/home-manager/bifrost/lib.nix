@@ -1,4 +1,4 @@
-{lib}: {
+_: {
   mkConfig = pkgs: settings: let
     jsonFormat = pkgs.formats.json {};
   in

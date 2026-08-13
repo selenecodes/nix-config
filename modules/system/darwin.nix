@@ -108,7 +108,7 @@
       ];
       taps = [];
       greedyCasks = true;
-      casks = [ ];
+      casks = [];
     };
   };
 }

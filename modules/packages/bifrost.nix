@@ -27,28 +27,30 @@
     imports = [
       {
         imports = [../../lib/home-manager/bifrost];
-        programs.bifrost.enable = true;
-        programs.bifrost.package = bifrostHttp;
-        programs.bifrost.settings = {
-          "$schema" = "https://www.getbifrost.ai/schema";
-          providers.azure.keys = [
-            {
-              name = "azure-default-credential";
-              value = "";
-              models = ["eu/gpt-5.1" "eu/gpt-5.4" "eu/gpt-5.5" "eu/gpt-5.6-luna" "eu/gpt-5.6-sol" "eu/gpt-5.6-terra" "text-embedding-3-large"];
-              weight = 1.0;
-              aliases = {
-                "eu/gpt-5.1" = "gpt-5.1";
-                "eu/gpt-5.4" = "gpt-5.4";
-                "eu/gpt-5.5" = "gpt-5.5";
-                "eu/gpt-5.6-luna" = "gpt-5.6-luna";
-                "eu/gpt-5.6-sol" = "gpt-5.6-sol";
-                "eu/gpt-5.6-terra" = "gpt-5.6-terra";
-                "text-embedding-3-large" = "text-embedding-3-large";
-              };
-              azure_key_config.endpoint = "https://apim.datalab-01.azure.grid.rws.nl/";
-            }
-          ];
+        programs.bifrost = {
+          enable = true;
+          package = bifrostHttp;
+          settings = {
+            "$schema" = "https://www.getbifrost.ai/schema";
+            providers.azure.keys = [
+              {
+                name = "azure-default-credential";
+                value = "";
+                models = ["eu/gpt-5.1" "eu/gpt-5.4" "eu/gpt-5.5" "eu/gpt-5.6-luna" "eu/gpt-5.6-sol" "eu/gpt-5.6-terra" "text-embedding-3-large"];
+                weight = 1.0;
+                aliases = {
+                  "eu/gpt-5.1" = "gpt-5.1";
+                  "eu/gpt-5.4" = "gpt-5.4";
+                  "eu/gpt-5.5" = "gpt-5.5";
+                  "eu/gpt-5.6-luna" = "gpt-5.6-luna";
+                  "eu/gpt-5.6-sol" = "gpt-5.6-sol";
+                  "eu/gpt-5.6-terra" = "gpt-5.6-terra";
+                  "text-embedding-3-large" = "text-embedding-3-large";
+                };
+                azure_key_config.endpoint = "https://apim.datalab-01.azure.grid.rws.nl/";
+              }
+            ];
+          };
         };
       }
     ];
