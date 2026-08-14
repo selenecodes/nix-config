@@ -1,6 +1,6 @@
 {inputs, ...}: {
   homeManager.work = {pkgs, ...}: let
-    bifrostVersion = "1.6.6";
+    bifrostVersion = "1.6.10";
     bifrostUi = pkgs.callPackage "${inputs.bifrost}/nix/packages/bifrost-ui.nix" {
       pkgs =
         pkgs
@@ -8,7 +8,7 @@
           buildNpmPackage = args:
             pkgs.buildNpmPackage (args
               // {
-                npmDepsHash = "sha256-AM6Gbdj9mRjeI7mgc+WWiscEA81WRupbhzeAC6JO32c=";
+                npmDepsHash = "sha256-aM+yPpvVoc0UtMcJH4hhJWHfApAkBcKdJB+EbI3BFCA=";
               });
         };
       version = bifrostVersion;
@@ -21,7 +21,7 @@
         src = inputs.bifrost;
         "bifrost-ui" = bifrostUi;
       }).overrideAttrs (_: {
-        vendorHash = "sha256-sHcPwZnPTStkv1X2fs1dDrp10ENS6cZ+PN2OfiL9bzc=";
+        vendorHash = "sha256-RYmCtKoyh93LxkiVPIWnDslohzW5s2Mr0jvg2F7i/nQ=";
       });
   in {
     imports = [
