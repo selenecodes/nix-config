@@ -1,15 +1,18 @@
 let
-  systemPackages = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [git-credential-manager lazygit];
-  };
+  systemPackages = pkgs: with pkgs; [git-credential-manager lazygit];
   rwsSslConfig = {
     sslKey = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
     sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.pem";
   };
 in
   _: {
-    nixos.base = systemPackages;
-    darwin.base = systemPackages;
+    nixos.base = {pkgs, ...}: {
+      environment.systemPackages = systemPackages pkgs;
+    };
+    darwin.base = {pkgs, ...}: {
+      environment.systemPackages = systemPackages pkgs;
+      homebrew.casks = ["git-credential-manager"];
+    };
     homeManager.base = {
       lib,
       config,
@@ -47,7 +50,12 @@ in
           push.autosetupremote = true;
           init.defaultbranch = "main";
           credential.helper = "manager";
-          credential.credentialStore = lib.mkIf pkgs.stdenv.isDarwin "keychain";
+          credential.credentialStore =
+            if pkgs.stdenv.isDarwin
+            then "keychain"
+            else if pkgs.stdenv.isLinux
+            then "secretservice"
+            else null;
           http."https://gitlab.at.rws.nl" = rwsSslConfig;
           http."https://git.rws.nl" = rwsSslConfig;
         };
