@@ -26,6 +26,8 @@ _: {
       package = config.boot.kernelPackages.nvidiaPackages.stable;
     };
 
+    hardware.nvidia-container-toolkit.enable = true;
+
     hardware.graphics = {
       enable = true;
       enable32Bit = true; # Required for Steam/Wine/Proton

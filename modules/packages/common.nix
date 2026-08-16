@@ -4,7 +4,6 @@ let
       alejandra
       bat
       deadnix
-      docker
       fd
       fnm
       fzf

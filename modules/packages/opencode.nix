@@ -20,8 +20,8 @@ in {
       enable = true;
       package = pkgs.opencode;
       settings = {
-        enabled_providers = ["bifrost" "ollama"];
-        model = "ollama/qwen3.6:27b-128k";
+        enabled_providers = ["bifrost" "vllm"];
+        model = "vllm/qwen3.8:27b";
         share = "disabled";
         lsp = true;
         formatter = {
@@ -42,11 +42,11 @@ in {
             apiKey = "";
           };
         };
-        provider.ollama = {
+        provider.vllm = {
           npm = "@ai-sdk/openai-compatible";
-          name = "Ollama (gayming)";
-          options.baseURL = "http://10.10.50.10:11434/v1";
-          models = modelConfig.opencodeModels.ollama;
+          name = "vLLM (gayming)";
+          options.baseURL = "http://127.0.0.1:8000/v1";
+          models = modelConfig.opencodeModels.vllm;
         };
         mcp = {
           context7 = {
