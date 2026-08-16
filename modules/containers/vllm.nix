@@ -1,33 +1,35 @@
-_: {
+_: let
+  port = 8000;
+in {
   nixos.base = {
     virtualisation.oci-containers.containers.vllm = {
       image = "vllm/vllm-openai:latest";
       autoStart = true;
-      
-      ports = ["8000:8000"];
-      
+
+      ports = ["${toString port}:${toString port}"];
+
       # Use a named Docker/Podman volume instead of a host bind mount
       volumes = [
         "vllm_cache:/root/.cache/huggingface"
       ];
-      
+
       extraOptions = [
         "--device=nvidia.com/gpu=all"
-        "--ipc=host" 
+        "--ipc=host"
       ];
 
       environment = {
         PYTORCH_CUDA_ALLOC_CONF = "expandable_segments:True";
         MAX_JOBS = "2";
       };
-      
-      cmd = [ 
+
+      cmd = [
         "--model"
         "gittensor-model-hub/Qwen3.8-27B-NVFP4-RTX5090"
         "--host"
         "0.0.0.0"
         "--port"
-        "8000"
+        (toString port)
         "--quantization"
         "modelopt"
         "--kv-cache-dtype"
@@ -48,5 +50,7 @@ _: {
         "qwen3.8:27b"
       ];
     };
+
+    networking.firewall.allowedTCPPorts = [port];
   };
 }
