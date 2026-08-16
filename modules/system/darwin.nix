@@ -106,15 +106,9 @@
       brews = [
         "pinentry-mac"
       ];
-      taps = [
-        {
-          name = "terrytz/betterstage";
-          clone_target = "https://github.com/terrytz/BetterStage";
-          trusted = true;
-        }
-      ];
+      taps = [];
       greedyCasks = true;
-      casks = ["betterstage"];
+      casks = [];
     };
   };
 }
