@@ -21,7 +21,14 @@ in {
       package = pkgs.opencode;
       settings = {
         enabled_providers = ["bifrost" "vllm"];
-        model = "vllm/qwen3.8:27b";
+        agent = {
+          build = {
+            model = "vllm/qwen3.8:27b#medium";
+          };
+          plan = {
+            model = "vllm/qwen3.8:27b#medium";
+          };
+        };
         share = "disabled";
         lsp = true;
         formatter = {
@@ -45,7 +52,7 @@ in {
         provider.vllm = {
           npm = "@ai-sdk/openai-compatible";
           name = "vLLM (gayming)";
-          options.baseURL = "http://127.0.0.1:8000/v1";
+          options.baseURL = "http://10.10.50.10:8000/v1";
           models = modelConfig.opencodeModels.vllm;
         };
         mcp = {

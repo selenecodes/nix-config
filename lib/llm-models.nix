@@ -110,6 +110,11 @@ in rec {
         context = qwen_context;
         output = qwen_context;
       };
+      variants = {
+        xhigh.reasoningEffort = "xhigh";
+        medium.reasoningEffort = "medium";
+        low.reasoningEffort = "low";
+      };
     };
   };
 
