@@ -1,6 +1,6 @@
-# Gayming — NixOS Gaming Desktop
+# Gayming: NixOS gaming desktop
 
-NixOS configuration for a gaming desktop with NVIDIA RTX 5090, Hyprland (Wayland + XWayland), and Zen kernel.
+NixOS configuration for a gaming desktop with an NVIDIA RTX 5090, Niri, greetd with tuigreet, Wayland, Xwayland support, and the Zen kernel.
 
 ## Installing on a Windows machine
 
@@ -35,7 +35,7 @@ nixos-rebuild switch --flake ~/nix-config#gayming
 
 ### Things to Check Post-Install
 
-- **Hyprland / SDDM** — SDDM should launch automatically; if not run `systemctl start sddm`
-- **NVIDIA** — verify with `nvidia-smi`; if it fails double-check Secure Boot is off
-- **1Password SSH agent** — needs to be started and unlocked before git signing works
-- **`hardware-configuration.nix`** — commit the real one back to the repo so rebuilds are reproducible
+- **Niri / greetd**. greetd starts automatically and launches tuigreet. Sign in to start the Niri session.
+- **NVIDIA**. Run `nvidia-smi`. If it fails, check that Secure Boot is off.
+- **1Password SSH agent**. Start and unlock it before Git signing works.
+- **`hardware-configuration.nix`**. Commit the generated file so rebuilds use the installed machine's hardware configuration.
