@@ -50,6 +50,18 @@
                 azure_key_config.endpoint = "https://apim.datalab-01.azure.grid.rws.nl/";
               }
             ];
+            providers.vllm.keys = [
+              {
+                name = "qwen3.8-gayming";
+                value = "";
+                models = ["qwen3.8:27b"];
+                weight = 1.0;
+                vllm_key_config = {
+                  url = "http://10.10.50.10:8000";
+                  model_name = "qwen3.8:27b";
+                };
+              }
+            ];
           };
         };
       }
