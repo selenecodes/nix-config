@@ -21,12 +21,13 @@ in {
       package = pkgs.opencode;
       settings = {
         enabled_providers = ["bifrost" "vllm"];
+        model = "bifrost/eu/gpt-5.6-terra";
         agent = {
           build = {
-            model = "vllm/qwen3.8:27b#medium";
+            model = "bifrost/eu/gpt-5.6-terra";
           };
           plan = {
-            model = "vllm/qwen3.8:27b#medium";
+            model = "bifrost/eu/gpt-5.6-terra";
           };
         };
         share = "disabled";
