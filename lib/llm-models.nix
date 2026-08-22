@@ -2,14 +2,14 @@
   lib,
   modelOptions ? {},
 }: let
-  vllmConfig = import ../modules/containers/vllm.nix {};
-  vllmCmd = vllmConfig.nixos.base.virtualisation.oci-containers.containers.vllm.cmd;
-  maxModelLenIndex = lib.lists.findFirstIndex (x: x == "--max-model-len") (-1) vllmCmd;
-  maxModelLenStr =
-    if maxModelLenIndex != -1 && maxModelLenIndex + 1 < builtins.length vllmCmd
-    then builtins.elemAt vllmCmd (maxModelLenIndex + 1)
-    else "147456";
-  qwen_context = modelOptions."qwen3.8:27b".context or (lib.strings.toInt maxModelLenStr);
+  # vllmConfig = import ../modules/containers/vllm.nix {};
+  # vllmCmd = vllmConfig.nixos.base.virtualisation.oci-containers.containers.vllm.cmd;
+  # maxModelLenIndex = lib.lists.findFirstIndex (x: x == "--max-model-len") (-1) vllmCmd;
+  # maxModelLenStr =
+  #   if maxModelLenIndex != -1 && maxModelLenIndex + 1 < builtins.length vllmCmd
+  #   then builtins.elemAt vllmCmd (maxModelLenIndex + 1)
+  #   else "147456";
+  # qwen_context = modelOptions."qwen3.8:27b".context or (lib.strings.toInt maxModelLenStr);
 in rec {
   bifrostModels = {
     "eu/gpt-5.1" = {
@@ -110,10 +110,10 @@ in rec {
       tool_call = true;
       reasoning = true;
       options.reasoningEffort = "medium";
-      limit = {
-        context = qwen_context;
-        output = qwen_context;
-      };
+      # limit = {
+      #   context = qwen_context;
+      #   output = qwen_context;
+      # };
       variants = {
         xhigh.reasoningEffort = "xhigh";
         medium.reasoningEffort = "medium";
