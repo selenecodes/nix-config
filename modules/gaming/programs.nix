@@ -35,14 +35,7 @@ _: {
     systemd.user.services.gamemoded.wantedBy = lib.mkForce ["graphical-session.target"];
 
     environment.systemPackages = with pkgs; [
-      protonup-qt
-      mangohud
-      goverlay
       protontricks
-      wine
-      winetricks
-      bottles
-      lutris
     ];
   };
 }
