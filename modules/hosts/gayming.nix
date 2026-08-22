@@ -24,6 +24,7 @@ in {
     networking = {
       hostName = "gayming";
       networkmanager.enable = true;
+      nftables.enable = true;
       firewall.enable = true;
     };
 
