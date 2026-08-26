@@ -5,6 +5,7 @@ _: let
   idleTimeoutSeconds = 15 * 60;
 in {
   nixos.base = {pkgs, ...}: {
+    networking.firewall.allowedTCPPorts = [ 8000 ];
     virtualisation.oci-containers.containers.vllm = {
       image = "vllm/vllm-openai:latest";
       autoStart = false;
@@ -59,19 +60,22 @@ in {
       socketConfig = {
         ListenStream = port;
         Accept = true;
-        Service = "vllm-proxy@.service";
       };
     };
 
-    systemd.services."vllm-proxy@" = {
+    systemd.services."vllm@" = {
       requires = ["docker-vllm.service"];
       after = ["docker-vllm.service"];
       serviceConfig = {
+        StandardInput = "socket";
+        StandardOutput = "socket";
+        
+        # Use < /dev/null so curl/bash don't accidentally consume the incoming HTTP request bytes
         ExecStartPre = [
-          "${pkgs.coreutils}/bin/touch /run/vllm-last-request"
-          "${pkgs.bash}/bin/bash -c 'until ${pkgs.curl}/bin/curl --fail --silent --output /dev/null http://127.0.0.1:${toString backendPort}/health; do sleep 1; done'"
+          "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/touch /run/vllm-last-request < /dev/null'"
+          "${pkgs.bash}/bin/bash -c 'until ${pkgs.curl}/bin/curl --fail --silent --output /dev/null http://127.0.0.1:${toString backendPort}/health; do sleep 1; done < /dev/null'"
         ];
-        ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:${toString backendPort}";
+        ExecStart = "${pkgs.socat}/bin/socat STDIO TCP4:127.0.0.1:${toString backendPort}";
         TimeoutStartSec = "10min";
       };
     };
@@ -79,7 +83,7 @@ in {
     systemd.services.vllm-idle-stop = {
       serviceConfig.Type = "oneshot";
       script = ''
-        if ${pkgs.systemd}/bin/systemctl is-active --quiet 'vllm-proxy@*.service'; then
+        if ${pkgs.systemd}/bin/systemctl is-active --quiet 'vllm@*.service'; then
           exit 0
         fi
 
