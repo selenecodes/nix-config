@@ -9,8 +9,10 @@ _: {
     ...
   }: {
     home.sessionPath =
-      lib.optionals pkgs.stdenv.isDarwin ["/opt/homebrew/opt/libpq/bin"]
-      ++ lib.optionals pkgs.stdenv.isLinux ["$HOME/.local/bin"];
+      lib.optionals pkgs.stdenv.isDarwin [
+        "/opt/homebrew/opt/libpq/bin"
+      ]
+      ++ ["$HOME/.local/bin"];
 
     programs.zsh = {
       enable = true;
