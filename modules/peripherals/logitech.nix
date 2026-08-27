@@ -8,6 +8,9 @@ _: {
   };
 
   darwin.personal = _: {
-    homebrew.casks = ["logitech-g-hub"];
+    homebrew.casks = [
+      "openlogi"
+      # "logitech-g-hub"
+    ];
   };
 }
