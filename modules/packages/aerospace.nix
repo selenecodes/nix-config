@@ -48,6 +48,9 @@ _: {
           alt-4 = "workspace 4";
           alt-5 = "workspace 5";
 
+          alt-ctrl-left = "workspace --wrap-around prev";
+          alt-ctrl-right = "workspace --wrap-around next";
+
           alt-shift-1 = "move-node-to-workspace 1";
           alt-shift-2 = "move-node-to-workspace 2";
           alt-shift-3 = "move-node-to-workspace 3";
