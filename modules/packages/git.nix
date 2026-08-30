@@ -51,9 +51,9 @@ in
           init.defaultbranch = "main";
           credential.helper = "manager";
           credential.credentialStore =
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then "keychain"
-            else if pkgs.stdenv.isLinux
+            else if pkgs.stdenv.hostPlatform.isLinux
             then "secretservice"
             else null;
           http."https://gitlab.at.rws.nl" = rwsSslConfig;

@@ -8,7 +8,7 @@ _: {
       enable = true;
       enableZshIntegration = true;
       package =
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then pkgs.ghostty-bin
         else pkgs.ghostty;
       settings =
@@ -27,7 +27,7 @@ _: {
           window-padding-balance = true;
           window-save-state = "always";
         }
-        // lib.optionalAttrs pkgs.stdenv.isDarwin {
+        // lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
           macos-non-native-fullscreen = false;
           macos-option-as-alt = true;
         };

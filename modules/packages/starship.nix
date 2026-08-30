@@ -1,6 +1,6 @@
 _: {
   homeManager.base = {pkgs, ...}: {
-    catppuccin.starship.enable = pkgs.stdenv.isLinux;
+    catppuccin.starship.enable = pkgs.stdenv.hostPlatform.isLinux;
 
     programs.starship = {
       enable = true;

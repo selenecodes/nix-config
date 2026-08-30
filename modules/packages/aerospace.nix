@@ -1,7 +1,7 @@
 _: {
   homeManager.base = {pkgs, ...}: {
     programs.aerospace = {
-      enable = pkgs.stdenv.isDarwin;
+      enable = pkgs.stdenv.hostPlatform.isDarwin;
       launchd.enable = true;
       settings = {
         start-at-login = true;

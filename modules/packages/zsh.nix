@@ -9,7 +9,7 @@ _: {
     ...
   }: {
     home.sessionPath =
-      lib.optionals pkgs.stdenv.isDarwin [
+      lib.optionals pkgs.stdenv.hostPlatform.isDarwin [
         "/opt/homebrew/opt/libpq/bin"
       ]
       ++ ["$HOME/.local/bin"];

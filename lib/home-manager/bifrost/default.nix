@@ -31,7 +31,7 @@ in {
     ];
     home.packages = [cfg.package];
 
-    systemd.user.services.bifrost = lib.mkIf pkgs.stdenv.isLinux {
+    systemd.user.services.bifrost = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
       Unit = {
         Description = "Bifrost AI gateway";
         After = ["network-online.target"];
@@ -45,7 +45,7 @@ in {
       Install.WantedBy = ["default.target"];
     };
 
-    launchd.agents.bifrost = lib.mkIf pkgs.stdenv.isDarwin {
+    launchd.agents.bifrost = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
       enable = true;
       config = {
         ProgramArguments = ["${startScript}"];

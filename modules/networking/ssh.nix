@@ -27,7 +27,7 @@ _: {
       enable = true;
       enableDefaultConfig = false;
       settings = lib.mkMerge [
-        (lib.mkIf pkgs.stdenv.isDarwin {
+        (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
           "rwslaptop" = {
             hostname = "Bloks-MacBook-Air.local";
             user = "selene.blok";
