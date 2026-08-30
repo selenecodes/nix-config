@@ -21,6 +21,8 @@ in {
       inputs.home-manager.nixosModules.home-manager
     ];
 
+    myConfig.user.name = username;
+
     networking = {
       hostName = "gayming";
       networkmanager.enable = true;

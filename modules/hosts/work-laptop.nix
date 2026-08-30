@@ -3,49 +3,70 @@
   inputs,
   ...
 }: let
-  username = "selene.blok";
+  system = "x86_64-linux";
+  username = "selene";
+  noctaliaPackage = inputs.noctalia.packages.${system}.default;
 in {
-  darwin.configurations.rwslaptop.module = {lib, ...}: {
+  nixos.configurations.rwslaptop.module = {
+    pkgs,
+    lib,
+    ...
+  }: {
     imports = [
-      config.darwin.base
-      config.darwin.work
-      inputs.nix-homebrew.darwinModules.nix-homebrew
-      inputs.home-manager.darwinModules.home-manager
+      config.nixos.base
+      config.nixos.audio
+      config.nixos.bluetooth
+      config.nixos.networking
+      config.nixos.desktop
+      config.nixos.wayland
+      config.nixos.work
+      inputs.home-manager.nixosModules.home-manager
     ];
 
-    system.primaryUser = username;
+    myConfig.user.name = username;
+
     users.users.${username} = {
-      name = username;
-      home = "/Users/${username}";
+      isNormalUser = true;
+      home = "/home/${username}";
+      extraGroups = ["wheel" "networkmanager" "input" "docker" "audio" "video" "render" "plugdev"];
+      shell = pkgs.zsh;
     };
 
-    nix-homebrew = {
-      enable = true;
-      user = username;
+    networking = {
+      networkmanager.enable = true;
+      nftables.enable = true;
+      firewall.enable = true;
     };
+
+    services.tailscale.enable = lib.mkForce false;
+    security.sudo.wheelNeedsPassword = true;
+    environment.systemPackages = [noctaliaPackage];
 
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
       backupFileExtension = "backup";
-      overwriteBackup = true;
       sharedModules = [inputs.catppuccin.homeModules.catppuccin];
       users.${username} = {
         imports = [
           config.homeManager.base
           config.homeManager.work
+          config.homeManager.wayland
+          config.homeManager.noctalia
+          config.homeManager.vicinae
         ];
-        home.stateVersion = "26.05";
+        home = {
+          stateVersion = "26.05";
+          file.".face".source = ../assets/avatars/yachiyo.png;
+        };
+        xdg.configFile."niri/config.kdl".source = ./gayming/niri-default-config.kdl;
       };
     };
 
-    nixpkgs.hostPlatform = "aarch64-darwin";
-    security.pam.services.sudo_local.touchIdAuth = true;
-    networking.knownNetworkServices = [
-      "Thunderbolt Bridge"
-      "Wi-Fi"
-    ];
-
-    homebrew.casks = lib.mkAfter ["displaylink" "microsoft-teams"];
+    nixpkgs = {
+      hostPlatform = system;
+      config.allowUnfree = true;
+    };
+    system.stateVersion = "26.05";
   };
 }

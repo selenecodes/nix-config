@@ -1,9 +1,9 @@
 _: {
-  nixos.base = _: {
+  nixos.base = {config, ...}: {
     programs._1password.enable = true;
     programs._1password-gui = {
       enable = true;
-      polkitPolicyOwners = ["selene"];
+      polkitPolicyOwners = [config.myConfig.user.name];
     };
   };
   darwin.base = {pkgs, ...}: {

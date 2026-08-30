@@ -1,13 +1,24 @@
 _: {
-  nixos.base = {pkgs, ...}: {
-    environment.systemPackages = with pkgs; [
-      wget
-      curl
-      htop
-      pinentry-qt
-      signal-desktop
-    ];
+  nixos.base = {
+    lib,
+    pkgs,
+    ...
+  }: {
+    options.myConfig.user.name = lib.mkOption {
+      type = lib.types.str;
+      description = "Primary user name for this host";
+    };
 
-    virtualisation.docker.enable = true;
+    config = {
+      environment.systemPackages = with pkgs; [
+        wget
+        curl
+        htop
+        pinentry-qt
+        signal-desktop
+      ];
+
+      virtualisation.docker.enable = true;
+    };
   };
 }

@@ -4,6 +4,8 @@ let
       libpq
       opentofu
       slack
+      kubernetes-helm
+      azure-cli
     ];
   workConfig = {pkgs, ...}: {
     environment.systemPackages = packages pkgs;

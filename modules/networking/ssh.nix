@@ -1,5 +1,5 @@
 _: {
-  nixos.networking = _: {
+  nixos.networking = {config, ...}: {
     services.openssh = {
       enable = true;
       settings = {
@@ -8,7 +8,7 @@ _: {
         PermitRootLogin = "no";
         X11Forwarding = false;
         AllowAgentForwarding = false;
-        AllowUsers = ["selene"];
+        AllowUsers = [config.myConfig.user.name];
       };
     };
   };
