@@ -4,7 +4,9 @@ _: {
       enable = pkgs.stdenv.hostPlatform.isDarwin;
       launchd.enable = true;
       settings = {
+        config-version = 2;
         start-at-login = true;
+        persistent-workspaces = ["1" "2" "3" "4" "5"];
         default-root-container-layout = "tiles";
         default-root-container-orientation = "auto";
         gaps = {
