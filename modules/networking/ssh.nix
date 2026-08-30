@@ -7,7 +7,7 @@ _: {
         KbdInteractiveAuthentication = false;
         PermitRootLogin = "no";
         X11Forwarding = false;
-        AllowAgentForwarding = false;
+        AllowAgentForwarding = true;
         AllowUsers = [config.myConfig.user.name];
       };
     };
@@ -28,9 +28,8 @@ _: {
       enableDefaultConfig = false;
       settings = lib.mkMerge [
         (lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-          "rwslaptop" = {
-            hostname = "Bloks-MacBook-Air.local";
-            user = "selene.blok";
+          "gayming" = {
+            hostname = "10.10.50.10";
             forwardAgent = true;
           };
         })
