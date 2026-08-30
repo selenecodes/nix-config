@@ -1,10 +1,9 @@
 _: {
-  nixos.configurations.gayming.module = {pkgs, ...}: {
+  nixos.configurations.gayming.module = _: {
     hardware.logitech.wireless = {
       enable = true;
-      enableGraphical = true;
     };
-    environment.systemPackages = [pkgs.solaar];
+    programs.solaar.enable = true;
   };
 
   darwin.personal = _: {
