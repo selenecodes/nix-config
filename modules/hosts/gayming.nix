@@ -7,7 +7,11 @@
   username = "selene";
   noctaliaPackage = inputs.noctalia.packages.${system}.default;
 in {
-  nixos.configurations.gayming.module = {pkgs, ...}: {
+  nixos.configurations.gayming.module = {
+    pkgs,
+    pkgsStable,
+    ...
+  }: {
     imports = [
       config.nixos.base
       config.nixos.audio
@@ -97,6 +101,7 @@ in {
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      extraSpecialArgs = {inherit pkgsStable;};
       backupFileExtension = "backup";
       sharedModules = [inputs.catppuccin.homeModules.catppuccin];
       users.${username} = {

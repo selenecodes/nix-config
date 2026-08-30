@@ -5,7 +5,11 @@
 }: let
   username = "selene";
 in {
-  darwin.configurations.studio.module = {lib, ...}: {
+  darwin.configurations.studio.module = {
+    lib,
+    pkgsStable,
+    ...
+  }: {
     imports = [
       config.darwin.base
       config.darwin.personal
@@ -29,6 +33,7 @@ in {
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      extraSpecialArgs = {inherit pkgsStable;};
       backupFileExtension = "backup";
       overwriteBackup = true;
       sharedModules = [inputs.catppuccin.homeModules.catppuccin];

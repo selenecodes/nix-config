@@ -19,7 +19,21 @@ in {
           _: {
             imports = [
               evalModulesModule
-              {fn = inputs.nix-darwin.lib.darwinSystem;}
+              {
+                fn = inputs.nix-darwin.lib.darwinSystem;
+                module = {
+                  config,
+                  pkgs,
+                  ...
+                }: {
+                  _module.args = {
+                    pkgsStable = import inputs.nixpkgs-stable {
+                      system = pkgs.stdenv.hostPlatform.system;
+                      inherit (config.nixpkgs) config overlays;
+                    };
+                  };
+                };
+              }
             ];
           }
         )

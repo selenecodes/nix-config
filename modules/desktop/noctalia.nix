@@ -1,6 +1,5 @@
-{inputs, ...}: {
+{
   homeManager.noctalia = {
-    imports = [inputs.noctalia.homeModules.default];
     programs.noctalia = {
       enable = true;
       settings = {

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  inputs,
   evalModulesModule,
   ...
 }: let
@@ -28,7 +29,17 @@ in {
               {
                 fn = lib.nixosSystem;
                 module = {
+                  config,
+                  pkgs,
+                  ...
+                }: {
                   networking.hostName = lib.mkDefault name;
+                  _module.args = {
+                    pkgsStable = import inputs.nixpkgs-stable {
+                      system = pkgs.stdenv.hostPlatform.system;
+                      inherit (config.nixpkgs) config overlays;
+                    };
+                  };
                 };
               }
             ];

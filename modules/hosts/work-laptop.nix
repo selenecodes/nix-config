@@ -10,6 +10,7 @@ in {
   nixos.configurations.rwslaptop.module = {
     pkgs,
     lib,
+    pkgsStable,
     ...
   }: {
     imports = [
@@ -45,6 +46,7 @@ in {
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
+      extraSpecialArgs = {inherit pkgsStable;};
       backupFileExtension = "backup";
       sharedModules = [inputs.catppuccin.homeModules.catppuccin];
       users.${username} = {
