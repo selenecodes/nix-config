@@ -5,7 +5,7 @@ _: let
   idleTimeoutSeconds = 15 * 60;
 in {
   nixos.base = {pkgs, ...}: {
-    networking.firewall.allowedTCPPorts = [ 8000 ];
+    networking.firewall.allowedTCPPorts = [8000];
     virtualisation.oci-containers.containers.vllm = {
       image = "vllm/vllm-openai:latest";
       autoStart = false;
@@ -29,7 +29,7 @@ in {
 
       cmd = [
         "--model"
-        "gittensor-model-hub/Qwen3.8-27B-NVFP4-RTX5090"
+        "unsloth/Qwen3.8-27B-NVFP4"
         "--host"
         "0.0.0.0"
         "--port"
@@ -40,13 +40,17 @@ in {
         "fp8"
         "--trust-remote-code"
         "--max-model-len"
-        "100000"
+        "131072"
         "--max-num-seqs"
         "16"
         "--gpu-memory-utilization"
         "0.8"
         "--reasoning-parser"
         "qwen3"
+        # Unsloths' recommended defaults for thinking mode. Clients can override
+        # these per request, including with the instruct-mode profile.
+        "--override-generation-config"
+        ''{"temperature": 1.0, "top_p": 0.95, "top_k": 20, "min_p": 0.0, "presence_penalty": 0.0, "repetition_penalty": 1.0}''
         "--enable-auto-tool-choice"
         "--tool-call-parser"
         "qwen3_xml"
@@ -69,7 +73,7 @@ in {
       serviceConfig = {
         StandardInput = "socket";
         StandardOutput = "socket";
-        
+
         # Use < /dev/null so curl/bash don't accidentally consume the incoming HTTP request bytes
         ExecStartPre = [
           "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/touch /run/vllm-last-request < /dev/null'"
