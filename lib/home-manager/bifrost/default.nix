@@ -41,6 +41,9 @@ in {
         ExecStart = "${startScript}";
         Restart = "always";
         RestartSec = 5;
+        Environment = [
+          "AZURE_TOKEN_CREDENTIALS=AzureCLICredential"
+        ];
       };
       Install.WantedBy = ["default.target"];
     };
@@ -49,7 +52,11 @@ in {
       enable = true;
       config = {
         ProgramArguments = ["${startScript}"];
-        EnvironmentVariables.PATH = "/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:/usr/bin:/bin";
+        EnvironmentVariables = {
+          PATH = "/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:/usr/bin:/bin";
+          HOME = config.home.homeDirectory;
+          AZURE_TOKEN_CREDENTIALS = "AzureCLICredential";
+        };
         KeepAlive = true;
         RunAtLoad = true;
         ProcessType = "Background";
