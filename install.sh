@@ -124,9 +124,9 @@ mkfs.ext4 -L nixos -F "$PART_ROOT"
 # -----------------------------------------------------------------------------
 
 info "Mounting..."
-mount /dev/disk/by-label/nixos /mnt
+mount "$PART_ROOT" /mnt
 mkdir -p /mnt/boot
-mount /dev/disk/by-label/boot /mnt/boot
+mount "$PART_BOOT" /mnt/boot
 
 # -----------------------------------------------------------------------------
 # Hardware config
