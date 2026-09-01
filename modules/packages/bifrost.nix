@@ -1,5 +1,5 @@
 {inputs, ...}: {
-  homeManager.work = {pkgs, ...}: let
+  homeManager.base = {pkgs, ...}: let
     bifrostVersion = "1.6.10";
     bifrostUi = pkgs.callPackage "${inputs.bifrost}/nix/packages/bifrost-ui.nix" {
       pkgs =

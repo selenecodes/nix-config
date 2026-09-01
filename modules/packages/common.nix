@@ -2,6 +2,7 @@ let
   packages = pkgs:
     with pkgs; [
       alejandra
+      azure-cli
       bat
       deadnix
       fd
