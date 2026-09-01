@@ -90,8 +90,8 @@
             };
           };
           bar = {
-            persistent = false;
-            showOnHover = true;
+            persistent = true;
+            showOnHover = false;
           };
           lock = {
             enableFprint = false;
