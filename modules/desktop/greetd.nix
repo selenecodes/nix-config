@@ -6,8 +6,11 @@ _: {
   }: {
     services.greetd = {
       enable = true;
-      # Compositor modules override default_session.command with --cmd <session>
-      settings.default_session.command = lib.mkDefault "${pkgs.tuigreet}/bin/tuigreet --time";
+      useTextGreeter = true;
+      settings.default_session = {
+        user = "greeter";
+        command = "${lib.getExe pkgs.tuigreet} --time --cmd ${lib.escapeShellArg "${lib.getExe pkgs.uwsm} start -e -D Hyprland hyprland.desktop"}";
+      };
     };
   };
 }

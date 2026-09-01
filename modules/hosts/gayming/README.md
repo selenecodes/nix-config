@@ -1,6 +1,6 @@
 # Gayming: NixOS gaming desktop
 
-NixOS configuration for a gaming desktop with an NVIDIA RTX 5090, Niri, greetd with tuigreet, Wayland, Xwayland support, and the Zen kernel.
+NixOS configuration for a gaming desktop with an NVIDIA RTX 5090, Hyprland, Caelestia, greetd with tuigreet, UWSM, and the Zen kernel.
 
 ## Installing on a Windows machine
 
@@ -35,7 +35,9 @@ nixos-rebuild switch --flake ~/nix-config#gayming
 
 ### Things to Check Post-Install
 
-- **Niri / greetd**. greetd starts automatically and launches tuigreet. Sign in to start the Niri session.
+- **Hyprland / Caelestia**. Greetd starts tuigreet, which launches the UWSM-managed Hyprland session. Check `systemctl --user status caelestia` after login.
+- **Display**. Confirm the ASUS PA279 runs at 3840x2160 near 60 Hz and that Caelestia can change brightness over DDC/CI.
+- **Portals**. Verify browser screen sharing and file selection use the Hyprland and GTK portals.
 - **NVIDIA**. Run `nvidia-smi`. If it fails, check that Secure Boot is off.
 - **1Password SSH agent**. Start and unlock it before Git signing works.
 - **`hardware-configuration.nix`**. Commit the generated file so rebuilds use the installed machine's hardware configuration.

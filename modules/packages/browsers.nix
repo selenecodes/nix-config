@@ -1,5 +1,5 @@
 _: {
-  nixos.personal = {pkgs, ...}: {
+  nixos.desktop = {pkgs, ...}: {
     environment.systemPackages = with pkgs; [google-chrome firefox];
   };
   darwin.base = _: {

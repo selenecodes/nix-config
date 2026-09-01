@@ -4,9 +4,7 @@ Add these after the first NixOS boot. Check the installed hardware before enabli
 
 ## Start here
 
-- Add `brightnessctl`, `playerctl`, and `swaylock`. The shared Niri configuration binds them to display, media, and lock keys.
-- Add `upower` when Noctalia needs battery state.
-- Enable `power-profiles-daemon` for standard balanced, power-saver, and performance modes.
+- Verify Caelestia's brightness, media, battery, lock, and power-profile controls on the installed hardware.
 - Enable `fwupd`. Run `fwupdmgr get-updates` after installation and before changing firmware.
 
 ## Add after hardware checks
@@ -14,11 +12,11 @@ Add these after the first NixOS boot. Check the installed hardware before enabli
 - Enable `bolt` only when the laptop uses Thunderbolt devices.
 - Enable `fprintd` only after the fingerprint reader works with `fprintd-enroll`.
 - Enable `thermald` on supported Intel hardware. Do not enable it on an AMD laptop without a reason.
-- Configure the internal display, external displays, and a dock after running `niri msg outputs`.
+- Configure the internal display, external displays, and dock after running `hyprctl monitors`.
 - Add GPU, Wi-Fi, webcam, audio codec, and suspend fixes only when the generated hardware configuration or test results require them.
 
 ## Proprietary work software
 
 Citrix Workspace and DisplayLink install with the work profile. Both Linux packages require a vendor archive that Nix cannot download automatically. For DisplayLink, run `nix-shell -p displaylink --arg config '{ allowUnfree = true; }'` and follow the printed instructions.
 
-Test DisplayLink with the actual dock. `rwslaptop` starts `dlm` at boot, loads the `evdi` module through the NixOS DisplayLink module, and enables the `displaylink` and `modesetting` drivers. With Niri, set `WLR_EVDI_RENDER_DEVICE` only after identifying the non-`evdi` render device.
+Test DisplayLink with the actual dock. `rwslaptop` starts `dlm` at boot, loads the `evdi` module through the NixOS DisplayLink module, and enables the `displaylink` and `modesetting` drivers. Add render-device overrides only when testing shows they are necessary.

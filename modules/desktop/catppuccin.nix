@@ -1,7 +1,7 @@
 _: {
-  homeManager.base = _: {
+  homeManager.base = {pkgs, ...}: {
     catppuccin = {
-      enable = true;
+      enable = pkgs.stdenv.hostPlatform.isDarwin;
       flavor = "frappe";
     };
   };

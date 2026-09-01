@@ -3,9 +3,7 @@
   inputs,
   ...
 }: let
-  system = "x86_64-linux";
   username = "selene";
-  noctaliaPackage = inputs.noctalia.packages.${system}.default;
 in {
   nixos.configurations.gayming.module = {
     pkgs,
@@ -60,8 +58,6 @@ in {
         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
-      extra-substituters = ["https://vicinae.cachix.org"];
-      extra-trusted-public-keys = ["vicinae.cachix.org-1:1kDrfienkGHPYbkpNj1mWTr7Fm1+zcenzgTizIcI3oc="];
       auto-optimise-store = true;
     };
 
@@ -87,14 +83,14 @@ in {
     users.users.${username} = {
       isNormalUser = true;
       home = "/home/${username}";
-      extraGroups = ["wheel" "networkmanager" "input" "docker" "audio" "gamemode" "video" "render" "plugdev"];
+      extraGroups = ["wheel" "networkmanager" "input" "docker" "audio" "gamemode" "video" "render" "plugdev" "i2c"];
       shell = pkgs.zsh;
       openssh.authorizedKeys.keys = [
         "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC7XD47kGwOQQetoxcQOb4TvoqNyNc7LopmaRTkrsxyt7AAtArHIHhX1107tnSfmArgAYf4PPxonoiNfzO5i0HiT11zy9JK1CbrwIWN87zSW1npl9kaQowXMbWC+2OeixTPRIaOh5l6rsUQbuJBZUaHghznXFqtWZpoyhuHub7hOaFahun3ySoAz9gtKz0cuA+g5JxkoqG/mzr+y11iVR1Tn+n0jqRQPPodOehKHYLnQJT5fEvyVHP459qMWgICPPtHl4+YuwO4hBiUpZvHikOeYsDl0cplc8uGHzn95dxs1zfxStCYesdGn7maEFvfREgw8cNOzRh5WGRJJDbkqQiKbPYkD9TjOTNorysJaS3cE4BIeRQFraJRinWRiMvVTsVSXI/XD+CT1WjP/IyYcsNfFbgbsljssVZceMGxmUkE3i9STB8t+RqhXg05JO87bCAofzPlPLskHGBqsM1eS/1QItadXeKS2ttu0agpdo0/i2O1PjEABYnVE/zhvJ/mqjc= seleneblok@Selenes-Mac-Studio.local"
       ];
     };
 
-    environment.systemPackages = [noctaliaPackage];
+    hardware.i2c.enable = true;
 
     security.sudo.wheelNeedsPassword = true;
 
@@ -108,14 +104,20 @@ in {
         imports = [
           config.homeManager.base
           config.homeManager.wayland
-          config.homeManager.noctalia
-          config.homeManager.vicinae
+          config.homeManager.caelestia
         ];
         home = {
           stateVersion = "26.05";
           file.".face".source = ../assets/avatars/yachiyo.png;
         };
-        xdg.configFile."niri/config.kdl".source = ./gayming/niri-default-config.kdl;
+        myConfig.caelestia.extraHyprlandConfig = ''
+          hl.monitor({
+            output = "desc:ASUSTek COMPUTER INC ASUS PA279 0x0000C171",
+            mode = "3840x2160@59.997",
+            position = "0x0",
+            scale = 1,
+          })
+        '';
       };
     };
 

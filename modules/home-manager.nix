@@ -4,8 +4,7 @@ in {
   options.homeManager = {
     base = mod;
     wayland = mod;
-    noctalia = mod;
-    vicinae = mod;
+    caelestia = mod;
     work = mod;
   };
 }

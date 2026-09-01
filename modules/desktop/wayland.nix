@@ -7,10 +7,7 @@ _: {
       XDG_SESSION_TYPE = "wayland";
     };
 
-    services.xserver = {
-      enable = true;
-      xkb.layout = "us";
-    };
+    services.xserver.xkb.layout = "us";
   };
   homeManager.wayland = {pkgs, ...}: {
     home.packages = with pkgs; [
@@ -18,10 +15,6 @@ _: {
       cliphist
       grim
       slurp
-      xwayland-satellite
-      wf-recorder
-      easyeffects
-      nautilus
     ];
 
     home.sessionVariables = {
@@ -30,6 +23,7 @@ _: {
     };
 
     xdg.enable = true;
-    services.network-manager-applet.enable = true;
+    # Caelestia provides the NetworkManager controls in its status area.
+    services.network-manager-applet.enable = false;
   };
 }

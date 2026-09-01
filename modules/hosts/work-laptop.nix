@@ -5,7 +5,6 @@
 }: let
   system = "x86_64-linux";
   username = "selene";
-  noctaliaPackage = inputs.noctalia.packages.${system}.default;
 in {
   nixos.configurations.rwslaptop.module = {
     pkgs,
@@ -46,8 +45,6 @@ in {
 
     services.tailscale.enable = lib.mkForce false;
     security.sudo.wheelNeedsPassword = true;
-    environment.systemPackages = [noctaliaPackage];
-
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
@@ -59,14 +56,12 @@ in {
           config.homeManager.base
           config.homeManager.work
           config.homeManager.wayland
-          config.homeManager.noctalia
-          config.homeManager.vicinae
+          config.homeManager.caelestia
         ];
         home = {
           stateVersion = "26.05";
           file.".face".source = ../assets/avatars/yachiyo.png;
         };
-        xdg.configFile."niri/config.kdl".source = ./gayming/niri-default-config.kdl;
       };
     };
 

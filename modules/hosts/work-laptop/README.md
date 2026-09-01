@@ -12,4 +12,4 @@ For DisplayLink, run the following command and follow its instructions:
 nix-shell -p displaylink --arg config '{ allowUnfree = true; }'
 ```
 
-For a wlroots compositor such as Niri, identify the non-`evdi` render device before setting `WLR_EVDI_RENDER_DEVICE`. Do not set that variable until the actual dock is connected.
+After logging into Hyprland, test the internal panel before connecting the DisplayLink dock. Then verify each dock output with `hyprctl monitors`; keep render-device overrides unset unless the tested hardware requires one.
