@@ -146,8 +146,10 @@
 
     home.activation.installCaelestiaVscodeExtension = lib.mkIf isLinux (
       lib.hm.dag.entryAfter ["linkGeneration"] ''
-        run ${pkgs.vscode}/bin/code --install-extension \
-          ${inputs.caelestia-dots}/vscode/caelestia-vscode-integration/caelestia-vscode-integration-1.2.0.vsix
+        if [ ! -d "$HOME/.vscode/extensions/soramanew.caelestia-vscode-integration-1.2.0" ]; then
+          run ${pkgs.vscode}/bin/code --install-extension \
+            ${inputs.caelestia-dots}/vscode/caelestia-vscode-integration/caelestia-vscode-integration-1.2.0.vsix
+        fi
       ''
     );
   };
