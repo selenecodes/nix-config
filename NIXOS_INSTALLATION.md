@@ -19,6 +19,10 @@ bash nix-config/install.sh <host>
 Replace `<host>` with `gayming` or `rwslaptop`.
 
 The script lists the available disks and requires two confirmations before it erases the selected disk.
+For `rwslaptop`, it also encrypts the root filesystem with LUKS and prompts for a
+disk-unlock passphrase. Store this passphrase safely: it is required at every
+boot. If every configured LUKS passphrase is lost, the encrypted data cannot be
+recovered. The EFI `/boot` partition remains unencrypted as required by UEFI.
 
 ## After first boot
 
@@ -28,6 +32,18 @@ nixos-rebuild switch --flake ~/nix-config#<host>
 ```
 
 Replace `<host>` with the host that you installed. Commit the generated `hardware-configuration.nix` file after you move the repository.
+
+## Physical security
+
+`rwslaptop` uses LUKS full-disk encryption. Someone who boots another operating
+system or resets account passwords cannot read the encrypted root filesystem
+without its LUKS passphrase. This protection applies while the laptop is shut
+down. Do not leave the laptop unlocked or suspended around untrusted people.
+
+UEFI setup restrictions and Secure Boot are not required for this protection.
+Secure Boot is useful if you need to defend against an attacker modifying the
+boot chain and later capturing your LUKS passphrase. It is intentionally not
+enabled here so corporate administrators retain their existing firmware access.
 
 ## Citrix Workspace
 

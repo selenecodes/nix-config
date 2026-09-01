@@ -42,6 +42,7 @@ case "$1" in
   rwslaptop)
     HOST="rwslaptop"
     HOST_DIRECTORY="work-laptop"
+    ENCRYPT_ROOT=true
     ;;
   *) die "unsupported host: $1 (expected gayming or rwslaptop)" ;;
 esac
@@ -74,7 +75,11 @@ echo
 echo "The following will happen:"
 echo "  1. GPT partition table written to ${DISK}"
 echo "  2. EFI partition (512MB, FAT32, label: boot)"
-echo "  3. Root partition (remainder, ext4, label: nixos)"
+if [[ "${ENCRYPT_ROOT:-false}" == true ]]; then
+  echo "  3. Root partition encrypted with LUKS (remainder, ext4 label: nixos)"
+else
+  echo "  3. Root partition (remainder, ext4, label: nixos)"
+fi
 echo "  4. NixOS hardware config generated"
 echo "  5. Repo cloned and hardware-configuration.nix replaced"
 echo "  6. nixos-install --flake ${FLAKE_URL}#${HOST}"
@@ -117,14 +122,23 @@ sleep 1
 
 info "Formatting partitions..."
 mkfs.fat -F 32 -n boot "$PART_BOOT"
-mkfs.ext4 -L nixos -F "$PART_ROOT"
+if [[ "${ENCRYPT_ROOT:-false}" == true ]]; then
+  info "Encrypting root partition (you will be prompted for a LUKS passphrase)..."
+  cryptsetup luksFormat --type luks2 "$PART_ROOT"
+  cryptsetup open "$PART_ROOT" cryptroot
+  ROOT_DEVICE="/dev/mapper/cryptroot"
+  LUKS_UUID=$(blkid -s UUID -o value "$PART_ROOT")
+else
+  ROOT_DEVICE="$PART_ROOT"
+fi
+mkfs.ext4 -L nixos -F "$ROOT_DEVICE"
 
 # -----------------------------------------------------------------------------
 # Mount
 # -----------------------------------------------------------------------------
 
 info "Mounting..."
-mount "$PART_ROOT" /mnt
+mount "$ROOT_DEVICE" /mnt
 mkdir -p /mnt/boot
 mount "$PART_BOOT" /mnt/boot
 
@@ -146,9 +160,13 @@ HARDWARE_CONFIG_DEST="/mnt/etc/nixos/nix-config/modules/hosts/${HOST_DIRECTORY}/
 [[ -d "$(dirname "$HARDWARE_CONFIG_DEST")" ]] || die "repository layout is missing $(dirname "$HARDWARE_CONFIG_DEST")"
 info "Copying generated hardware-configuration.nix into repo..."
 {
-  printf '_: {\n  nixos.configurations.%s.module = ' "$HOST"
+  printf '_: {\n  nixos.configurations.%s.module = { ... }: {\n    imports = [\n      (\n' "$HOST"
   cat /mnt/etc/nixos/hardware-configuration.nix
-  printf ';\n}\n'
+  printf '      )\n    ];\n'
+  if [[ "${ENCRYPT_ROOT:-false}" == true ]]; then
+    printf '    boot.initrd.luks.devices.cryptroot.device = "/dev/disk/by-uuid/%s";\n' "$LUKS_UUID"
+  fi
+  printf '  };\n}\n'
 } > "$HARDWARE_CONFIG_DEST"
 
 # -----------------------------------------------------------------------------
