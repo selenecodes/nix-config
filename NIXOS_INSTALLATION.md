@@ -24,11 +24,20 @@ disk-unlock passphrase. Store this passphrase safely: it is required at every
 boot. If every configured LUKS passphrase is lost, the encrypted data cannot be
 recovered. The EFI `/boot` partition remains unencrypted as required by UEFI.
 
+After `nixos-install` completes, the script prompts you to set the password for
+the `selene` user. Complete this prompt before rebooting. If installation was
+interrupted after `nixos-install`, set it from the mounted installer environment:
+
+```bash
+nixos-enter --root /mnt -c "passwd selene"
+```
+
 ## After first boot
 
 ```bash
-mv /etc/nixos/nix-config ~/nix-config
-nixos-rebuild switch --flake ~/nix-config#<host>
+sudo mv /etc/nixos/nix-config ~/nix-config
+sudo chown -R "$USER:$(id -gn)" ~/nix-config
+sudo nixos-rebuild switch --flake ~/nix-config#<host>
 ```
 
 Replace `<host>` with the host that you installed. Commit the generated `hardware-configuration.nix` file after you move the repository.

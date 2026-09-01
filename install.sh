@@ -191,8 +191,9 @@ echo
 echo -e "${GREEN}${BOLD}Installation complete.${RESET}"
 echo
 echo "Next steps after reboot:"
-echo "  mv /etc/nixos/nix-config ~/nix-config              # move repo to home"
-echo "  nixos-rebuild switch --flake ~/nix-config#${HOST}  # future rebuilds"
+echo "  sudo mv /etc/nixos/nix-config ~/nix-config"
+echo '  sudo chown -R "$USER:$(id -gn)" ~/nix-config'
+echo "  sudo nixos-rebuild switch --flake ~/nix-config#${HOST}"
 echo
 warn "Remember to commit the real hardware-configuration.nix back to the repo."
 echo
