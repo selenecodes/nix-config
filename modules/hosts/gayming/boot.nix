@@ -7,9 +7,11 @@ _: {
       kernelParams = ["quiet" "splash"];
 
       loader = {
-        systemd-boot.enable = true;
-        systemd-boot.configurationLimit = 5;
-        systemd-boot.memtest86.enable = true;
+        systemd-boot = {
+          enable = true;
+          configurationLimit = 5;
+          memtest86.enable = true;
+        };
         efi.canTouchEfiVariables = true;
       };
 

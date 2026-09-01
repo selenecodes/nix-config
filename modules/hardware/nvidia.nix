@@ -10,14 +10,15 @@ _: {
       initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
     };
 
-    hardware.nvidia = {
-      modesetting.enable = true;
-      nvidiaSettings = true;
+    hardware = {
+      nvidia = {
+        modesetting.enable = true;
+        nvidiaSettings = true;
+      };
+      nvidia-container-toolkit.enable = true;
+      graphics.enable = true;
     };
 
-    hardware.nvidia-container-toolkit.enable = true;
-
-    hardware.graphics.enable = true;
     services.xserver.videoDrivers = ["nvidia"];
 
     environment.sessionVariables = {

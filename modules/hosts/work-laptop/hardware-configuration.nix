@@ -8,7 +8,6 @@ _: {
         {
           config,
           lib,
-          pkgs,
           modulesPath,
           ...
         }: {
@@ -16,17 +15,20 @@ _: {
             (modulesPath + "/installer/scan/not-detected.nix")
           ];
 
-          boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-          boot.initrd.kernelModules = [];
-          boot.kernelModules = ["kvm-intel"];
-          boot.extraModulePackages = [];
+          boot = {
+            initrd = {
+              availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+              kernelModules = [];
+              luks.devices."cryptroot".device = "/dev/disk/by-uuid/b59fcce9-a0f4-4ed0-8ef1-96bff52f9dba";
+            };
+            kernelModules = ["kvm-intel"];
+            extraModulePackages = [];
+          };
 
           fileSystems."/" = {
             device = "/dev/mapper/cryptroot";
             fsType = "ext4";
           };
-
-          boot.initrd.luks.devices."cryptroot".device = "/dev/disk/by-uuid/b59fcce9-a0f4-4ed0-8ef1-96bff52f9dba";
 
           fileSystems."/boot" = {
             device = "/dev/disk/by-uuid/38E5-4019";

@@ -59,53 +59,57 @@ in {
       ];
     };
 
-    systemd.sockets.vllm = {
-      wantedBy = ["sockets.target"];
-      socketConfig = {
-        ListenStream = port;
-        Accept = true;
+    systemd = {
+      sockets.vllm = {
+        wantedBy = ["sockets.target"];
+        socketConfig = {
+          ListenStream = port;
+          Accept = true;
+        };
       };
-    };
 
-    systemd.services."vllm@" = {
-      requires = ["docker-vllm.service"];
-      after = ["docker-vllm.service"];
-      serviceConfig = {
-        StandardInput = "socket";
-        StandardOutput = "socket";
+      services = {
+        "vllm@" = {
+          requires = ["docker-vllm.service"];
+          after = ["docker-vllm.service"];
+          serviceConfig = {
+            StandardInput = "socket";
+            StandardOutput = "socket";
 
-        # Use < /dev/null so curl/bash don't accidentally consume the incoming HTTP request bytes
-        ExecStartPre = [
-          "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/touch /run/vllm-last-request < /dev/null'"
-          "${pkgs.bash}/bin/bash -c 'until ${pkgs.curl}/bin/curl --fail --silent --output /dev/null http://127.0.0.1:${toString backendPort}/health; do sleep 1; done < /dev/null'"
-        ];
-        ExecStart = "${pkgs.socat}/bin/socat STDIO TCP4:127.0.0.1:${toString backendPort}";
-        TimeoutStartSec = "10min";
+            # Use < /dev/null so curl/bash don't accidentally consume the incoming HTTP request bytes
+            ExecStartPre = [
+              "${pkgs.bash}/bin/bash -c '${pkgs.coreutils}/bin/touch /run/vllm-last-request < /dev/null'"
+              "${pkgs.bash}/bin/bash -c 'until ${pkgs.curl}/bin/curl --fail --silent --output /dev/null http://127.0.0.1:${toString backendPort}/health; do sleep 1; done < /dev/null'"
+            ];
+            ExecStart = "${pkgs.socat}/bin/socat STDIO TCP4:127.0.0.1:${toString backendPort}";
+            TimeoutStartSec = "10min";
+          };
+        };
+
+        vllm-idle-stop = {
+          serviceConfig.Type = "oneshot";
+          script = ''
+            if ${pkgs.systemd}/bin/systemctl is-active --quiet 'vllm@*.service'; then
+              exit 0
+            fi
+
+            if [ -e /run/vllm-last-request ]; then
+              now="$(${pkgs.coreutils}/bin/date +%s)"
+              lastRequest="$(${pkgs.coreutils}/bin/date -r /run/vllm-last-request +%s)"
+              if [ "$((now - lastRequest))" -ge ${toString idleTimeoutSeconds} ]; then
+                ${pkgs.systemd}/bin/systemctl stop docker-vllm.service
+              fi
+            fi
+          '';
+        };
       };
-    };
 
-    systemd.services.vllm-idle-stop = {
-      serviceConfig.Type = "oneshot";
-      script = ''
-        if ${pkgs.systemd}/bin/systemctl is-active --quiet 'vllm@*.service'; then
-          exit 0
-        fi
-
-        if [ -e /run/vllm-last-request ]; then
-          now="$(${pkgs.coreutils}/bin/date +%s)"
-          lastRequest="$(${pkgs.coreutils}/bin/date -r /run/vllm-last-request +%s)"
-          if [ "$((now - lastRequest))" -ge ${toString idleTimeoutSeconds} ]; then
-            ${pkgs.systemd}/bin/systemctl stop docker-vllm.service
-          fi
-        fi
-      '';
-    };
-
-    systemd.timers.vllm-idle-stop = {
-      wantedBy = ["timers.target"];
-      timerConfig = {
-        OnBootSec = idleTimeout;
-        OnUnitActiveSec = "1min";
+      timers.vllm-idle-stop = {
+        wantedBy = ["timers.target"];
+        timerConfig = {
+          OnBootSec = idleTimeout;
+          OnUnitActiveSec = "1min";
+        };
       };
     };
   };
