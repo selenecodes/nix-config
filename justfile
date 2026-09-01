@@ -1,4 +1,4 @@
-flake_dir := "$HOME/nix-config"
+flake_dir := justfile_directory()
 set positional-arguments
 
 # Build darwin configuration
@@ -29,14 +29,25 @@ build device:
 check:
   nix flake check --no-build {{flake_dir}}
 
-# Format all Nix files
+# Format all Nix files and fix issues
 format:
   alejandra {{flake_dir}}
+
+# Check all Nix files for formatting issues
+format-check:
+  alejandra --check {{flake_dir}}
 
 # Lint Nix files (structural + dead code)
 lint:
   statix check {{flake_dir}}
   deadnix {{flake_dir}}
+
+# Run linting and formatting
+verify: check format-check lint
+
+# Install the Git hooks
+install-hooks:
+  git -C {{flake_dir}} config core.hooksPath .githooks
 
 # Update flake inputs
 update:
