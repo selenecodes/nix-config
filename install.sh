@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # =============================================================================
-# Gayming NixOS installer
+# NixOS installer
 # =============================================================================
 
 RED='\033[0;31m'
@@ -12,7 +12,6 @@ BOLD='\033[1m'
 RESET='\033[0m'
 
 FLAKE_URL="https://github.com/selenecodes/nix-config.git"
-HOST="gayming"
 
 # -----------------------------------------------------------------------------
 # Helpers
@@ -28,6 +27,24 @@ confirm() {
   read -rp "$prompt [y/N] " answer
   [[ "${answer,,}" == "y" ]]
 }
+
+# -----------------------------------------------------------------------------
+# Host selection
+# -----------------------------------------------------------------------------
+
+[[ $# -eq 1 ]] || die "usage: $0 <gayming|rwslaptop>"
+
+case "$1" in
+  gayming)
+    HOST="gayming"
+    HOST_DIRECTORY="gayming"
+    ;;
+  rwslaptop)
+    HOST="rwslaptop"
+    HOST_DIRECTORY="work-laptop"
+    ;;
+  *) die "unsupported host: $1 (expected gayming or rwslaptop)" ;;
+esac
 
 # -----------------------------------------------------------------------------
 # Disk selection
@@ -47,7 +64,7 @@ DISK="/dev/${DISK_NAME}"
 DISK_INFO=$(lsblk -d -o SIZE,MODEL "$DISK" 2>/dev/null | tail -1)
 
 # -----------------------------------------------------------------------------
-# Confirmation — shown BEFORE anything destructive
+# Confirmation - shown BEFORE anything destructive
 # -----------------------------------------------------------------------------
 
 echo
@@ -64,7 +81,7 @@ echo "  6. nixos-install --flake ${FLAKE_URL}#${HOST}"
 echo
 
 confirm "Are you absolutely sure you want to wipe ${DISK}?" || { echo "Aborted."; exit 0; }
-confirm "Last chance — wipe ${DISK} and install NixOS?" || { echo "Aborted."; exit 0; }
+confirm "Last chance - wipe ${DISK} and install NixOS?" || { echo "Aborted."; exit 0; }
 
 # =============================================================================
 # From here on: destructive actions
@@ -125,10 +142,14 @@ nixos-generate-config --root /mnt
 info "Cloning config repo..."
 nix-shell -p git --run "git clone ${FLAKE_URL} /mnt/etc/nixos/nix-config"
 
-HARDWARE_CONFIG_DEST="/mnt/etc/nixos/nix-config/modules/hosts/gayming/hardware-configuration.nix"
+HARDWARE_CONFIG_DEST="/mnt/etc/nixos/nix-config/modules/hosts/${HOST_DIRECTORY}/hardware-configuration.nix"
 [[ -d "$(dirname "$HARDWARE_CONFIG_DEST")" ]] || die "repository layout is missing $(dirname "$HARDWARE_CONFIG_DEST")"
 info "Copying generated hardware-configuration.nix into repo..."
-cp /mnt/etc/nixos/hardware-configuration.nix "$HARDWARE_CONFIG_DEST"
+{
+  printf '_: {\n  nixos.configurations.%s.module = ' "$HOST"
+  cat /mnt/etc/nixos/hardware-configuration.nix
+  printf ';\n}\n'
+} > "$HARDWARE_CONFIG_DEST"
 
 # -----------------------------------------------------------------------------
 # Install
@@ -138,7 +159,7 @@ info "Running nixos-install without setting a root password..."
 nixos-install --flake /mnt/etc/nixos/nix-config#${HOST} --no-root-passwd
 
 # -----------------------------------------------------------------------------
-# User password — must be set before SDDM boots, otherwise you can't log in
+# User password - must be set before SDDM boots, otherwise you can't log in
 # -----------------------------------------------------------------------------
 
 info "Setting password for selene (you will be prompted)..."
@@ -153,7 +174,7 @@ echo -e "${GREEN}${BOLD}Installation complete.${RESET}"
 echo
 echo "Next steps after reboot:"
 echo "  mv /etc/nixos/nix-config ~/nix-config              # move repo to home"
-echo "  nixos-rebuild switch --flake ~/nix-config#gayming  # future rebuilds"
+echo "  nixos-rebuild switch --flake ~/nix-config#${HOST}  # future rebuilds"
 echo
 warn "Remember to commit the real hardware-configuration.nix back to the repo."
 echo
