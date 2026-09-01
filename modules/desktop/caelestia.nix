@@ -61,7 +61,7 @@
         settings = {
           general = {
             apps = {
-              terminal = ["ghostty"];
+              terminal = ["ghostty" "-e"];
               audio = ["pavucontrol"];
               explorer = ["thunar"];
             };
@@ -151,12 +151,12 @@
                 enable = true;
                 match = [
                   {
-                    class = "btop";
+                    class = "com.github.aristocratos.btop";
                     title = "btop";
                     workspace.name = "special:sysmon";
                   }
                 ];
-                command = ["ghostty" "--class=btop" "-e" "btop"];
+                command = ["ghostty" "--class=com.github.aristocratos.btop" "-e" "btop"];
               };
               todo.todoist.enable = false;
             };
