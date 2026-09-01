@@ -17,6 +17,7 @@ in {
       config.nixos.audio
       config.nixos.bluetooth
       config.nixos.networking
+      config.nixos.nvidia
       config.nixos.desktop
       config.nixos.wayland
       config.nixos.work

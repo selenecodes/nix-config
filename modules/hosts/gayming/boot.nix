@@ -4,6 +4,7 @@ _: {
     boot = {
       # Zen kernel — performance-oriented, good fit for gaming/desktop
       kernelPackages = pkgs.linuxPackages_zen;
+      kernelParams = ["quiet" "splash"];
 
       loader = {
         systemd-boot.enable = true;
