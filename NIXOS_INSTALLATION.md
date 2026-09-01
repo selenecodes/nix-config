@@ -58,3 +58,26 @@ its EULA before downloading the Linux archive. Enable it after the first boot.
 
 Citrix may reject command-line requests without the browser-issued download URL; a
 plain request to the page itself returns HTTP 403.
+
+## DisplayLink
+
+DisplayLink is also disabled during installation because its driver archive is
+EULA-gated. After the first boot, register the archive and enable it:
+
+```bash
+archive="$(nix eval --raw ~/nix-config#nixosConfigurations.rwslaptop.pkgs.displaylink.src.name)"
+nix-prefetch-url --name "$archive" 'https://www.synaptics.com/sites/default/files/exe_files/2025-09/DisplayLink%20USB%20Graphics%20Software%20for%20Ubuntu6.2-EXE.zip'
+```
+
+Add this line to `~/nix-config/modules/hosts/work-laptop.nix`, then rebuild:
+
+```nix
+myConfig.displaylink.enable = true;
+```
+
+```bash
+nixos-rebuild switch --flake ~/nix-config#rwslaptop
+```
+
+If the vendor URL changes, download the archive after accepting the EULA from the
+[DisplayLink Ubuntu driver page](https://www.synaptics.com/products/displaylink-usb-graphics-software-ubuntu-62), rename it to `$archive`, then run `nix-prefetch-url "file://$PWD/$archive"`.
