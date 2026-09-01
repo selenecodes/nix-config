@@ -1,6 +1,14 @@
-_: {
-  homeManager.base = {pkgs, ...}: {
+{inputs, ...}: {
+  homeManager.base = {
+    lib,
+    pkgs,
+    ...
+  }: {
     catppuccin.nvim.enable = false;
+
+    xdg.configFile."nvim/colors/caelestia.lua" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
+      source = "${inputs.caelestia-dots}/nvim/colors/caelestia.lua";
+    };
 
     programs.neovim = {
       enable = true;
@@ -9,6 +17,9 @@ _: {
       vimAlias = true;
       withRuby = false;
       withPython3 = false;
+      initLua = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
+        vim.cmd.colorscheme("caelestia")
+      '';
 
       extraPackages = with pkgs; [
         # LSP servers
@@ -23,14 +34,6 @@ _: {
       ];
 
       plugins = with pkgs.vimPlugins; [
-        {
-          plugin = catppuccin-nvim;
-          type = "lua";
-          config = ''
-            require("catppuccin").setup({ flavour = "frappe" })
-            vim.cmd.colorscheme("catppuccin")
-          '';
-        }
         {
           plugin = which-key-nvim;
           type = "lua";

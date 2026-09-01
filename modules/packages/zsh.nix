@@ -50,7 +50,10 @@ _: {
       };
 
       shellAliases = {
-        ls = "ls --color";
+        ls =
+          if pkgs.stdenv.hostPlatform.isLinux
+          then "eza"
+          else "ls --color";
         vim = "nvim";
         c = "clear";
         composelint = "npx dclint --fix";
@@ -94,6 +97,12 @@ _: {
 
         GPG_TTY=$(tty)
         export GPG_TTY
+
+        ${lib.optionalString pkgs.stdenv.hostPlatform.isLinux ''
+          if [[ -r "$HOME/.local/state/caelestia/sequences.txt" ]]; then
+            cat "$HOME/.local/state/caelestia/sequences.txt"
+          fi
+        ''}
       '';
     };
   };

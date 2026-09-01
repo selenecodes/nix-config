@@ -1,10 +1,15 @@
-_: {
-  homeManager.base = {pkgs, ...}: let
+{inputs, ...}: {
+  homeManager.base = {
+    lib,
+    pkgs,
+    ...
+  }: let
     myFont = "JetBrainsMono Nerd Font";
+    isLinux = pkgs.stdenv.hostPlatform.isLinux;
   in {
     programs.vscode = {
       enable = true;
-      mutableExtensionsDir = false;
+      mutableExtensionsDir = isLinux;
       package = pkgs.vscode;
       profiles.default = {
         extensions = with pkgs.vscode-extensions;
@@ -42,7 +47,7 @@ _: {
             redhat.vscode-yaml
             # Just syntax highlighting
             nefrob.vscode-just-syntax
-            # Theme — set by modules/desktop/catppuccin.nix
+            # Theme is supplied by the writable Caelestia integration.
           ]
           ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
             {
@@ -58,70 +63,92 @@ _: {
               sha256 = "sha256-yEhFRRwaqq4OH1oEjD2E+8y7DCVbvvvwa3r6ujq7IGg=";
             }
           ];
-        userSettings = {
-          "autoDocstring.docstringFormat" = "numpy-notypes";
-          "editor.fontFamily" = "'${myFont}', monospace";
-          "editor.fontSize" = 13;
-          "editor.fontLigatures" = "'calt'";
-          "debug.console.fontFamily" = "'${myFont}', monospace";
-          "debug.console.fontSize" = 13;
-          "terminal.integrated.fontFamily" = "'${myFont}', monospace";
-          "terminal.integrated.fontSize" = 13;
-          "terminal.integrated.fontLigatures.enabled" = "'calt'";
-          "chat.commandCenter.enabled" = false;
-          "chat.disableAIFeatures" = true;
-          "editor.formatOnPaste" = true;
-          "editor.letterSpacing" = 0.4;
-          "editor.smoothScrolling" = true;
-          "editor.multiCursorModifier" = "ctrlCmd";
-          "editor.rulers" = [80];
-          "editor.tokenColorCustomizations" = {
-            "textMateRules" = [
-              {
-                "name" = "Comment";
-                "scope" = [
-                  "comment"
-                  "comment.block"
-                  "comment.block.documentation"
-                  "comment.line"
-                  "comment.line.double-slash"
-                  "punctuation.definition.comment"
-                ];
-                "settings"."fontStyle" = "italic";
-              }
-            ];
+        userSettings =
+          {
+            "autoDocstring.docstringFormat" = "numpy-notypes";
+            "editor.fontFamily" = "'${myFont}', monospace";
+            "editor.fontSize" = 13;
+            "editor.fontLigatures" = "'calt'";
+            "debug.console.fontFamily" = "'${myFont}', monospace";
+            "debug.console.fontSize" = 13;
+            "terminal.integrated.fontFamily" = "'${myFont}', monospace";
+            "terminal.integrated.fontSize" = 13;
+            "terminal.integrated.fontLigatures.enabled" = "'calt'";
+            "chat.commandCenter.enabled" = false;
+            "chat.disableAIFeatures" = true;
+            "editor.formatOnPaste" = true;
+            "editor.letterSpacing" = 0.4;
+            "editor.smoothScrolling" = true;
+            "editor.multiCursorModifier" = "ctrlCmd";
+            "editor.rulers" = [80];
+            "editor.tokenColorCustomizations" = {
+              "textMateRules" = [
+                {
+                  "name" = "Comment";
+                  "scope" = [
+                    "comment"
+                    "comment.block"
+                    "comment.block.documentation"
+                    "comment.line"
+                    "comment.line.double-slash"
+                    "punctuation.definition.comment"
+                  ];
+                  "settings"."fontStyle" = "italic";
+                }
+              ];
+            };
+            "explorer.confirmDelete" = false;
+            "explorer.confirmDragAndDrop" = false;
+            "extensions.ignoreRecommendations" = true;
+            "files.associations" = {
+              "*.hcl" = "hcl";
+              "*.tf" = "hcl";
+              "*.tfvars" = "hcl";
+              "*.yml" = "yaml";
+              "*.env" = "shellscript";
+            };
+            "git.autofetch" = true;
+            "git.confirmSync" = false;
+            "git.enableSmartCommit" = true;
+            "git.replaceTagsWhenPull" = true;
+            "javascript.updateImportsOnFileMove.enabled" = "always";
+            "python.analysis.typeCheckingMode" = "strict";
+            "python.createEnvironment.trigger" = "off";
+            "python.terminal.activateEnvInCurrentTerminal" = false;
+            "redhat.telemetry.enabled" = false;
+            "security.workspace.trust.untrustedFiles" = "prompt";
+            "svelte.enable-ts-plugin" = true;
+            "telemetry.telemetryLevel" = "off";
+            "terminal.integrated.inheritEnv" = true;
+            "update.showReleaseNotes" = false;
+            "window.zoomLevel" = 2;
+            "workbench.list.typeNavigationMode" = "trigger";
+            "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
+            "[restructuredtext]"."editor.wordWrap" = "on";
+            "[markdown]"."files.trimTrailingWhitespace" = true;
+          }
+          // lib.optionalAttrs isLinux {
+            "workbench.colorTheme" = "Caelestia";
           };
-          "explorer.confirmDelete" = false;
-          "explorer.confirmDragAndDrop" = false;
-          "extensions.ignoreRecommendations" = true;
-          "files.associations" = {
-            "*.hcl" = "hcl";
-            "*.tf" = "hcl";
-            "*.tfvars" = "hcl";
-            "*.yml" = "yaml";
-            "*.env" = "shellscript";
-          };
-          "git.autofetch" = true;
-          "git.confirmSync" = false;
-          "git.enableSmartCommit" = true;
-          "git.replaceTagsWhenPull" = true;
-          "javascript.updateImportsOnFileMove.enabled" = "always";
-          "python.analysis.typeCheckingMode" = "strict";
-          "python.createEnvironment.trigger" = "off";
-          "python.terminal.activateEnvInCurrentTerminal" = false;
-          "redhat.telemetry.enabled" = false;
-          "security.workspace.trust.untrustedFiles" = "prompt";
-          "svelte.enable-ts-plugin" = true;
-          "telemetry.telemetryLevel" = "off";
-          "terminal.integrated.inheritEnv" = true;
-          "update.showReleaseNotes" = false;
-          "window.zoomLevel" = 2;
-          "workbench.list.typeNavigationMode" = "trigger";
-          "[python]"."editor.defaultFormatter" = "charliermarsh.ruff";
-          "[restructuredtext]"."editor.wordWrap" = "on";
-          "[markdown]"."files.trimTrailingWhitespace" = true;
-        };
       };
     };
+
+    home.activation.removeLegacyVscodeExtensionsLink = lib.mkIf isLinux (
+      lib.hm.dag.entryBefore ["linkGeneration"] ''
+        if [ -L "$HOME/.vscode/extensions" ]; then
+          target="$(${pkgs.coreutils}/bin/readlink "$HOME/.vscode/extensions")"
+          case "$target" in
+            /nix/store/*) run ${pkgs.coreutils}/bin/rm "$HOME/.vscode/extensions" ;;
+          esac
+        fi
+      ''
+    );
+
+    home.activation.installCaelestiaVscodeExtension = lib.mkIf isLinux (
+      lib.hm.dag.entryAfter ["linkGeneration"] ''
+        run ${pkgs.vscode}/bin/code --install-extension \
+          ${inputs.caelestia-dots}/vscode/caelestia-vscode-integration/caelestia-vscode-integration-1.2.0.vsix
+      ''
+    );
   };
 }

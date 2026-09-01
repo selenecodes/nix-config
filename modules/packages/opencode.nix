@@ -5,7 +5,9 @@ in {
     lib,
     pkgs,
     ...
-  }: {
+  }: let
+    isLinux = pkgs.stdenv.hostPlatform.isLinux;
+  in {
     programs.zsh.initContent = lib.mkAfter ''
       opencode_sig() {
         local token
@@ -67,7 +69,10 @@ in {
           };
         };
       };
-      tui.theme = "catppuccin";
+      tui.theme =
+        if isLinux
+        then "system"
+        else "catppuccin";
     };
   };
 }
