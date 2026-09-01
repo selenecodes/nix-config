@@ -26,6 +26,11 @@ in {
 
     myConfig.user.name = username;
 
+    boot.loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
     users.users.${username} = {
       isNormalUser = true;
       home = "/home/${username}";
