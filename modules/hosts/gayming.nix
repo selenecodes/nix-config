@@ -69,17 +69,6 @@ in {
 
     nixpkgs.config.allowUnfree = true;
 
-    # Skipping tests while upstream sorts it out, revert once
-    # Hydra consistently builds openldap green.
-    # See: https://github.com/NixOS/nixpkgs/issues/513245
-    nixpkgs.overlays = [
-      (_: prev: {
-        openldap = prev.openldap.overrideAttrs (_: {
-          doCheck = false;
-        });
-      })
-    ];
-
     users.users.${username} = {
       isNormalUser = true;
       home = "/home/${username}";
