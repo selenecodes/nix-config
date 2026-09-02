@@ -3,9 +3,7 @@ _: {
     {
       homeManager = {
         targets = ["*"];
-        module = {pkgs, ...}: {
-          catppuccin.starship.enable = pkgs.stdenv.hostPlatform.isDarwin;
-
+        module = {
           programs.starship = {
             enable = true;
             enableZshIntegration = true;
