@@ -168,10 +168,6 @@
                 theme_background = false;
               };
             };
-            direnv = {
-              enable = true;
-              enableZshIntegration = true;
-            };
           };
 
           services.polkit-gnome.enable = true;
