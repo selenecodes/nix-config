@@ -3,6 +3,7 @@
   lib,
   inputs,
   evalModulesModule,
+  featureIndex,
   ...
 }: let
   cfg = config.darwin;
@@ -16,7 +17,7 @@ in {
     configurations = lib.mkOption {
       type = lib.types.lazyAttrsOf (
         lib.types.submodule (
-          _: {
+          {name, ...}: {
             imports = [
               evalModulesModule
               {
@@ -32,6 +33,12 @@ in {
                       inherit (config.nixpkgs) config overlays;
                     };
                   };
+                };
+              }
+              {
+                module = {
+                  imports = (featureIndex name).darwin;
+                  home-manager.sharedModules = (featureIndex name).homeManager;
                 };
               }
             ];

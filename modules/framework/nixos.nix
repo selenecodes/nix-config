@@ -3,6 +3,7 @@
   lib,
   inputs,
   evalModulesModule,
+  featureIndex,
   ...
 }: let
   cfg = config.nixos;
@@ -40,6 +41,12 @@ in {
                       inherit (config.nixpkgs) config overlays;
                     };
                   };
+                };
+              }
+              {
+                module = {
+                  imports = (featureIndex name).nixos;
+                  home-manager.sharedModules = (featureIndex name).homeManager;
                 };
               }
             ];
