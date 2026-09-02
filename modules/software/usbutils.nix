@@ -1,5 +1,12 @@
 _: {
-  nixos.base = {pkgs, ...}: {
-    environment.systemPackages = [pkgs.usbutils];
-  };
+  repository.features = [
+    {
+      nixos = {
+        targets = ["gayming" "rwslaptop"];
+        module = {pkgs, ...}: {
+          environment.systemPackages = [pkgs.usbutils];
+        };
+      };
+    }
+  ];
 }
