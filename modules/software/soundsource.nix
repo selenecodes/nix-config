@@ -3,10 +3,7 @@ _: {
     {
       darwin = {
         targets = ["*"];
-        module.homebrew.casks = [
-          "cleanshot"
-          "soundsource"
-        ];
+        module.homebrew.casks = ["soundsource"];
       };
     }
   ];
