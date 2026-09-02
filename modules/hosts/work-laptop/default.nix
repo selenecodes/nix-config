@@ -17,8 +17,6 @@ in {
       config.nixos.bluetooth
       config.nixos.networking
       config.nixos.nvidia
-      config.nixos.desktop
-      config.nixos.wayland
       config.nixos.work
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -54,8 +52,6 @@ in {
         imports = [
           config.homeManager.base
           config.homeManager.work
-          config.homeManager.wayland
-          config.homeManager.caelestia
         ];
         home = {
           stateVersion = "26.05";

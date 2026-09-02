@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   ...
 }: let
   username = "selene";
@@ -16,9 +17,7 @@ in {
       config.nixos.bluetooth
       config.nixos.networking
       config.nixos.nvidia
-      config.nixos.desktop
       config.nixos.gaming
-      config.nixos.wayland
       config.nixos.personal
       inputs.home-manager.nixosModules.home-manager
     ];
@@ -92,14 +91,12 @@ in {
       users.${username} = {
         imports = [
           config.homeManager.base
-          config.homeManager.wayland
-          config.homeManager.caelestia
         ];
         home = {
           stateVersion = "26.05";
           file.".face".source = ../../../assets/avatars/yachiyo.png;
         };
-        myConfig.caelestia.extraHyprlandConfig = ''
+        xdg.configFile."caelestia/hypr-user.lua".text = lib.mkAfter ''
           hl.monitor({
             output = "desc:ASUSTek COMPUTER INC ASUS PA279 0x0000C171",
             mode = "3840x2160@59.997",

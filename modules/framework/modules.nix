@@ -45,8 +45,6 @@
 in {
   options.homeManager = {
     base = mod;
-    wayland = mod;
-    caelestia = mod;
     work = mod;
   };
 

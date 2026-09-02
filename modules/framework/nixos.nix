@@ -18,9 +18,7 @@ in {
     bluetooth = mod;
     networking = mod;
     nvidia = mod;
-    desktop = mod;
     gaming = mod;
-    wayland = mod;
     personal = mod;
     work = mod;
 
