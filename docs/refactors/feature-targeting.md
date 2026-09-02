@@ -87,3 +87,9 @@ _: {
 ```
 
 Use a directory name that explains the software domain. Do not use a host name for a generic feature group. Coupled directories include `.interconnected` and `README.md`.
+
+## Place common Home Manager programs
+
+Put a Home Manager program in `software/common/` when every configured host receives the program and the program has no feature-specific contract with another module. Use the `common.homeManager` constructor for these files.
+
+Keep a program outside `common/` when it owns a cross-feature contract or has a narrower target policy. For example, OpenCode remains an AI client because it depends on Bifrost and vLLM. Zsh remains a shell feature because it exposes configuration used by OpenCode and Codex.
