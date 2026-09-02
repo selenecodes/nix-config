@@ -15,13 +15,6 @@ _: {
             udisks2.enable = true;
             upower.enable = true;
           };
-          # Unlocks gnome-keyring at greetd login.
-          security.pam.services.greetd.enableGnomeKeyring = true;
-
-          xdg.portal = {
-            enable = true;
-            config.hyprland.default = ["hyprland" "gtk"];
-          };
         };
       };
     }
