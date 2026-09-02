@@ -35,5 +35,24 @@ _: {
         };
       };
     }
+    {
+      homeManager = {
+        targets = ["gayming" "rwslaptop"];
+        module = {pkgs, ...}: {
+          systemd.user.services._1password = {
+            Unit = {
+              Description = "Start 1Password in the desktop session";
+              PartOf = ["graphical-session.target"];
+              After = ["graphical-session.target"];
+            };
+            Service = {
+              ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
+              Restart = "on-failure";
+            };
+            Install.WantedBy = ["graphical-session.target"];
+          };
+        };
+      };
+    }
   ];
 }

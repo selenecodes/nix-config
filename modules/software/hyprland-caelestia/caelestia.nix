@@ -127,43 +127,6 @@
           qtengine
           trash-cli
         ];
-
-        xdg = {
-          userDirs = {
-            enable = true;
-            createDirectories = true;
-            desktop = "${config.home.homeDirectory}/Desktop";
-            documents = "${config.home.homeDirectory}/Documents";
-            download = "${config.home.homeDirectory}/Downloads";
-            music = "${config.home.homeDirectory}/Music";
-            pictures = "${config.home.homeDirectory}/Pictures";
-            publicShare = "${config.home.homeDirectory}/Public";
-            templates = "${config.home.homeDirectory}/Templates";
-            videos = "${config.home.homeDirectory}/Videos";
-          };
-          mimeApps = {
-            enable = true;
-            defaultApplications = {
-              "text/html" = ["google-chrome.desktop"];
-              "x-scheme-handler/http" = ["google-chrome.desktop"];
-              "x-scheme-handler/https" = ["google-chrome.desktop"];
-              "inode/directory" = ["thunar.desktop"];
-            };
-          };
-        };
-
-        systemd.user.services.caelestia-1password = {
-          Unit = {
-            Description = "Start 1Password in the desktop session";
-            PartOf = ["graphical-session.target"];
-            After = ["graphical-session.target"];
-          };
-          Service = {
-            ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
-            Restart = "on-failure";
-          };
-          Install.WantedBy = ["graphical-session.target"];
-        };
       }
     ))
   ];
