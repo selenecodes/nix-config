@@ -5,6 +5,10 @@ _: {
         targets = ["*"];
         module.programs.zsh.enable = true;
       };
+      darwin = {
+        targets = ["*"];
+        module.programs.zsh.enable = true;
+      };
       homeManager = {
         targets = ["*"];
         module = {
