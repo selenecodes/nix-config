@@ -1,16 +1,24 @@
 _: {
-  nixos.work = {
-    config,
-    lib,
-    pkgs,
-    ...
-  }: {
-    options.myConfig.citrix.enable = lib.mkEnableOption "Citrix Workspace";
+  repository.features = [
+    {
+      nixos = {
+        targets = ["rwslaptop"];
+        module = {
+          config,
+          lib,
+          pkgs,
+          ...
+        }: {
+          options.myConfig.citrix.enable = lib.mkEnableOption "Citrix Workspace";
 
-    config.environment.systemPackages = lib.optional config.myConfig.citrix.enable pkgs.citrix-workspace;
-  };
+          config.environment.systemPackages = lib.optional config.myConfig.citrix.enable pkgs.citrix-workspace;
+        };
+      };
 
-  darwin.work = _: {
-    homebrew.casks = ["citrix-workspace"];
-  };
+      darwin = {
+        targets = ["studio"];
+        module.homebrew.casks = ["citrix-workspace"];
+      };
+    }
+  ];
 }
