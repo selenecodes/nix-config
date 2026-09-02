@@ -4,6 +4,16 @@ let
   };
 in
   _: {
-    nixos.personal = personalConfig;
-    darwin.personal = personalConfig;
+    repository.features = [
+      {
+        nixos = {
+          targets = ["gayming"];
+          module = personalConfig;
+        };
+        darwin = {
+          targets = ["studio"];
+          module = personalConfig;
+        };
+      }
+    ];
   }
