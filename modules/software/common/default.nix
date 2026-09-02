@@ -9,4 +9,10 @@ _: {
       inherit module;
     };
   };
+  _module.args.common.homeManager = module: {
+    homeManager = {
+      targets = ["*"];
+      inherit module;
+    };
+  };
 }
