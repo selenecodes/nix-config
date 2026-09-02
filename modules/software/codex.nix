@@ -1,4 +1,6 @@
-_: {
+{lib, ...}: let
+  ai = import ../../lib/ai/topology.nix {inherit lib;};
+in {
   # codex is managed through npm; a mock package lets home-manager manage
   # settings without trying to install the package itself.
   repository.features = [
@@ -24,19 +26,7 @@ _: {
           programs.codex = {
             enable = true;
             package = pkgs.codex;
-            settings = {
-              model = "eu/gpt-5.6-luna";
-              model_provider = "bifrost";
-              model_reasoning_effort = "medium";
-              model_providers = {
-                bifrost = {
-                  name = "Bifrost (proxy)";
-                  base_url = "http://127.0.0.1:4000/v1";
-                  wire_api = "responses";
-                  model_reasoning_effort = "medium";
-                };
-              };
-            };
+            settings = ai.codex;
           };
         };
       };

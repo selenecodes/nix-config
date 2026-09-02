@@ -1,5 +1,5 @@
 {lib, ...}: let
-  modelConfig = import ../../lib/llm-models.nix {inherit lib;};
+  ai = import ../../lib/ai/topology.nix {inherit lib;};
 in {
   repository.features = [
     {
@@ -50,7 +50,7 @@ in {
               provider.bifrost = {
                 npm = "@ai-sdk/openai";
                 name = "Bifrost (proxy)";
-                models = modelConfig.opencodeModels.bifrost;
+                models = ai.opencode.bifrost.models;
                 options = {
                   baseURL = "http://127.0.0.1:4000/v1";
                   apiKey = "";
@@ -60,7 +60,7 @@ in {
                 npm = "@ai-sdk/openai-compatible";
                 name = "vLLM (gayming)";
                 options.baseURL = "http://10.10.50.10:8000/v1";
-                models = modelConfig.opencodeModels.vllm;
+                models = ai.opencode.vllm.models;
               };
               mcp = {
                 context7 = {
