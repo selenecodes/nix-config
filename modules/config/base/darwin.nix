@@ -100,10 +100,7 @@
               cleanup = "zap";
               extraFlags = ["--verbose"];
             };
-            brews = [];
-            taps = [];
             greedyCasks = true;
-            casks = [];
           };
         };
       };
