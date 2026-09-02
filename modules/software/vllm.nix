@@ -1,4 +1,4 @@
-{lib, ...}: let
+_: let
   qwen = import ../../lib/ai/models/qwen3-8-27b.nix;
   topology = import ../../lib/ai/topology.nix;
   port = topology.vllm.port;
