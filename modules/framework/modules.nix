@@ -3,7 +3,10 @@
   lib,
   ...
 }: let
-  mod = lib.mkOption {type = lib.types.deferredModule;};
+  mod = lib.mkOption {
+    type = lib.types.deferredModule;
+    default = {};
+  };
   facet = lib.types.submodule {
     options = {
       targets = lib.mkOption {type = lib.types.listOf lib.types.str;};

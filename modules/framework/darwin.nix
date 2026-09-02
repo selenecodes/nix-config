@@ -7,7 +7,10 @@
   ...
 }: let
   cfg = config.darwin;
-  mod = lib.mkOption {type = lib.types.deferredModule;};
+  mod = lib.mkOption {
+    type = lib.types.deferredModule;
+    default = {};
+  };
 in {
   options.darwin = {
     base = mod;

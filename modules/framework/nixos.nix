@@ -7,7 +7,10 @@
   ...
 }: let
   cfg = config.nixos;
-  mod = lib.mkOption {type = lib.types.deferredModule;};
+  mod = lib.mkOption {
+    type = lib.types.deferredModule;
+    default = {};
+  };
 in {
   options.nixos = {
     base = mod;
