@@ -1,8 +1,13 @@
 _: {
-  nixos.bluetooth = _: {
-    hardware.bluetooth = {
-      enable = true;
-      powerOnBoot = true;
-    };
-  };
+  repository.features = [
+    {
+      nixos = {
+        targets = ["gayming" "rwslaptop"];
+        module.hardware.bluetooth = {
+          enable = true;
+          powerOnBoot = true;
+        };
+      };
+    }
+  ];
 }
