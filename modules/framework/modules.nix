@@ -25,15 +25,32 @@
       };
     };
   };
+  targetsByFacet = {
+    nixos = builtins.attrNames config.nixos.configurations;
+    darwin = builtins.attrNames config.darwin.configurations;
+    homeManager = lib.unique (targetsByFacet.nixos ++ targetsByFacet.darwin);
+  };
+  validateTargets = facetName: targets: let
+    explicitTargets = lib.remove "*" targets;
+    unknownTargets = lib.subtractLists targetsByFacet.${facetName} explicitTargets;
+  in
+    assert lib.assertMsg (targets != []) "repository feature ${facetName} targets must not be empty";
+    assert lib.assertMsg (lib.length targets == lib.length (lib.unique targets)) "repository feature ${facetName} targets must not contain duplicates";
+    assert lib.assertMsg (!(lib.elem "*" targets && explicitTargets != [])) "repository feature ${facetName} targets must not combine * with explicit targets";
+    assert lib.assertMsg (unknownTargets == []) "repository feature ${facetName} has unknown targets: ${lib.concatStringsSep ", " unknownTargets}"; targets;
   modulesFor = facetName: target:
     lib.concatMap (
       record: let
         facetRecord = record.${facetName};
+        targets =
+          if facetRecord == null
+          then []
+          else validateTargets facetName facetRecord.targets;
       in
         lib.optional (
           facetRecord
           != null
-          && (lib.elem "*" facetRecord.targets || lib.elem target facetRecord.targets)
+          && (lib.elem "*" targets || lib.elem target targets)
         )
         facetRecord.module
     )
