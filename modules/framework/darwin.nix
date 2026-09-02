@@ -7,16 +7,8 @@
   ...
 }: let
   cfg = config.darwin;
-  mod = lib.mkOption {
-    type = lib.types.deferredModule;
-    default = {};
-  };
 in {
   options.darwin = {
-    base = mod;
-    personal = mod;
-    work = mod;
-
     configurations = lib.mkOption {
       type = lib.types.lazyAttrsOf (
         lib.types.submodule (

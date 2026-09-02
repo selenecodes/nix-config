@@ -11,9 +11,6 @@ in {
     ...
   }: {
     imports = [
-      config.darwin.base
-      config.darwin.personal
-      config.darwin.work
       inputs.nix-homebrew.darwinModules.nix-homebrew
       inputs.home-manager.darwinModules.home-manager
     ];
@@ -38,10 +35,6 @@ in {
       overwriteBackup = true;
       sharedModules = [inputs.catppuccin.homeModules.catppuccin];
       users.${username} = {
-        imports = [
-          config.homeManager.base
-          config.homeManager.work
-        ];
         home.stateVersion = "26.05";
       };
     };

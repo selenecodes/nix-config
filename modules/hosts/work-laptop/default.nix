@@ -12,12 +12,6 @@ in {
     ...
   }: {
     imports = [
-      config.nixos.base
-      config.nixos.audio
-      config.nixos.bluetooth
-      config.nixos.networking
-      config.nixos.nvidia
-      config.nixos.work
       inputs.home-manager.nixosModules.home-manager
     ];
 
@@ -49,10 +43,6 @@ in {
       backupFileExtension = "backup";
       sharedModules = [inputs.catppuccin.homeModules.catppuccin];
       users.${username} = {
-        imports = [
-          config.homeManager.base
-          config.homeManager.work
-        ];
         home = {
           stateVersion = "26.05";
           file.".face".source = ../../../assets/avatars/yachiyo.png;

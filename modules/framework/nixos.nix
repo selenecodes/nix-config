@@ -7,21 +7,8 @@
   ...
 }: let
   cfg = config.nixos;
-  mod = lib.mkOption {
-    type = lib.types.deferredModule;
-    default = {};
-  };
 in {
   options.nixos = {
-    base = mod;
-    audio = mod;
-    bluetooth = mod;
-    networking = mod;
-    nvidia = mod;
-    gaming = mod;
-    personal = mod;
-    work = mod;
-
     configurations = lib.mkOption {
       type = lib.types.lazyAttrsOf (
         lib.types.submodule (

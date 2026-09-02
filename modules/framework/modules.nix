@@ -3,14 +3,10 @@
   lib,
   ...
 }: let
-  mod = lib.mkOption {
-    type = lib.types.deferredModule;
-    default = {};
-  };
   facet = lib.types.submodule {
     options = {
       targets = lib.mkOption {type = lib.types.listOf lib.types.str;};
-      module = mod;
+      module = lib.mkOption {type = lib.types.deferredModule;};
     };
   };
   feature = lib.types.submodule {
@@ -43,11 +39,6 @@
     )
     config.repository.features;
 in {
-  options.homeManager = {
-    base = mod;
-    work = mod;
-  };
-
   options.repository.features = lib.mkOption {
     type = lib.types.listOf feature;
     default = [];
