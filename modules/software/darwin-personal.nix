@@ -1,8 +1,13 @@
 _: {
-  darwin.personal = _: {
-    homebrew.casks = [
-      "cleanshot"
-      "soundsource"
-    ];
-  };
+  repository.features = [
+    {
+      darwin = {
+        targets = ["studio"];
+        module.homebrew.casks = [
+          "cleanshot"
+          "soundsource"
+        ];
+      };
+    }
+  ];
 }
