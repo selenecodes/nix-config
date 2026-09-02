@@ -1,16 +1,29 @@
-let
-  packages = pkgs:
-    with pkgs; [
-      libpq
-      opentofu
-      slack
-      kubernetes-helm
-    ];
-  workConfig = {pkgs, ...}: {
-    environment.systemPackages = packages pkgs;
-  };
-in
-  _: {
-    nixos.work = workConfig;
-    darwin.work = workConfig;
-  }
+_: {
+  repository.features = [
+    {
+      nixos = {
+        targets = ["rwslaptop"];
+        module = {pkgs, ...}: {
+          environment.systemPackages = with pkgs; [
+            libpq
+            opentofu
+            slack
+            kubernetes-helm
+          ];
+        };
+      };
+
+      darwin = {
+        targets = ["studio"];
+        module = {pkgs, ...}: {
+          environment.systemPackages = with pkgs; [
+            libpq
+            opentofu
+            slack
+            kubernetes-helm
+          ];
+        };
+      };
+    }
+  ];
+}
