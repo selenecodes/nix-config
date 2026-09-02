@@ -7,10 +7,16 @@ let
   ];
 in
   _: {
-    nixos.networking = _: {
-      networking.nameservers = nameservers;
-    };
-    darwin.base = _: {
-      networking.dns = nameservers;
-    };
+    repository.features = [
+      {
+        nixos = {
+          targets = ["gayming" "rwslaptop"];
+          module.networking.nameservers = nameservers;
+        };
+        darwin = {
+          targets = ["studio"];
+          module.networking.dns = nameservers;
+        };
+      }
+    ];
   }
