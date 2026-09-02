@@ -2,10 +2,10 @@ _: {
   repository.features = [
     {
       homeManager = {
-        targets = ["gayming" "rwslaptop" "studio"];
-        module = {pkgs, ...}: {
+        targets = ["studio"];
+        module = {
           catppuccin = {
-            enable = pkgs.stdenv.hostPlatform.isDarwin;
+            enable = true;
             flavor = "frappe";
           };
         };
