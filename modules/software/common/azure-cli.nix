@@ -1,18 +1,5 @@
-{
-  commonNixosTargets,
-  commonDarwinTargets,
-  ...
-}: {
+{common, ...}: {
   repository.features = [
-    {
-      nixos = {
-        targets = commonNixosTargets;
-        module = {pkgs, ...}: {environment.systemPackages = [pkgs.azure-cli];};
-      };
-      darwin = {
-        targets = commonDarwinTargets;
-        module = {pkgs, ...}: {environment.systemPackages = [pkgs.azure-cli];};
-      };
-    }
+    (common.system ({pkgs, ...}: {environment.systemPackages = [pkgs.azure-cli];}))
   ];
 }

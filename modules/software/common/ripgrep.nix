@@ -1,18 +1,5 @@
-{
-  commonNixosTargets,
-  commonDarwinTargets,
-  ...
-}: {
+{common, ...}: {
   repository.features = [
-    {
-      nixos = {
-        targets = commonNixosTargets;
-        module = {pkgs, ...}: {environment.systemPackages = [pkgs.ripgrep];};
-      };
-      darwin = {
-        targets = commonDarwinTargets;
-        module = {pkgs, ...}: {environment.systemPackages = [pkgs.ripgrep];};
-      };
-    }
+    (common.system ({pkgs, ...}: {environment.systemPackages = [pkgs.ripgrep];}))
   ];
 }

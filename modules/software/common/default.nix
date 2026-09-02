@@ -1,6 +1,12 @@
 _: {
-  _module.args = {
-    commonNixosTargets = ["gayming" "rwslaptop"];
-    commonDarwinTargets = ["studio"];
+  _module.args.common.system = module: {
+    nixos = {
+      targets = ["*"];
+      inherit module;
+    };
+    darwin = {
+      targets = ["*"];
+      inherit module;
+    };
   };
 }
