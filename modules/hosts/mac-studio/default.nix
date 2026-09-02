@@ -1,11 +1,7 @@
 {inputs, ...}: let
   username = "selene";
 in {
-  darwin.configurations.studio.module = {
-    lib,
-    pkgsStable,
-    ...
-  }: {
+  darwin.configurations.studio.module = {pkgsStable, ...}: {
     imports = [
       inputs.nix-homebrew.darwinModules.nix-homebrew
       inputs.home-manager.darwinModules.home-manager
@@ -41,8 +37,5 @@ in {
       "Thunderbolt Bridge"
       "Wi-Fi"
     ];
-
-    homebrew.brews = lib.mkAfter ["asimov" "gh"];
-    homebrew.casks = lib.mkAfter ["signal"];
   };
 }

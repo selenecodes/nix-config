@@ -92,13 +92,6 @@
             };
           };
 
-          environment.systemPackages = with pkgs; [
-            betterdisplay
-            raycast
-          ];
-
-          programs.zsh.enable = true;
-
           homebrew = {
             enable = true;
             onActivation = {
@@ -107,9 +100,7 @@
               cleanup = "zap";
               extraFlags = ["--verbose"];
             };
-            brews = [
-              "pinentry-mac"
-            ];
+            brews = [];
             taps = [];
             greedyCasks = true;
             casks = [];
