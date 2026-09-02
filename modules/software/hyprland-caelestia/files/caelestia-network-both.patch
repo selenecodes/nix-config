@@ -69,7 +69,6 @@ index 9cd9849..5f4ca59 100644
          Layout.topMargin: visible ? Tokens.spacing.small : 0
          Layout.fillWidth: true
 @@ -222,7 +222,7 @@ ColumnLayout {
-
      // Ethernet section
      StyledText {
 -        visible: root.view === "ethernet"

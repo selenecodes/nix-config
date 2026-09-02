@@ -1,18 +1,10 @@
-{inputs, ...}: {
+_: {
   repository.features = [
     {
       homeManager = {
         targets = ["*"];
-        module = {
-          lib,
-          pkgs,
-          ...
-        }: {
+        module = {pkgs, ...}: {
           catppuccin.nvim.enable = false;
-
-          xdg.configFile."nvim/colors/caelestia.lua" = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-            source = "${inputs.caelestia-dots}/nvim/colors/caelestia.lua";
-          };
 
           programs.neovim = {
             enable = true;
@@ -21,10 +13,6 @@
             vimAlias = true;
             withRuby = false;
             withPython3 = false;
-            initLua = lib.mkIf pkgs.stdenv.hostPlatform.isLinux ''
-              vim.cmd.colorscheme("caelestia")
-            '';
-
             extraPackages = with pkgs; [
               # LSP servers
               pyright
