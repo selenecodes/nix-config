@@ -3,7 +3,7 @@
     {
       darwin = {
         targets = ["*"];
-        module = {pkgs, ...}: {
+        module = {
           nix.settings = {
             experimental-features = "nix-command flakes";
             substituters = [

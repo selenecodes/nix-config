@@ -3,11 +3,7 @@ _: {
     {
       nixos = {
         targets = ["*"];
-        module = {
-          lib,
-          pkgs,
-          ...
-        }: {
+        module = {lib, ...}: {
           options.myConfig.user.name = lib.mkOption {
             type = lib.types.str;
             description = "Primary user name for this host";
