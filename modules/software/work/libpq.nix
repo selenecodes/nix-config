@@ -1,18 +1,5 @@
-{
-  workNixosTargets,
-  workDarwinTargets,
-  ...
-}: {
+{work, ...}: {
   repository.features = [
-    {
-      nixos = {
-        targets = workNixosTargets;
-        module = {pkgs, ...}: {environment.systemPackages = [pkgs.libpq];};
-      };
-      darwin = {
-        targets = workDarwinTargets;
-        module = {pkgs, ...}: {environment.systemPackages = [pkgs.libpq];};
-      };
-    }
+    (work.system ({pkgs, ...}: {environment.systemPackages = [pkgs.libpq];}))
   ];
 }

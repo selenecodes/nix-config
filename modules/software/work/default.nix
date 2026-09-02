@@ -1,6 +1,12 @@
 _: {
-  _module.args = {
-    workNixosTargets = ["rwslaptop"];
-    workDarwinTargets = ["studio"];
+  _module.args.work.system = module: {
+    nixos = {
+      targets = ["rwslaptop"];
+      inherit module;
+    };
+    darwin = {
+      targets = ["studio"];
+      inherit module;
+    };
   };
 }
