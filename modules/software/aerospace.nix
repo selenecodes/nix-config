@@ -2,10 +2,10 @@ _: {
   repository.features = [
     {
       homeManager = {
-        targets = ["*"];
-        module = {pkgs, ...}: {
+        targets = ["studio"];
+        module = {
           programs.aerospace = {
-            enable = pkgs.stdenv.hostPlatform.isDarwin;
+            enable = true;
             launchd.enable = true;
             settings = {
               config-version = 2;
