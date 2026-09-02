@@ -25,6 +25,16 @@ let
   };
 in
   _: {
-    nixos.base = systemConfig;
-    darwin.base = systemConfig;
+    repository.features = [
+      {
+        nixos = {
+          targets = ["gayming" "rwslaptop"];
+          module = systemConfig;
+        };
+        darwin = {
+          targets = ["studio"];
+          module = systemConfig;
+        };
+      }
+    ];
   }
