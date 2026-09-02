@@ -1,15 +1,10 @@
-_: {
+{common, ...}: {
   repository.features = [
-    {
-      homeManager = {
-        targets = ["*"];
-        module = {
-          programs.zoxide = {
-            enable = true;
-            enableZshIntegration = true;
-          };
-        };
+    (common.homeManager {
+      programs.zoxide = {
+        enable = true;
+        enableZshIntegration = true;
       };
-    }
+    })
   ];
 }

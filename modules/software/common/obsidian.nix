@@ -1,12 +1,7 @@
-_: {
+{common, ...}: {
   repository.features = [
-    {
-      homeManager = {
-        targets = ["*"];
-        module = _: {
-          programs.obsidian.enable = true;
-        };
-      };
-    }
+    (common.homeManager (_: {
+      programs.obsidian.enable = true;
+    }))
   ];
 }
