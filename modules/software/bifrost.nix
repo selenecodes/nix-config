@@ -1,9 +1,7 @@
-{
-  inputs,
-  lib,
-  ...
-}: let
-  ai = import ../../lib/ai/topology.nix {inherit lib;};
+{inputs, ...}: let
+  azure = import ../../lib/ai/models/azure.nix;
+  qwen = import ../../lib/ai/models/qwen3-8-27b.nix;
+  topology = import ../../lib/ai/topology.nix;
 in {
   repository.features = [
     {
@@ -42,7 +40,21 @@ in {
                 package = bifrostHttp;
                 settings = {
                   "$schema" = "https://www.getbifrost.ai/schema";
-                  providers = ai.bifrost.providers;
+                  providers = {
+                    azure = azure.bifrost;
+                    vllm.keys = [
+                      {
+                        name = "qwen3.8-gayming";
+                        value = "";
+                        models = [qwen.servedName];
+                        weight = 1.0;
+                        vllm_key_config = {
+                          url = topology.vllm.url;
+                          model_name = qwen.servedName;
+                        };
+                      }
+                    ];
+                  };
                 };
               };
             }

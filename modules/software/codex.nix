@@ -1,5 +1,6 @@
-{lib, ...}: let
-  ai = import ../../lib/ai/topology.nix {inherit lib;};
+_: let
+  azure = import ../../lib/ai/models/azure.nix;
+  topology = import ../../lib/ai/topology.nix;
 in {
   # codex is managed through npm; a mock package lets home-manager manage
   # settings without trying to install the package itself.
@@ -26,7 +27,9 @@ in {
           programs.codex = {
             enable = true;
             package = pkgs.codex;
-            settings = ai.codex;
+            settings = lib.recursiveUpdate azure.codex {
+              model_providers.bifrost.base_url = topology.bifrost.baseUrl;
+            };
           };
         };
       };

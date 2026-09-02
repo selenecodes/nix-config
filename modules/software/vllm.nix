@@ -1,6 +1,7 @@
 {lib, ...}: let
-  ai = import ../../lib/ai/topology.nix {inherit lib;};
-  port = 8000;
+  qwen = import ../../lib/ai/models/qwen3-8-27b.nix;
+  topology = import ../../lib/ai/topology.nix;
+  port = topology.vllm.port;
   backendPort = 8001;
   idleTimeout = "15min";
   idleTimeoutSeconds = 15 * 60;
@@ -12,7 +13,7 @@ in {
         module = {pkgs, ...}: {
           networking.firewall.allowedTCPPorts = [8000];
           virtualisation.oci-containers.containers.vllm = {
-            image = ai.vllm.image;
+            image = "vllm/vllm-openai:latest";
             autoStart = false;
 
             # The socket-activated proxy owns the public port.
@@ -32,15 +33,34 @@ in {
               MAX_JOBS = "2";
             };
 
-            cmd =
-              lib.take 2 ai.vllm.cmd
-              ++ [
-                "--host"
-                "0.0.0.0"
-                "--port"
-                (toString port)
-              ]
-              ++ lib.drop 2 ai.vllm.cmd;
+            cmd = [
+              "--model"
+              qwen.source
+              "--host"
+              "0.0.0.0"
+              "--port"
+              (toString port)
+              "--quantization"
+              qwen.quantization
+              "--kv-cache-dtype"
+              "fp8"
+              "--trust-remote-code"
+              "--max-model-len"
+              (toString qwen.limits.context)
+              "--max-num-seqs"
+              (toString qwen.limits.sequences)
+              "--gpu-memory-utilization"
+              "0.8"
+              "--reasoning-parser"
+              "qwen3"
+              "--override-generation-config"
+              ''{"temperature": 1.0, "top_p": 0.95, "top_k": 20, "min_p": 0.0, "presence_penalty": 0.0, "repetition_penalty": 1.0}''
+              "--enable-auto-tool-choice"
+              "--tool-call-parser"
+              "qwen3_xml"
+              "--served-model-name"
+              qwen.servedName
+            ];
           };
 
           systemd = {

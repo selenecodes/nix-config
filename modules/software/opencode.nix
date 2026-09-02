@@ -1,5 +1,7 @@
-{lib, ...}: let
-  ai = import ../../lib/ai/topology.nix {inherit lib;};
+_: let
+  azure = import ../../lib/ai/models/azure.nix;
+  qwen = import ../../lib/ai/models/qwen3-8-27b.nix;
+  topology = import ../../lib/ai/topology.nix;
 in {
   repository.features = [
     {
@@ -51,17 +53,27 @@ in {
               provider.bifrost = {
                 npm = "@ai-sdk/openai";
                 name = "Bifrost (proxy)";
-                models = ai.opencode.bifrost.models;
+                models = lib.filterAttrs (_: model: model.tool_call or false) azure.opencode.models;
                 options = {
-                  baseURL = "http://127.0.0.1:4000/v1";
+                  baseURL = topology.bifrost.baseUrl;
                   apiKey = "";
                 };
               };
               provider.vllm = {
                 npm = "@ai-sdk/openai-compatible";
                 name = "vLLM (gayming)";
-                options.baseURL = "http://10.10.50.10:8000/v1";
-                models = ai.opencode.vllm.models;
+                options.baseURL = topology.vllm.baseUrl;
+                models.${qwen.servedName} = {
+                  inherit (qwen) name;
+                  tool_call = qwen.capabilities.toolCall;
+                  reasoning = qwen.capabilities.reasoning;
+                  options.reasoningEffort = "medium";
+                  variants = {
+                    xhigh.reasoningEffort = "xhigh";
+                    medium.reasoningEffort = "medium";
+                    low.reasoningEffort = "low";
+                  };
+                };
               };
               mcp = {
                 context7 = {
