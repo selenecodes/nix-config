@@ -1,5 +1,12 @@
 _: {
-  nixos.networking = _: {
-    services.tailscale.enable = true;
-  };
+  repository.features = [
+    {
+      nixos = {
+        targets = ["gayming"];
+        module = _: {
+          services.tailscale.enable = true;
+        };
+      };
+    }
+  ];
 }

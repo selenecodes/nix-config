@@ -8,7 +8,6 @@
 in {
   nixos.configurations.rwslaptop.module = {
     pkgs,
-    lib,
     pkgsStable,
     ...
   }: {
@@ -44,7 +43,6 @@ in {
       firewall.enable = true;
     };
 
-    services.tailscale.enable = lib.mkForce false;
     security.sudo.wheelNeedsPassword = true;
     home-manager = {
       useGlobalPkgs = true;
