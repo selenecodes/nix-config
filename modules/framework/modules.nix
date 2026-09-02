@@ -34,7 +34,12 @@
       record: let
         facetRecord = record.${facetName};
       in
-        lib.optional (facetRecord != null && lib.elem target facetRecord.targets) facetRecord.module
+        lib.optional (
+          facetRecord
+          != null
+          && (lib.elem "*" facetRecord.targets || lib.elem target facetRecord.targets)
+        )
+        facetRecord.module
     )
     config.repository.features;
 in {
