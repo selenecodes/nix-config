@@ -1,8 +1,15 @@
 _: {
-  homeManager.base = _: {
-    programs.zoxide = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-  };
+  repository.features = [
+    {
+      homeManager = {
+        targets = ["gayming" "rwslaptop" "studio"];
+        module = {
+          programs.zoxide = {
+            enable = true;
+            enableZshIntegration = true;
+          };
+        };
+      };
+    }
+  ];
 }
