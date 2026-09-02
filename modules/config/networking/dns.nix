@@ -10,11 +10,11 @@ in
     repository.features = [
       {
         nixos = {
-          targets = ["gayming" "rwslaptop"];
+          targets = ["*"];
           module.networking.nameservers = nameservers;
         };
         darwin = {
-          targets = ["studio"];
+          targets = ["*"];
           module.networking.dns = nameservers;
         };
       }

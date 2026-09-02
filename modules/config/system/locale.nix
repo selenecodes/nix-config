@@ -4,14 +4,14 @@ in {
   repository.features = [
     {
       nixos = {
-        targets = ["gayming" "rwslaptop"];
+        targets = ["*"];
         module = {
           time.timeZone = timeZone;
           i18n.defaultLocale = "en_GB.UTF-8";
         };
       };
       darwin = {
-        targets = ["studio"];
+        targets = ["*"];
         module.time.timeZone = timeZone;
       };
     }
