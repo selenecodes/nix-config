@@ -1,12 +1,19 @@
 _: let
   timeZone = "Europe/Amsterdam";
 in {
-  nixos.base = {
-    time.timeZone = timeZone;
-    i18n.defaultLocale = "en_GB.UTF-8";
-  };
-
-  darwin.base = {
-    time.timeZone = timeZone;
-  };
+  repository.features = [
+    {
+      nixos = {
+        targets = ["gayming" "rwslaptop"];
+        module = {
+          time.timeZone = timeZone;
+          i18n.defaultLocale = "en_GB.UTF-8";
+        };
+      };
+      darwin = {
+        targets = ["studio"];
+        module.time.timeZone = timeZone;
+      };
+    }
+  ];
 }
