@@ -1,15 +1,20 @@
 _: {
-  nixos.configurations.gayming.module = _: {
-    hardware.logitech.wireless = {
-      enable = true;
-    };
-    programs.solaar.enable = true;
-  };
-
-  darwin.personal = _: {
-    homebrew.casks = [
-      "openlogi"
-      # "logitech-g-hub"
-    ];
-  };
+  repository.features = [
+    {
+      nixos = {
+        targets = ["gayming"];
+        module = {
+          hardware.logitech.wireless.enable = true;
+          programs.solaar.enable = true;
+        };
+      };
+      darwin = {
+        targets = ["studio"];
+        module.homebrew.casks = [
+          "openlogi"
+          # "logitech-g-hub"
+        ];
+      };
+    }
+  ];
 }
