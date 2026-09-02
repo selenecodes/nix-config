@@ -12,11 +12,7 @@
       ];
     }))
     (hyprlandCaelestia.homeManager (
-      {
-        config,
-        pkgs,
-        ...
-      }: {
+      {pkgs, ...}: {
         imports = [inputs.caelestia-shell.homeManagerModules.default];
 
         programs.caelestia = {
