@@ -10,6 +10,7 @@ in {
           pkgs,
           ...
         }: let
+          defaultModel = "bifrost/eu/gpt-5.6-terra";
           isLinux = pkgs.stdenv.hostPlatform.isLinux;
         in {
           programs.zsh.initContent = lib.mkAfter ''
@@ -27,13 +28,13 @@ in {
             package = pkgs.opencode;
             settings = {
               enabled_providers = ["bifrost" "vllm"];
-              model = "bifrost/eu/gpt-5.6-terra";
+              model = defaultModel;
               agent = {
                 build = {
-                  model = "bifrost/eu/gpt-5.6-terra";
+                  model = defaultModel;
                 };
                 plan = {
-                  model = "bifrost/eu/gpt-5.6-terra";
+                  model = defaultModel;
                 };
               };
               share = "disabled";
