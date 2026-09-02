@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: let
+{inputs, ...}: let
   username = "selene";
 in {
   darwin.configurations.studio.module = {

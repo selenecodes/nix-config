@@ -1,8 +1,4 @@
-{
-  config,
-  inputs,
-  ...
-}: let
+{inputs, ...}: let
   system = "x86_64-linux";
   username = "selene";
 in {
