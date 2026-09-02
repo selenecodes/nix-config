@@ -203,7 +203,7 @@
           gtk.enable = true;
           x11.enable = true;
         };
-        file."Pictures/Wallpapers/kaguya-iroha-yachiyo.png".source = ../assets/wallpapers/kaguya-iroha-yachiyo.png;
+        file."Pictures/Wallpapers/kaguya-iroha-yachiyo.png".source = ../../../assets/wallpapers/kaguya-iroha-yachiyo.png;
       };
 
       gtk.enable = true;

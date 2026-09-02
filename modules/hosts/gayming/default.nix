@@ -97,7 +97,7 @@ in {
         ];
         home = {
           stateVersion = "26.05";
-          file.".face".source = ../assets/avatars/yachiyo.png;
+          file.".face".source = ../../../assets/avatars/yachiyo.png;
         };
         myConfig.caelestia.extraHyprlandConfig = ''
           hl.monitor({
