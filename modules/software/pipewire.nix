@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       nixos = {
-        targets = ["gayming" "rwslaptop"];
+        targets = ["*"];
         module = {
           services.pipewire = {
             enable = true;

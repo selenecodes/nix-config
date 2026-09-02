@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       nixos = {
-        targets = ["gayming" "rwslaptop"];
+        targets = ["*"];
         module = {
           nix.settings = {
             substituters = ["https://cache.nixos-cuda.org"];

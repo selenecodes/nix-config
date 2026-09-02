@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       darwin = {
-        targets = ["studio"];
+        targets = ["*"];
         module.homebrew.casks = [
           "cleanshot"
           "soundsource"

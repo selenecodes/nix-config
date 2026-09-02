@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       nixos = {
-        targets = ["gayming" "rwslaptop"];
+        targets = ["*"];
         module = {pkgs, ...}: {
           services.udev.packages = [pkgs.yubikey-personalization];
 

@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       homeManager = {
-        targets = ["gayming" "rwslaptop" "studio"];
+        targets = ["*"];
         module = _: {
           programs.obsidian.enable = true;
         };

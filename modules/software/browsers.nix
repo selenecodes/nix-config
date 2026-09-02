@@ -2,13 +2,13 @@ _: {
   repository.features = [
     {
       nixos = {
-        targets = ["gayming" "rwslaptop"];
+        targets = ["*"];
         module = {pkgs, ...}: {
           environment.systemPackages = with pkgs; [google-chrome firefox];
         };
       };
       darwin = {
-        targets = ["studio"];
+        targets = ["*"];
         module = _: {
           homebrew.casks = ["arc"];
         };

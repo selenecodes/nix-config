@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       nixos = {
-        targets = ["gayming" "rwslaptop"];
+        targets = ["*"];
         module.hardware.bluetooth = {
           enable = true;
           powerOnBoot = true;
