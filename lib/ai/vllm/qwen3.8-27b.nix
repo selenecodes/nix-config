@@ -1,32 +1,22 @@
-let
-  servedName = "qwen3.8:27b";
-  source = "unsloth/Qwen3.8-27B-NVFP4";
-  quantization = "modelopt";
-  limits = {
-    context = 131072;
-    sequences = 16;
-  };
-in {
-  name = "Qwen 3.8 27B";
-  inherit servedName source quantization limits;
-
+{mkAiModel}:
+mkAiModel {
+  name = "qwen3.8:27b";
+  providerModel = "unsloth/Qwen3.8-27B-NVFP4";
+  displayName = "Qwen 3.8 27B";
   capabilities = {
     reasoning = true;
     toolCall = true;
   };
-
-  vllmArgs = [
-    "--model"
-    source
+  limits.context = 131072;
+  reasoningEfforts = ["xhigh" "medium" "low"];
+  vllm.args = [
     "--quantization"
-    quantization
+    "modelopt"
     "--kv-cache-dtype"
     "fp8"
     "--trust-remote-code"
-    "--max-model-len"
-    (toString limits.context)
     "--max-num-seqs"
-    (toString limits.sequences)
+    "16"
     "--gpu-memory-utilization"
     "0.8"
     "--reasoning-parser"
@@ -36,7 +26,5 @@ in {
     "--enable-auto-tool-choice"
     "--tool-call-parser"
     "qwen3_xml"
-    "--served-model-name"
-    servedName
   ];
 }

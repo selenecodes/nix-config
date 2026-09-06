@@ -1,5 +1,5 @@
-_: let
-  azure = import ../../lib/ai/models/azure.nix;
+{lib, ...}: let
+  catalog = import ../../lib/ai {inherit lib;};
   topology = import ../../lib/ai/topology.nix;
 in {
   # codex is managed through npm; a mock package lets home-manager manage
@@ -27,8 +27,16 @@ in {
           programs.codex = {
             enable = true;
             package = pkgs.codex;
-            settings = lib.recursiveUpdate azure.codex {
-              model_providers.bifrost.base_url = topology.bifrost.baseUrl;
+            settings = {
+              model = catalog.models."eu/gpt-5.6-luna".name;
+              model_provider = "bifrost";
+              model_reasoning_effort = "medium";
+              model_providers.bifrost = {
+                name = "Bifrost (proxy)";
+                base_url = topology.bifrost.baseUrl;
+                wire_api = "responses";
+                model_reasoning_effort = "medium";
+              };
             };
           };
         };

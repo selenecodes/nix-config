@@ -1,5 +1,6 @@
-_: let
-  qwen = import ../../lib/ai/models/qwen3-8-27b.nix;
+{lib, ...}: let
+  catalog = import ../../lib/ai {inherit lib;};
+  model = catalog.vllm.activeModel;
   topology = import ../../lib/ai/topology.nix;
   port = topology.vllm.port;
   backendPort = 8001;
@@ -39,8 +40,14 @@ in {
                 "0.0.0.0"
                 "--port"
                 (toString port)
+                "--model"
+                model.providerModel
+                "--max-model-len"
+                (toString model.limits.context)
+                "--served-model-name"
+                model.name
               ]
-              ++ qwen.vllmArgs;
+              ++ model.vllm.args;
           };
 
           systemd = {

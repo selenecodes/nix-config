@@ -1,17 +1,12 @@
-_: let
-  azure = import ../../lib/ai/models/azure.nix;
-  qwen = import ../../lib/ai/models/qwen3-8-27b.nix;
+{lib, ...}: let
+  catalog = import ../../lib/ai {inherit lib;};
   topology = import ../../lib/ai/topology.nix;
 in {
   repository.features = [
     {
       homeManager = {
         targets = ["*"];
-        module = {
-          lib,
-          pkgs,
-          ...
-        }: let
+        module = {pkgs, ...}: let
           defaultModel = "bifrost/eu/gpt-5.6-terra";
           isLinux = pkgs.stdenv.hostPlatform.isLinux;
         in {
@@ -29,7 +24,7 @@ in {
             enable = true;
             package = pkgs.opencode;
             settings = {
-              enabled_providers = ["bifrost" "vllm"];
+              enabled_providers = ["bifrost"];
               model = defaultModel;
               agent = {
                 build = {
@@ -53,26 +48,10 @@ in {
               provider.bifrost = {
                 npm = "@ai-sdk/openai";
                 name = "Bifrost (proxy)";
-                models = lib.filterAttrs (_: model: model.tool_call or false) azure.opencode.models;
+                models = catalog.opencode.models;
                 options = {
                   baseURL = topology.bifrost.baseUrl;
                   apiKey = "";
-                };
-              };
-              provider.vllm = {
-                npm = "@ai-sdk/openai-compatible";
-                name = "vLLM (gayming)";
-                options.baseURL = topology.vllm.baseUrl;
-                models.${qwen.servedName} = {
-                  inherit (qwen) name;
-                  tool_call = qwen.capabilities.toolCall;
-                  reasoning = qwen.capabilities.reasoning;
-                  options.reasoningEffort = "medium";
-                  variants = {
-                    xhigh.reasoningEffort = "xhigh";
-                    medium.reasoningEffort = "medium";
-                    low.reasoningEffort = "low";
-                  };
                 };
               };
               mcp = {
