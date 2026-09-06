@@ -10,7 +10,7 @@ in {
       homeManager = {
         targets = ["*"];
         module = {pkgs, ...}: let
-          bifrostVersion = "1.6.10";
+          bifrostVersion = "2.0.0";
           bifrostUi = pkgs.callPackage "${inputs.bifrost}/nix/packages/bifrost-ui.nix" {
             pkgs =
               pkgs

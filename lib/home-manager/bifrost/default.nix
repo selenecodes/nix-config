@@ -56,10 +56,14 @@ in {
           PATH = "/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:/usr/bin:/bin";
           HOME = config.home.homeDirectory;
           AZURE_TOKEN_CREDENTIALS = "AzureCLICredential";
+          # Prevent 'az' from hanging on background prompts/checks
+          AZURE_CORE_COLLECT_TELEMETRY = "false";
+          AZURE_CORE_NO_COLOR = "true";
+          AZURE_CORE_ONLY_SHOW_ERRORS = "true";
         };
         KeepAlive = true;
         RunAtLoad = true;
-        ProcessType = "Background";
+        ProcessType = "Interactive";
         StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/bifrost.err.log";
         StandardOutPath = "${config.home.homeDirectory}/Library/Logs/bifrost.out.log";
       };
