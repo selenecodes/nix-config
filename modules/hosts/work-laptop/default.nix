@@ -3,6 +3,7 @@
   username = "selene";
 in {
   nixos.configurations.rwslaptop.module = {
+    lib,
     pkgs,
     pkgsStable,
     ...
@@ -44,6 +45,12 @@ in {
           stateVersion = "26.05";
           file.".face".source = ../../../assets/avatars/yachiyo.png;
         };
+        xdg.configFile."caelestia/hypr-user.lua".text = lib.mkAfter ''
+          hl.monitor({
+            output = "eDP-1",
+            scale = 1.5,
+          })
+        '';
       };
     };
 
