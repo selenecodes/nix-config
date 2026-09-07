@@ -12,7 +12,7 @@
     assert lib.assertMsg (builtins.isInt value && value > 0) "AI definition requires ${name} to be a positive integer"; value;
 in {
   # Required arguments: name, providerModel, displayName, capabilities.reasoning,
-  # capabilities.toolCall, and limits.context. Optional arguments: limits.output,
+  # capabilities.toolCall, limits.context, and limits.output. Optional arguments:
   # cost, reasoningEfforts, and vllm.args.
   #
   # Model naming:
@@ -40,12 +40,11 @@ in {
     assert requireBool "model.capabilities.reasoning" (capabilities.reasoning or null);
     assert requireBool "model.capabilities.toolCall" (capabilities.toolCall or null);
     assert requireInt "model.limits.context" (limits.context or null) > 0;
-    assert lib.assertMsg (limits.output or null == null || builtins.isInt limits.output && limits.output > 0) "AI model limits.output must be null or a positive integer";
+    assert requireInt "model.limits.output" (limits.output or null) > 0;
     assert lib.assertMsg (!(model ? reasoningEfforts) || builtins.isList model.reasoningEfforts && lib.all builtins.isString model.reasoningEfforts) "AI model reasoningEfforts must be a list of strings";
     assert lib.assertMsg (vllm == null || builtins.isAttrs vllm && builtins.isList (vllm.args or null)) "AI model vllm.args must be a list when vllm is present";
       model
       // {
-        limits = limits // {output = limits.output or null;};
         cost = model.cost or null;
         reasoningEfforts = model.reasoningEfforts or null;
         inherit vllm;

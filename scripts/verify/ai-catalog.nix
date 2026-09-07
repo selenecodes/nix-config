@@ -13,9 +13,22 @@
         };
         limits.context = 1;
       }).name).success;
+  invalidOutputModel =
+    !(builtins.tryEval
+      (ai.mkAiModel {
+        name = "missing-output";
+        providerModel = "missing-output";
+        displayName = "Invalid";
+        capabilities = {
+          reasoning = false;
+          toolCall = false;
+        };
+        limits.context = 1;
+      }).name).success;
   localModels = builtins.filter (model: model.vllm != null) catalog.routableModels;
 in
   assert invalidModel;
+  assert invalidOutputModel;
   assert catalog.models."eu/gpt-5.6-sol".providerModel == "gpt-5.6-sol";
   assert catalog.models."qwen3.8:27b".providerModel == "unsloth/Qwen3.8-27B-NVFP4";
   assert (builtins.elemAt catalog.bifrost.providers.azure.keys 0).aliases."eu/gpt-5.6-sol" == "gpt-5.6-sol";
