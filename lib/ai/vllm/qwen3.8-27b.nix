@@ -7,7 +7,10 @@ mkAiModel {
     reasoning = true;
     toolCall = true;
   };
-  limits.context = 131072;
+  limits = {
+    context = 131072;
+    output = 131072;
+  };
   reasoningEfforts = ["xhigh" "medium" "low"];
   vllm.args = [
     "--quantization"
