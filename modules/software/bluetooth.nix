@@ -7,6 +7,7 @@ _: {
           enable = true;
           powerOnBoot = true;
         };
+        module.services.blueman.enable = true;
       };
     }
   ];
