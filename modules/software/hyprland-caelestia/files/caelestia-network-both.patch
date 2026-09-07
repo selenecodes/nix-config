@@ -68,7 +68,7 @@ index 9cd9849..5f4ca59 100644
          Layout.preferredHeight: visible ? implicitHeight : 0
          Layout.topMargin: visible ? Tokens.spacing.small : 0
          Layout.fillWidth: true
-@@ -222,7 +222,7 @@ ColumnLayout {
+@@ -222,6 +222,6 @@ ColumnLayout {
      // Ethernet section
      StyledText {
 -        visible: root.view === "ethernet"
@@ -94,7 +94,7 @@ index 9cd9849..5f4ca59 100644
          model: ScriptModel {
              values: [...Nmcli.ethernetDevices].sort((a, b) => {
                  if (a.connected !== b.connected)
-@@ -256,7 +256,7 @@ ColumnLayout {
+@@ -256,6 +256,6 @@ ColumnLayout {
              readonly property bool loading: false
 
 -            visible: root.view === "ethernet"
@@ -102,3 +102,54 @@ index 9cd9849..5f4ca59 100644
              Layout.preferredHeight: visible ? implicitHeight : 0
              Layout.fillWidth: true
              Layout.rightMargin: Tokens.padding.extraSmall
+diff --git a/utils/NetworkConnection.qml b/utils/NetworkConnection.qml
+index 9c4399f..bd663e5 100644
+--- a/utils/NetworkConnection.qml
++++ b/utils/NetworkConnection.qml
+@@ -69,9 +69,5 @@ QtObject {
+         if (network.isSecure) {
+-            const hasSavedProfile = Nmcli.hasSavedProfile(network.ssid);
+-
+-            if (hasSavedProfile) {
+-                Nmcli.connectToNetwork(network.ssid, "", network.bssid, null);
+-            } else {
+-                // Use password check with callback
++            // A matching profile can lack a usable secret or target an old BSSID.
++            // Always retain the callback so NetworkManager can request a password.
+-                Nmcli.connectToNetworkWithPasswordCheck(network.ssid, network.isSecure, result => {
++            Nmcli.connectToNetworkWithPasswordCheck(network.ssid, network.isSecure, result => {
+                     if (result.needsPassword) {
+@@ -92,8 +87,7 @@ QtObject {
+                             onPasswordNeeded(network);
+                         }
+                     }
+-                }, network.bssid);
+-            }
++                }, network.bssid);
+         } else {
+             Nmcli.connectToNetwork(network.ssid, "", network.bssid, null);
+         }
+diff --git a/services/Nmcli.qml b/services/Nmcli.qml
+index 6b1cba4..b0c5cd0 100644
+--- a/services/Nmcli.qml
++++ b/services/Nmcli.qml
+@@ -449,3 +449,3 @@ QtObject {
+     function createConnectionWithPassword(ssid: string, bssidUpper: string, password: string, callback: var): void {
+         checkAndDeleteConnection(ssid, () => {
+-            const cmd = [root.nmcliCommandConnection, "add", root.connectionParamType, root.deviceTypeWifi, root.connectionParamConName, ssid, root.connectionParamIfname, "*", root.connectionParamSsid, ssid, root.connectionParamBssid, bssidUpper, root.securityKeyMgmt, root.keyMgmtWpaPsk, root.securityPsk, password];
++            const cmd = [root.nmcliCommandDevice, root.nmcliCommandWifi, "connect", ssid, root.connectionParamPassword, password, "bssid", bssidUpper];
+@@ -713,5 +714,2 @@ QtObject {
+-    // Toggles auto-connect for a saved connection. When turned OFF, also makes
+-    // NetworkManager ask for the password on the next manual connect instead of
+-    // silently reusing the stored one (psk-flags 2 = "not saved, always ask");
+-    // turning it back ON restores psk-flags 0 so the next password is saved.
++    // Toggles auto-connect without modifying the saved credential.
+     function setAutoconnect(connectionName: string, enabled: bool, callback: var): void {
+@@ -731,6 +729,5 @@ QtObject {
+         if (enabled) {
+             cmd.push("802-11-wireless-security.psk-flags", "0");
+         } else {
+-            cmd.push("802-11-wireless-security.psk-flags", "2");
+-            cmd.push("802-11-wireless-security.psk", "");
++            cmd.push("802-11-wireless-security.psk-flags", "0");
+         }
