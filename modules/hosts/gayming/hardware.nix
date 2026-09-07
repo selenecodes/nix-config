@@ -13,7 +13,6 @@ _: {
       enableRedistributableFirmware = true;
       graphics.enable32Bit = true;
       nvidia = {
-        powerManagement.enable = false;
         powerManagement.finegrained = false;
         open = true;
         # Keep this pin host-local so each machine can upgrade or roll back independently.

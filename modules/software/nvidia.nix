@@ -10,7 +10,7 @@ _: {
           };
 
           boot = {
-            kernelParams = ["nvidia_drm.modeset=1" "nvidia_drm.fbdev=1"];
+            kernelParams = ["nvidia_drm.modeset=1" "nvidia_drm.fbdev=1" "nvidia.NVreg_TemporaryFilePath=/var/tmp"];
             initrd.kernelModules = ["nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm"];
           };
 
@@ -18,6 +18,11 @@ _: {
             nvidia = {
               modesetting.enable = true;
               nvidiaSettings = true;
+              powerManagement = {
+                enable = true;
+                # Use the systemd hooks so video memory is restored before the session resumes.
+                kernelSuspendNotifier = false;
+              };
             };
             nvidia-container-toolkit.enable = true;
             graphics.enable = true;
