@@ -3,9 +3,7 @@ _: {
     {
       darwin = {
         targets = ["*"];
-        module = {pkgs, ...}: {
-          environment.systemPackages = [pkgs.raycast];
-        };
+        module.homebrew.casks = ["raycast"];
       };
     }
   ];
