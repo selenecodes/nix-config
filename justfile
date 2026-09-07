@@ -44,6 +44,7 @@ lint:
 
 # Run linting and formatting
 verify: check format-check lint
+  bash {{flake_dir}}/scripts/verify.sh
 
 # Install the Git hooks
 install-hooks:
