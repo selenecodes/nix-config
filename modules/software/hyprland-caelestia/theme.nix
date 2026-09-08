@@ -105,6 +105,7 @@
               kbClipboardPasteLatest = "",
               kbMusicWs = "",
               kbTodoWs = "",
+              kbRestoreLock = "",
               singleWindowGapsOut = 8,
             }
           '';

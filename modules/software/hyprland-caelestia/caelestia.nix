@@ -17,11 +17,9 @@
 
         programs.caelestia = {
           enable = true;
-          package = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli.overrideAttrs (old: {
-            patches = (old.patches or []) ++ [./files/caelestia-network-both.patch];
-          });
+          package = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli;
           systemd = {
-            enable = true;
+            enable = false;
             target = "graphical-session.target";
           };
           settings = {
