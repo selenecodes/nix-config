@@ -13,6 +13,8 @@ in {
     ];
 
     myConfig.user.name = username;
+    myConfig.citrix.enable = true;
+    myConfig.displaylink.enable = true;
 
     boot.loader = {
       systemd-boot.enable = true;
