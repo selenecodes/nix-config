@@ -12,9 +12,11 @@ in {
       inputs.home-manager.nixosModules.home-manager
     ];
 
-    myConfig.user.name = username;
-    myConfig.citrix.enable = true;
-    myConfig.displaylink.enable = true;
+    myConfig = {
+      user.name = username;
+      citrix.enable = true;
+      displaylink.enable = true;
+    };
 
     boot.loader = {
       systemd-boot.enable = true;
