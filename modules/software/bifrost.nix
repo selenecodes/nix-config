@@ -18,7 +18,7 @@ in {
                 buildNpmPackage = args:
                   pkgs.buildNpmPackage (args
                     // {
-                      npmDepsHash = "sha256-aM+yPpvVoc0UtMcJH4hhJWHfApAkBcKdJB+EbI3BFCA=";
+                      npmDepsHash = "sha256-cOswnT4ZahWX66h9oiw4t3r5GZeOH/yjbnTCAsjVgnw=";
                     });
               };
             version = bifrostVersion;
@@ -31,7 +31,7 @@ in {
               src = inputs.bifrost;
               "bifrost-ui" = bifrostUi;
             }).overrideAttrs (_: {
-              vendorHash = "sha256-RYmCtKoyh93LxkiVPIWnDslohzW5s2Mr0jvg2F7i/nQ=";
+              vendorHash = "sha256-JGOMV5R9d+gG5sB9SUmm219Vl/HM0/6EryAWAj2UnVU=";
             });
         in {
           imports = [

@@ -22,7 +22,7 @@
       flake = false;
     };
     caelestia-shell = {
-      url = "github:caelestia-dots/shell/v2.4.0";
+      url = "github:caelestia-dots/shell/v2.5.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     caelestia-dots.url = "github:caelestia-dots/caelestia";
@@ -30,7 +30,7 @@
     sweet-theme.url = "github:EliverLara/Sweet/nova";
     sweet-theme.flake = false;
     catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
-    bifrost.url = "github:maximhq/bifrost?ref=transports/v1.6.10";
+    bifrost.url = "github:maximhq/bifrost?ref=transports/v2.2.1";
   };
 
   outputs = inputs:
