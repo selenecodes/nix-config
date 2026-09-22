@@ -18,11 +18,6 @@ _: {
           };
         };
       };
-
-      darwin = {
-        targets = ["studio"];
-        module.homebrew.casks = ["displaylink"];
-      };
     }
   ];
 }
