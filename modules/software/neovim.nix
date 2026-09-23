@@ -15,7 +15,7 @@ _: {
             withPython3 = false;
             extraPackages = with pkgs; [
               # LSP servers
-              pyright
+              pyrefly
               typescript-language-server
               nil
               helm-ls
@@ -128,7 +128,7 @@ _: {
                   local caps = require("cmp_nvim_lsp").default_capabilities()
 
                   vim.lsp.config("*", { capabilities = caps })
-                  vim.lsp.enable({ "pyright", "ts_ls", "nil_ls", "helm_ls", "yamlls", "ruff" })
+                  vim.lsp.enable({ "pyrefly", "ts_ls", "nil_ls", "helm_ls", "yamlls", "ruff" })
 
                   vim.keymap.set("n", "gd",          vim.lsp.buf.definition)
                   vim.keymap.set("n", "K",            vim.lsp.buf.hover)

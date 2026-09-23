@@ -1,5 +1,5 @@
 let
-  packageModule = {pkgs, ...}: {environment.systemPackages = [pkgs.pyright];};
+  packageModule = {pkgs, ...}: {environment.systemPackages = [pkgs.pyrefly];};
 in
   _: {
     repository.features = [

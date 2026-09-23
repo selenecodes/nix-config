@@ -31,10 +31,7 @@ _: {
                   # Python
                   njpwerner.autodocstring
                   charliermarsh.ruff
-                  ms-python.pylint
                   ms-python.python
-                  ms-python.mypy-type-checker
-                  ms-pyright.pyright
                   # Mermaid
                   bierner.markdown-mermaid
                   # Nix
@@ -58,6 +55,12 @@ _: {
                     publisher = "pflannery";
                     version = "1.22.4";
                     sha256 = "sha256-yEhFRRwaqq4OH1oEjD2E+8y7DCVbvvvwa3r6ujq7IGg=";
+                  }
+                  {
+                    name = "pyrefly";
+                    publisher = "meta";
+                    version = "1.3.1";
+                    sha256 = "sha256-A0EXjkF3A1aqTpe2TmwCdQ07kV3TU3erwYx5qr+nHWg=";
                   }
                 ];
               userSettings = {
@@ -108,9 +111,10 @@ _: {
                 "git.enableSmartCommit" = true;
                 "git.replaceTagsWhenPull" = true;
                 "javascript.updateImportsOnFileMove.enabled" = "always";
-                "python.analysis.typeCheckingMode" = "strict";
+                "python.pyrefly.typeCheckingMode" = "strict";
                 "python.createEnvironment.trigger" = "off";
                 "python.terminal.activateEnvInCurrentTerminal" = false;
+                "pyrefly.lspPath" = "${pkgs.pyrefly}/bin/pyrefly";
                 "redhat.telemetry.enabled" = false;
                 "security.workspace.trust.untrustedFiles" = "prompt";
                 "svelte.enable-ts-plugin" = true;
