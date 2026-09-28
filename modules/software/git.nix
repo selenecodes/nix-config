@@ -1,8 +1,7 @@
 let
   systemPackages = pkgs: with pkgs; [git-credential-manager lazygit];
   rwsSslConfig = {
-    sslKey = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.key";
-    sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl.pem";
+    sslCert = "~/certs/gitlab-at-rws-nl-cert/git-rws-nl-mtls.pem";
   };
 in
   _: {
