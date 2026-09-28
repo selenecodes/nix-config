@@ -1,11 +1,19 @@
 let
-  packageModule = {pkgs, ...}: {environment.systemPackages = [pkgs.kubernetes-helm];};
+  packageModule = {pkgs, ...}: {
+    environment.systemPackages = with pkgs; [
+      kubectl
+      kubectx
+      kubernetes-helm
+      kind
+      tilt
+    ];
+  };
 in
   _: {
     repository.features = [
       {
         nixos = {
-          targets = ["rwslaptop"];
+          targets = ["gayming" "rwslaptop"];
           module = packageModule;
         };
         darwin = {
