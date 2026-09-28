@@ -37,6 +37,11 @@ in {
       firewall.enable = true;
     };
 
+    zramSwap = {
+      enable = true;
+      algorithm = "zstd";
+    };
+
     security.sudo.wheelNeedsPassword = true;
     home-manager = {
       useGlobalPkgs = true;
