@@ -128,6 +128,13 @@ _: {
                   local caps = require("cmp_nvim_lsp").default_capabilities()
 
                   vim.lsp.config("*", { capabilities = caps })
+                  vim.lsp.config("pyrefly", {
+                    settings = {
+                      python = {
+                        pyrefly = { typeCheckingMode = "strict" },
+                      },
+                    },
+                  })
                   vim.lsp.enable({ "pyrefly", "ts_ls", "nil_ls", "helm_ls", "yamlls", "ruff" })
 
                   vim.keymap.set("n", "gd",          vim.lsp.buf.definition)
