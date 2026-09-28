@@ -62,6 +62,12 @@ _: {
                     version = "1.3.1";
                     sha256 = "sha256-A0EXjkF3A1aqTpe2TmwCdQ07kV3TU3erwYx5qr+nHWg=";
                   }
+                  {
+                    name = "tiltfile";
+                    publisher = "tilt-dev";
+                    version = "0.0.4";
+                    sha256 = "sha256-7DA099bQkortHHDgWS7mYOy3hlpdk8/+Sj1mMGYzzI8=";
+                  }
                 ];
               userSettings = {
                 "autoDocstring.docstringFormat" = "numpy-notypes";
