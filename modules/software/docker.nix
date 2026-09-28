@@ -3,7 +3,7 @@ _: {
     {
       nixos = {
         targets = ["*"];
-        module = {
+        module = {pkgs, ...}: {
           virtualisation = {
             docker = {
               enable = true;
@@ -13,6 +13,8 @@ _: {
 
             oci-containers.backend = "docker";
           };
+
+          systemd.services.docker.path = [pkgs.nftables];
         };
       };
     }
