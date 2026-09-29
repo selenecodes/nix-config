@@ -6,6 +6,7 @@ let
       kubernetes-helm
       kind
       tilt
+      ctlptl
     ];
   };
 in
