@@ -96,7 +96,7 @@
           "caelestia/hypr-vars.lua".text = ''
             return {
               terminal = "ghostty",
-              browser = "google-chrome-stable",
+              browser = "zen-beta",
               editor = "code",
               fileExplorer = "thunar",
               audioSettings = "pavucontrol",
