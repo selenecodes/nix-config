@@ -2,7 +2,7 @@ _: {
   repository.features = [
     {
       homeManager = {
-        targets = ["*"];
+        targets = ["studio"];
         module = {
           programs.uv.tool.packages = ["osxphotos"];
         };
