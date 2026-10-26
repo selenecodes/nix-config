@@ -35,6 +35,15 @@ _: {
             enable = true;
             defaultApplications."application/x-ica" = ["wfica.desktop"];
           };
+
+          # Citrix Workspace 26.04 crashes in NVIDIA's native Wayland EGL path.
+          xdg.desktopEntries.wfica = {
+            name = "Citrix Workspace Engine";
+            exec = "env -u WAYLAND_DISPLAY EGL_PLATFORM=x11 adapter %f";
+            type = "Application";
+            noDisplay = true;
+            mimeType = ["application/x-ica"];
+          };
         };
       };
 
