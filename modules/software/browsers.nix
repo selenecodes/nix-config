@@ -1,6 +1,12 @@
 {inputs, ...}: {
   repository.features = [
     {
+      nixos = {
+        targets = ["*"];
+        module = {pkgs, ...}: {
+          environment.systemPackages = [pkgs.google-chrome];
+        };
+      };
       homeManager = {
         targets = ["*"];
         module = {
