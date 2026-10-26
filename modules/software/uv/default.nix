@@ -5,6 +5,23 @@ in
   _: {
     repository.features = [
       {
+        nixos = {
+          targets = ["*"];
+          module = {pkgs, ...}: {
+            environment.localBinInPath = true;
+            programs.nix-ld = {
+              enable = true;
+              libraries = with pkgs; [
+                stdenv.cc.cc.lib
+                zlib
+                openssl
+                libffi
+                glibc
+              ];
+            };
+          };
+        };
+
         homeManager = {
           targets = ["*"];
           module = {
