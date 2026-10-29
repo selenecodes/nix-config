@@ -7,6 +7,11 @@
     (import ./gpt-5.6-luna.nix {inherit (ai) mkAiModel;})
     (import ./gpt-5.6-sol.nix {inherit (ai) mkAiModel;})
     (import ./gpt-5.6-terra.nix {inherit (ai) mkAiModel;})
+    (import ./gpt-6-astra.nix {inherit (ai) mkAiModel;})
+    (import ./gpt-6-luna.nix {inherit (ai) mkAiModel;})
+    (import ./gpt-6-sol.nix {inherit (ai) mkAiModel;})
+    (import ./gpt-6.1-sol.nix {inherit (ai) mkAiModel;})
+    (import ./gpt-6.1-terra.nix {inherit (ai) mkAiModel;})
     (import ./text-embedding-3-large.nix {inherit (ai) mkAiModel;})
   ];
 in

@@ -11,4 +11,14 @@ mkAiModel {
     context = 1050000;
     output = 128000;
   };
+  cost = {
+    input = 4.4;
+    output = 22.0;
+    cacheRead = 0.44;
+    contextOver200k = {
+      input = 8.8;
+      output = 33.0;
+      cacheRead = 0.88;
+    };
+  };
 }
