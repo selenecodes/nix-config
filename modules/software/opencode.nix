@@ -7,7 +7,7 @@ in {
       homeManager = {
         targets = ["*"];
         module = {pkgs, ...}: let
-          defaultModel = "bifrost/eu/gpt-5.6-terra";
+          defaultModel = "bifrost/eu/gpt-6.1-sol";
           isLinux = pkgs.stdenv.hostPlatform.isLinux;
         in {
           programs.zsh.initContent = lib.mkAfter ''
