@@ -31,6 +31,7 @@ in {
               model = catalog.models."eu/gpt-5.6-luna".name;
               model_provider = "bifrost";
               model_reasoning_effort = "medium";
+              mcp_servers.bifrost.url = topology.bifrost.mcpUrl;
               model_providers.bifrost = {
                 name = "Bifrost (proxy)";
                 base_url = topology.bifrost.baseUrl;

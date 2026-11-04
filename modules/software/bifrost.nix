@@ -55,6 +55,23 @@ in {
                 settings = {
                   "$schema" = "https://www.getbifrost.ai/schema";
                   providers = catalog.bifrost.providers;
+                  mcp = {
+                    tool_manager_config.disable_auto_tool_inject = true;
+                    client_configs = [
+                      {
+                        name = "context7";
+                        connection_type = "http";
+                        connection_string = "https://mcp.context7.com/mcp";
+                        tools_to_execute = ["*"];
+                      }
+                      {
+                        name = "gh_grep";
+                        connection_type = "http";
+                        connection_string = "https://mcp.grep.app";
+                        tools_to_execute = ["*"];
+                      }
+                    ];
+                  };
                 };
               };
             }

@@ -54,15 +54,9 @@ in {
                   apiKey = "";
                 };
               };
-              mcp = {
-                context7 = {
-                  type = "remote";
-                  url = "https://mcp.context7.com/mcp";
-                };
-                gh_grep = {
-                  type = "remote";
-                  url = "https://mcp.grep.app";
-                };
+              mcp.bifrost = {
+                type = "remote";
+                url = topology.bifrost.mcpUrl;
               };
             };
             tui.theme =
