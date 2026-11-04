@@ -10,7 +10,18 @@ in {
       homeManager = {
         targets = ["*"];
         module = {pkgs, ...}: let
-          bifrostVersion = "2.0.0";
+          bifrostVersion = "2.4.0";
+          bifrostPkgs =
+            pkgs
+            // {
+              go_1_27 = pkgs.go_1_27.overrideAttrs (_: {
+                version = "1.27.3";
+                src = pkgs.fetchurl {
+                  url = "https://go.dev/dl/go1.27.3.src.tar.gz";
+                  sha256 = "6e7749035cf360f06b2575d162ea79df9fda8ef671889e5c375f8e50777f26bb";
+                };
+              });
+            };
           bifrostUi = pkgs.callPackage "${inputs.bifrost}/nix/packages/bifrost-ui.nix" {
             pkgs =
               pkgs
@@ -18,7 +29,7 @@ in {
                 buildNpmPackage = args:
                   pkgs.buildNpmPackage (args
                     // {
-                      npmDepsHash = "sha256-cOswnT4ZahWX66h9oiw4t3r5GZeOH/yjbnTCAsjVgnw=";
+                      npmDepsHash = "sha256-GBxwxHmvAlMMS9WtTC7ITLvLNuLjcE8IxaHbHXd7qM8=";
                     });
               };
             version = bifrostVersion;
@@ -26,12 +37,13 @@ in {
           };
           bifrostHttp =
             (pkgs.callPackage "${inputs.bifrost}/nix/packages/bifrost-http.nix" {
+              pkgs = bifrostPkgs;
               version = bifrostVersion;
               inputs = inputs.bifrost.inputs;
               src = inputs.bifrost;
               "bifrost-ui" = bifrostUi;
             }).overrideAttrs (_: {
-              vendorHash = "sha256-JGOMV5R9d+gG5sB9SUmm219Vl/HM0/6EryAWAj2UnVU=";
+              vendorHash = "sha256-MoHp3GW29L1dF2Eh/1T7FrDdavdVINsLF8sItT1ZTQE=";
             });
         in {
           imports = [
