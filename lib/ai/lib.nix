@@ -10,8 +10,8 @@ in {
   #
   # Model naming:
   # - name is the stable name used by OpenCode, Bifrost, and local vLLM serving.
-  # - providerModel is the provider's underlying model reference.
-  # - displayName is shown to people in OpenCode.
+  # - providerModel is the provider's underlying model reference. E.g. the Azure name or the Huggingface name. 
+  # - displayName is a humanized name, shown in various tools such as OpenCode.
   #
   # Hosted Azure example:
   #   name = "eu/gpt-6-sol";
@@ -21,6 +21,7 @@ in {
   # Local vLLM example:
   #   name = "qwen3.8:27b";
   #   providerModel = "unsloth/Qwen3.8-27B-NVFP4";
+  #   displayName = "My local model"
   #   vllm.args = [ "--quantization" "modelopt" ];
   mkAiModel = model: let
     capabilities = model.capabilities or null;
