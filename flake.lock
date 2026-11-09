@@ -335,8 +335,30 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-stable": "nixpkgs-stable",
+        "skillshare": "skillshare",
         "sweet-theme": "sweet-theme",
         "zen-browser": "zen-browser"
+      }
+    },
+    "skillshare": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794199222,
+        "narHash": "sha256-DsJu6d8m0GkaksIytygBgqlB9GnM+6OaEpAu1ELvM40=",
+        "owner": "runkids",
+        "repo": "skillshare",
+        "rev": "8313c3f151458df1f84e6bc561ba1c0dff42f92e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "runkids",
+        "ref": "v0.30.0",
+        "repo": "skillshare",
+        "type": "github"
       }
     },
     "sweet-theme": {
