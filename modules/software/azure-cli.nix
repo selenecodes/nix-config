@@ -1,5 +1,5 @@
 let
-  packageModule = {pkgs, ...}: {environment.systemPackages = [pkgs.azure-cli];};
+  packageModule = {pkgsStable, ...}: {environment.systemPackages = [pkgsStable.azure-cli];};
 in
   _: {
     repository.features = [
