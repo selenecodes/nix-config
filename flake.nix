@@ -35,7 +35,7 @@
     sweet-theme.url = "github:EliverLara/Sweet/nova";
     sweet-theme.flake = false;
     catppuccin.url = "github:catppuccin/nix/e7927025113dc858afa3fc4cbbfbfca453f59dcc";
-    bifrost.url = "github:maximhq/bifrost?ref=transports/v2.4.0";
+    bifrost.url = "github:maximhq/bifrost?ref=transports/v2.5.0";
   };
 
   outputs = inputs:

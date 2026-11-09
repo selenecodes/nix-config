@@ -26,6 +26,15 @@ in {
       type = lib.types.path;
       default = "${config.home.homeDirectory}/.local/share/bifrost";
     };
+    adminPasswordFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = ''
+        Runtime path to a file containing the dashboard admin password. The
+        service exports its contents as BIFROST_ADMIN_PASSWORD. Keep this file
+        outside the Nix store and restrict access to the service user.
+      '';
+    };
     logLevel = lib.mkOption {
       type = lib.types.enum ["debug" "info" "warn" "error"];
       default = "info";

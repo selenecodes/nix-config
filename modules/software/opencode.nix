@@ -9,6 +9,16 @@ in {
         module = {pkgs, ...}: let
           defaultModel = "bifrost/eu/gpt-6.1-sol";
           isLinux = pkgs.stdenv.hostPlatform.isLinux;
+          opencodePackage =
+            if pkgs.stdenv.hostPlatform.system == "aarch64-darwin" && pkgs.opencode.version == "2.2.5"
+            then
+              pkgs.opencode.overrideAttrs (old: {
+                # Correct the dependency hash for the pinned Apple Silicon build.
+                node_modules = old.node_modules.overrideAttrs (_: {
+                  outputHash = "sha256-dIveiaiPFGSItwLyeMuPDxTE9gpvvnlTCB/+nG24qCc=";
+                });
+              })
+            else pkgs.opencode;
         in {
           programs.zsh.initContent = lib.mkAfter ''
             opencode_sig() {
@@ -22,7 +32,7 @@ in {
           catppuccin.opencode.enable = false;
           programs.opencode = {
             enable = true;
-            package = pkgs.opencode;
+            package = opencodePackage;
             settings = {
               enabled_providers = ["bifrost"];
               model = defaultModel;
@@ -59,7 +69,7 @@ in {
                 url = topology.bifrost.mcpUrl;
               };
             };
-            tui.theme =
+            cli.theme.name =
               if isLinux
               then "system"
               else "catppuccin";

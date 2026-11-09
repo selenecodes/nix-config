@@ -11,6 +11,19 @@
     then null
     else bifrostLib.mkConfig pkgs cfg.settings;
   startScript = pkgs.writeShellScript "bifrost-start" ''
+    ${lib.optionalString (cfg.adminPasswordFile != null) ''
+      admin_password_file=${lib.escapeShellArg (toString cfg.adminPasswordFile)}
+      if [ ! -r "$admin_password_file" ] || [ ! -s "$admin_password_file" ]; then
+        echo "Bifrost admin password file is missing or empty: $admin_password_file" >&2
+        exit 1
+      fi
+      BIFROST_ADMIN_PASSWORD="$(${pkgs.coreutils}/bin/cat "$admin_password_file")"
+      if [ -z "$BIFROST_ADMIN_PASSWORD" ]; then
+        echo "Bifrost admin password file must contain a password: $admin_password_file" >&2
+        exit 1
+      fi
+      export BIFROST_ADMIN_PASSWORD
+    ''}
     export PATH="/opt/homebrew/bin:/usr/local/bin:/run/current-system/sw/bin:$PATH"
     ${pkgs.lsof}/bin/lsof -tiTCP:${toString cfg.port} -sTCP:LISTEN | xargs -r kill -9
     mkdir -p ${lib.escapeShellArg (toString cfg.appDir)}

@@ -9,8 +9,12 @@ in {
     {
       homeManager = {
         targets = ["*"];
-        module = {pkgs, ...}: let
-          bifrostVersion = "2.4.0";
+        module = {
+          config,
+          pkgs,
+          ...
+        }: let
+          bifrostVersion = "2.5.0";
           bifrostPkgs =
             pkgs
             // {
@@ -29,7 +33,7 @@ in {
                 buildNpmPackage = args:
                   pkgs.buildNpmPackage (args
                     // {
-                      npmDepsHash = "sha256-GBxwxHmvAlMMS9WtTC7ITLvLNuLjcE8IxaHbHXd7qM8=";
+                      npmDepsHash = "sha256-JtaSXBfz7toZ8gF9Jjq5iveV/b5obQNhA9VvjyvDky0=";
                     });
               };
             version = bifrostVersion;
@@ -43,7 +47,7 @@ in {
               src = inputs.bifrost;
               "bifrost-ui" = bifrostUi;
             }).overrideAttrs (_: {
-              vendorHash = "sha256-MoHp3GW29L1dF2Eh/1T7FrDdavdVINsLF8sItT1ZTQE=";
+              vendorHash = "sha256-+8BZjZl1KZGzBlTQL/C16mC4pWrqOl6x10FxF4InBFQ=";
             });
         in {
           imports = [
@@ -52,8 +56,15 @@ in {
               programs.bifrost = {
                 enable = true;
                 package = bifrostHttp;
+                adminPasswordFile = "${config.home.homeDirectory}/.local/share/bifrost/admin-password";
                 settings = {
                   "$schema" = "https://www.getbifrost.ai/schema";
+                  client.enforce_auth_on_inference = false;
+                  governance.auth_config = {
+                    is_enabled = true;
+                    admin_username = "admin";
+                    admin_password = "env.BIFROST_ADMIN_PASSWORD";
+                  };
                   providers = catalog.bifrost.providers;
                   mcp = {
                     tool_manager_config.disable_auto_tool_inject = true;
