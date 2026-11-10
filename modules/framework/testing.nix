@@ -3,6 +3,7 @@
   lib,
   ...
 }: let
+  systems = ["x86_64-linux" "aarch64-darwin"];
   flattenInput = ancestors: name: input:
     lib.optionals (!(builtins.elem input.outPath ancestors)) (
       [
@@ -21,14 +22,28 @@
 in {
   imports = [inputs.nix-unit.modules.flake.default];
 
-  systems = ["x86_64-linux" "aarch64-darwin"];
-  flake.tests.unit = import ../../tests {
-    inherit lib;
-    inherit (inputs) self;
-  };
+  inherit systems;
+  flake.tests =
+    {
+      unit = import ../../tests {
+        inherit lib;
+        inherit (inputs) self;
+      };
+    }
+    // lib.genAttrs systems (system:
+      import ../../tests {
+        inherit lib;
+        inherit (inputs) self;
+        evaluationSystem = system;
+      });
 
-  perSystem = {pkgs, ...}: let
+  perSystem = {
+    pkgs,
+    system,
+    ...
+  }: let
     inherit (inputs) self;
+    nativeHosts = lib.filterAttrs (_: host: host.pkgs.stdenv.hostPlatform.system == system);
     evaluationCheck = name: drvPath:
       assert builtins.isString drvPath;
         pkgs.runCommand name {} "touch $out";
@@ -44,18 +59,19 @@ in {
       inputs = testInputs;
     };
     # Evaluate full systems in the outer evaluator, where generated theme
-    # files can be realised. The test builder never builds a host system.
+    # files can be realised. Only evaluate native hosts: theme generation can
+    # require platform-specific builds even with --no-build.
     checks =
       lib.mapAttrs' (name: host:
         lib.nameValuePair "eval-nixos-${name}" (
           evaluationCheck "eval-nixos-${name}" host.config.system.build.toplevel.drvPath
         ))
-      self.nixosConfigurations
+      (nativeHosts self.nixosConfigurations)
       // lib.mapAttrs' (name: host:
         lib.nameValuePair "eval-darwin-${name}" (
           evaluationCheck "eval-darwin-${name}" host.system.drvPath
         ))
-      self.darwinConfigurations;
+      (nativeHosts self.darwinConfigurations);
     packages.nix-unit = pkgs.nix-unit;
     devShells.default = pkgs.mkShell {
       packages = [pkgs.nix-unit];

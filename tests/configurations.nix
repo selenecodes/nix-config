@@ -2,9 +2,13 @@
   lib,
   self,
   includeSystemEvaluation ? true,
+  evaluationSystem ? null,
 }: let
   nixosNames = builtins.attrNames self.nixosConfigurations;
   darwinNames = builtins.attrNames self.darwinConfigurations;
+  nativeHosts =
+    lib.filterAttrs (_: host:
+      evaluationSystem == null || host.pkgs.stdenv.hostPlatform.system == evaluationSystem);
 in {
   testHasNixosOutputs = {
     expr = nixosNames != [];
@@ -31,7 +35,7 @@ in {
         expected = true;
       };
     })
-  self.nixosConfigurations;
+  (nativeHosts self.nixosConfigurations);
   darwin = lib.mapAttrs (_: host:
     {
       testZshEnabled = {
@@ -45,5 +49,5 @@ in {
         expected = true;
       };
     })
-  self.darwinConfigurations;
+  (nativeHosts self.darwinConfigurations);
 }

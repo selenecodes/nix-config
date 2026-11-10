@@ -29,9 +29,12 @@ build device:
 check:
   nix flake check --no-build {{flake_dir}}
 
-# Run the Nix evaluation test suite
+# Run the Nix evaluation test suite for the current platform and architecture
 test:
-  nix run {{flake_dir}}#nix-unit -- --flake {{flake_dir}}#tests.unit
+  #!/usr/bin/env bash
+  set -euo pipefail
+  system=$(nix eval --impure --raw --expr builtins.currentSystem)
+  nix run "{{flake_dir}}#nix-unit" -- --flake "{{flake_dir}}#tests.$system"
 
 # Format all Nix files and fix issues
 format:
