@@ -24,3 +24,9 @@ sudo darwin-rebuild switch --flake ~/nix-config#studio
 ```
 
 *For the inspiration of this configuration see: [Dreams of Autonomy - Nix is my favorite package manager on macOS](https://www.youtube.com/watch?v=Z8BL8mdzWHI)*
+
+## Testing
+
+Run `just test` for the nix-unit evaluation suite, or `just verify` for all
+commit checks. Tests live in [`tests/`](tests/README.md) and also run through
+`nix flake check`.

@@ -29,6 +29,10 @@ build device:
 check:
   nix flake check --no-build {{flake_dir}}
 
+# Run the Nix evaluation test suite
+test:
+  nix run {{flake_dir}}#nix-unit -- --flake {{flake_dir}}#tests.unit
+
 # Format all Nix files and fix issues
 format:
   alejandra {{flake_dir}}
@@ -43,8 +47,7 @@ lint:
   deadnix {{flake_dir}}
 
 # Run linting and formatting
-verify: check format-check lint
-  bash {{flake_dir}}/scripts/verify.sh
+verify: check format-check lint test
 
 # Install the Git hooks
 install-hooks:
