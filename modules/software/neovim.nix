@@ -3,7 +3,11 @@ _: {
     {
       homeManager = {
         targets = ["*"];
-        module = {pkgs, ...}: {
+        module = {
+          pkgs,
+          pkgsStable,
+          ...
+        }: {
           catppuccin.nvim.enable = false;
 
           programs.neovim = {
@@ -15,7 +19,7 @@ _: {
             withPython3 = false;
             extraPackages = with pkgs; [
               # LSP servers
-              pyrefly
+              pkgsStable.pyrefly
               typescript-language-server
               nil
               helm-ls

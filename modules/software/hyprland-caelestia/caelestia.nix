@@ -12,12 +12,29 @@
       ];
     }))
     (hyprlandCaelestia.homeManager (
-      {pkgs, ...}: {
+      {pkgs, ...}: let
+        system = pkgs.stdenv.hostPlatform.system;
+        shellPkgs = inputs.caelestia-shell.packages.${system};
+
+        # Workaround: the fetched source has no .git, so setuptools-scm
+        # can't detect a version. Remove once fixed upstream.
+        patchedCli =
+          inputs.caelestia-shell.inputs.caelestia-cli.packages.${system}.default.overridePythonAttrs
+          (old: {
+            preBuild =
+              (old.preBuild or "")
+              + ''
+                export SETUPTOOLS_SCM_PRETEND_VERSION=0.0.0+g6b84ee5
+              '';
+          });
+      in {
         imports = [inputs.caelestia-shell.homeManagerModules.default];
 
         programs.caelestia = {
           enable = true;
-          package = inputs.caelestia-shell.packages.${pkgs.stdenv.hostPlatform.system}.with-cli;
+          package = shellPkgs.with-cli.override {
+            caelestia-cli = patchedCli;
+          };
           systemd = {
             enable = false;
             target = "graphical-session.target";
@@ -74,6 +91,7 @@
           };
           cli = {
             enable = true;
+            package = patchedCli;
             settings.toggles = {
               communication = {
                 discord.enable = false;

@@ -1,5 +1,5 @@
 let
-  packageModule = {pkgs, ...}: {environment.systemPackages = [pkgs.fnm];};
+  packageModule = {pkgsStable, ...}: {environment.systemPackages = [pkgsStable.fnm];};
 in
   _: {
     repository.features = [

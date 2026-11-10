@@ -3,13 +3,13 @@ _: {
     {
       nixos = {
         targets = ["*"];
-        module = {
+        module = {pkgs, ...}: {
+          environment.systemPackages = [pkgs.pipewire.jack];
           services.pipewire = {
             enable = true;
             alsa.enable = true;
             alsa.support32Bit = true;
             pulse.enable = true;
-            jack.enable = true;
             extraConfig.pipewire."10-clock-rate" = {
               "context.properties" = {
                 "default.clock.rate" = 48000;

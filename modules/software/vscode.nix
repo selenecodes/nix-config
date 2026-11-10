@@ -3,7 +3,11 @@ _: {
     {
       homeManager = {
         targets = ["*"];
-        module = {pkgs, ...}: let
+        module = {
+          pkgs,
+          pkgsStable,
+          ...
+        }: let
           myFont = "JetBrainsMono Nerd Font";
         in {
           programs.vscode = {
@@ -120,7 +124,7 @@ _: {
                 "python.pyrefly.typeCheckingMode" = "strict";
                 "python.createEnvironment.trigger" = "off";
                 "python.terminal.activateEnvInCurrentTerminal" = false;
-                "pyrefly.lspPath" = "${pkgs.pyrefly}/bin/pyrefly";
+                "pyrefly.lspPath" = "${pkgsStable.pyrefly}/bin/pyrefly";
                 "redhat.telemetry.enabled" = false;
                 "security.workspace.trust.untrustedFiles" = "prompt";
                 "svelte.enable-ts-plugin" = true;

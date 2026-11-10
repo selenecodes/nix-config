@@ -1,5 +1,5 @@
 let
-  packageModule = {pkgs, ...}: {environment.systemPackages = [pkgs.pyrefly];};
+  packageModule = {pkgsStable, ...}: {environment.systemPackages = [pkgsStable.pyrefly];};
 in
   _: {
     repository.features = [

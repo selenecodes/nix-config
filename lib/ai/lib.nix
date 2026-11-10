@@ -10,7 +10,7 @@ in {
   #
   # Model naming:
   # - name is the stable name used by OpenCode, Bifrost, and local vLLM serving.
-  # - providerModel is the provider's underlying model reference. E.g. the Azure name or the Huggingface name. 
+  # - providerModel is the provider's underlying model reference. E.g. the Azure name or the Huggingface name.
   # - displayName is a humanized name, shown in various tools such as OpenCode.
   #
   # Hosted Azure example:

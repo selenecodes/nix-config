@@ -36,7 +36,8 @@
     };
     caelestia-shell = {
       url = "github:caelestia-dots/shell/v2.5.0";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # Quickshell's Hyprland IPC types are incompatible with Qt 6.12.
+      inputs.nixpkgs.follows = "nixpkgs-stable";
     };
     caelestia-dots.url = "github:caelestia-dots/caelestia";
     caelestia-dots.flake = false;
