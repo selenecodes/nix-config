@@ -21,9 +21,9 @@ in {
   # - displayName is shown to people in OpenCode.
   #
   # Hosted Azure example:
-  #   name = "eu/gpt-5.6-sol";
-  #   providerModel = "gpt-5.6-sol";
-  #   displayName = "GPT 5.6 Sol";
+  #   name = "eu/gpt-6-sol";
+  #   providerModel = "gpt-6-sol";
+  #   displayName = "GPT 6 Sol";
   #
   # Local vLLM example:
   #   name = "qwen3.8:27b";

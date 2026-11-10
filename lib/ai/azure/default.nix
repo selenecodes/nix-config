@@ -1,12 +1,6 @@
 {lib}: let
   ai = import ../lib.nix {inherit lib;};
   models = [
-    (import ./gpt-5.1.nix {inherit (ai) mkAiModel;})
-    (import ./gpt-5.4.nix {inherit (ai) mkAiModel;})
-    (import ./gpt-5.5.nix {inherit (ai) mkAiModel;})
-    (import ./gpt-5.6-luna.nix {inherit (ai) mkAiModel;})
-    (import ./gpt-5.6-sol.nix {inherit (ai) mkAiModel;})
-    (import ./gpt-5.6-terra.nix {inherit (ai) mkAiModel;})
     (import ./gpt-6-astra.nix {inherit (ai) mkAiModel;})
     (import ./gpt-6-luna.nix {inherit (ai) mkAiModel;})
     (import ./gpt-6-sol.nix {inherit (ai) mkAiModel;})
