@@ -6,7 +6,11 @@ in {
     {
       homeManager = {
         targets = ["*"];
-        module = {pkgs, ...}: let
+        module = {
+          config,
+          pkgs,
+          ...
+        }: let
           defaultModel = "bifrost/eu/gpt-6.1-sol";
           isLinux = pkgs.stdenv.hostPlatform.isLinux;
           opencodePackage =
@@ -19,16 +23,15 @@ in {
                 });
               })
             else pkgs.opencode;
-        in {
-          programs.zsh.initContent = lib.mkAfter ''
-            opencode_sig() {
-              local token
-              token="$(sigrid_mcp_token)" || return
-              # The shared service cannot inherit this invocation's config or token.
-              OPENCODE_CONFIG_CONTENT='{"mcp":{"sigrid-says":{"type":"remote","url":"https://sigrid-says.com/mcp","headers":{"Authorization":"Bearer {env:SIGRID_MCP_TOKEN}"}}}}' \
-                SIGRID_MCP_TOKEN="$token" command opencode --standalone "$@"
-            }
+          gitlabPython = pkgs.python3.withPackages (ps: [ps.mcp ps.httpx2 ps.truststore]);
+          gitlabBridge = pkgs.writeShellScript "gitlab-mcp-bridge" ''
+            exec ${gitlabPython}/bin/python ${../../lib/ai/gitlab-mcp-bridge.py}
           '';
+        in {
+          programs.zsh.initContent = lib.mkAfter (builtins.replaceStrings
+            ["@jq@" "@gitlabBridge@"]
+            ["${pkgs.jq}/bin/jq" "${gitlabBridge}"]
+            (builtins.readFile ../../lib/ai/opencode-with.zsh));
 
           catppuccin.opencode.enable = false;
           programs.opencode = {
@@ -68,6 +71,15 @@ in {
               mcp.bifrost = {
                 type = "remote";
                 url = topology.bifrost.mcpUrl;
+              };
+              mcp.servers.gitlab = {
+                type = "local";
+                command = ["${gitlabBridge}"];
+                disabled = true;
+                environment = {
+                  GITLAB_PAT = "{env:GITLAB_PAT}";
+                  GITLAB_CLIENT_CERT = "${config.home.homeDirectory}/certs/gitlab-at-rws-nl-cert/git-rws-nl-mtls.pem";
+                };
               };
             };
             cli.theme.name =

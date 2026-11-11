@@ -78,6 +78,10 @@ _: {
                 command op item get "SIGRID MCP TOKEN" --field credential --reveal
               }
 
+              gitlab_mcp_token() {
+                command op item get "RWS Gitlab" --fields label=mcp --reveal
+              }
+
               ZINIT_HOME="''${XDG_DATA_HOME:-''${HOME}/.local/share}/zinit/zinit.git"
 
               if [[ ! -d "$ZINIT_HOME" ]]; then
