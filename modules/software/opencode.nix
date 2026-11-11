@@ -24,8 +24,9 @@ in {
             opencode_sig() {
               local token
               token="$(sigrid_mcp_token)" || return
+              # The shared service cannot inherit this invocation's config or token.
               OPENCODE_CONFIG_CONTENT='{"mcp":{"sigrid-says":{"type":"remote","url":"https://sigrid-says.com/mcp","headers":{"Authorization":"Bearer {env:SIGRID_MCP_TOKEN}"}}}}' \
-                SIGRID_MCP_TOKEN="$token" command opencode "$@"
+                SIGRID_MCP_TOKEN="$token" command opencode --standalone "$@"
             }
           '';
 
