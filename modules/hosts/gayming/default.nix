@@ -92,6 +92,17 @@ in {
             position = "0x0",
             scale = 1,
           })
+
+          hl.monitor({
+            -- Alienware AW3926QW: native ultrawide resolution at maximum refresh.
+            output = "DP-3",
+            mode = "5120x2160@165",
+            position = "auto",
+            scale = 1,
+            -- Fullscreen HDR needs 10-bit output; keep the desktop in sRGB.
+            bitdepth = 10,
+            cm = "srgb",
+          })
         '';
       };
     };
