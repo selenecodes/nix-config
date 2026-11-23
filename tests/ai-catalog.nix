@@ -14,13 +14,9 @@ in {
     expr = (builtins.head catalog.bifrost.providers.azure.keys).aliases."eu/gpt-6-sol";
     expected = "gpt-6-sol";
   };
-  testOpenCodeModelName = {
-    expr = catalog.opencode.models."qwen3.8:27b".name;
-    expected = "Qwen 3.8 27B";
-  };
-  testOpenCodeReasoningVariant = {
-    expr = catalog.opencode.models."qwen3.8:27b".variants.xhigh.reasoningEffort;
-    expected = "xhigh";
+  testQwenServingContextUnchanged = {
+    expr = catalog.vllm.activeModel.limits.context;
+    expected = 131072;
   };
   testSingleLocalModel = {
     expr = builtins.length localModels;

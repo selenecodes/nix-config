@@ -8,6 +8,7 @@
   aiCatalog = import ./ai-catalog.nix {inherit lib;};
   aiModel = import ./ai-model.nix {inherit lib;};
   aiProvider = import ./ai-provider.nix {inherit lib;};
+  opencode = import ./opencode.nix {inherit lib;};
   featureTargeting = import ./feature-targeting.nix {inherit lib;};
   configurations = import ./configurations.nix {inherit lib self includeSystemEvaluation evaluationSystem;};
   structure = import ./structure.nix {inherit lib;};

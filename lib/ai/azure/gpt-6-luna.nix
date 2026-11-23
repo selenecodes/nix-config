@@ -3,14 +3,9 @@ mkAiModel {
   name = "eu/gpt-6-luna";
   providerModel = "gpt-6-luna";
   version = "2026-09-22";
-  displayName = "GPT 6 Luna";
   capabilities = {
     reasoning = true;
     toolCall = true;
-  };
-  limits = {
-    context = 1050000;
-    output = 128000;
   };
   cost = {
     input = 0.12;

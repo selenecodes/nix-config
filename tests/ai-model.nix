@@ -28,7 +28,7 @@
     Attrs = {};
   };
 in {
-  requiredStrings = lib.genAttrs ["name" "providerModel" "displayName"] (field: {
+  requiredStrings = lib.genAttrs ["name" "providerModel"] (field: {
     testRejectsMissing = reject (builtins.removeAttrs model [field]) "AI definition requires model[.]${field}";
     testRejectsNull = reject (model // {${field} = null;}) "AI definition requires model[.]${field}";
     testRejectsEmpty = {
@@ -47,7 +47,10 @@ in {
   });
 
   containers = lib.genAttrs ["capabilities" "limits"] (field: {
-    testRejectsMissing = reject (builtins.removeAttrs model [field]) "requires ${field} to be an attribute set";
+    testAcceptsMissing = {
+      expr = (ai.mkAiModel (builtins.removeAttrs model [field])).name;
+      expected = "test-model";
+    };
     invalidValues = lib.mapAttrs' (name: value:
       lib.nameValuePair "testRejects${name}" (
         reject (model // {${field} = value;}) "requires ${field} to be an attribute set"
@@ -59,6 +62,23 @@ in {
       Boolean = false;
     };
   });
+
+  displayName = {
+    testAcceptsMissing = {
+      expr = (ai.mkAiModel (builtins.removeAttrs model ["displayName"])).name;
+      expected = "test-model";
+    };
+    testRejectsNull = reject (model // {displayName = null;}) "requires model[.]displayName";
+    testRejectsWrongType = reject (model // {displayName = false;}) "model[.]displayName to be a string";
+  };
+  testAcceptsDiscoveryOnlyModel = {
+    expr =
+      (ai.mkAiModel {
+        name = "alias";
+        providerModel = "upstream";
+      }).name;
+    expected = "alias";
+  };
 
   capabilities = lib.genAttrs ["reasoning" "toolCall"] (field: {
     testRejectsMissing = reject (model

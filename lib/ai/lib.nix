@@ -4,9 +4,9 @@
     assert value != "";
     assert lib.assertMsg (lib.types.str.check value) "AI definition requires ${name} to be a string"; true;
 in {
-  # Required arguments: name, providerModel, displayName, capabilities.reasoning,
-  # capabilities.toolCall, limits.context, and limits.output. Optional arguments:
-  # cost, reasoningEfforts, and vllm.args.
+  # Required arguments: name and providerModel. Metadata is optional when
+  # OpenCode discovers it from Bifrost. If capabilities or limits are supplied,
+  # both of their fields are required. Local vLLM serving still needs limits.
   #
   # Model naming:
   # - name is the stable name used by OpenCode, Bifrost, and local vLLM serving.
@@ -30,13 +30,13 @@ in {
   in
     assert requireString "model.name" (model.name or null);
     assert requireString "model.providerModel" (model.providerModel or null);
-    assert requireString "model.displayName" (model.displayName or null);
-    assert lib.assertMsg (builtins.isAttrs capabilities) "AI definition requires capabilities to be an attribute set";
-    assert lib.assertMsg (lib.types.bool.check (capabilities.reasoning or null)) "AI definition requires model.capabilities.reasoning to be a boolean";
-    assert lib.assertMsg (lib.types.bool.check (capabilities.toolCall or null)) "AI definition requires model.capabilities.toolCall to be a boolean";
-    assert lib.assertMsg (builtins.isAttrs limits) "AI definition requires limits to be an attribute set";
-    assert lib.assertMsg (lib.types.ints.positive.check (limits.context or null)) "AI definition requires model.limits.context to be a positive integer";
-    assert lib.assertMsg (lib.types.ints.positive.check (limits.output or null)) "AI definition requires model.limits.output to be a positive integer";
+    assert !(model ? displayName) || requireString "model.displayName" model.displayName;
+    assert lib.assertMsg (!(model ? capabilities) || builtins.isAttrs capabilities) "AI definition requires capabilities to be an attribute set";
+    assert lib.assertMsg (!(model ? capabilities) || lib.types.bool.check (capabilities.reasoning or null)) "AI definition requires model.capabilities.reasoning to be a boolean";
+    assert lib.assertMsg (!(model ? capabilities) || lib.types.bool.check (capabilities.toolCall or null)) "AI definition requires model.capabilities.toolCall to be a boolean";
+    assert lib.assertMsg (!(model ? limits) || builtins.isAttrs limits) "AI definition requires limits to be an attribute set";
+    assert lib.assertMsg (!(model ? limits) || lib.types.ints.positive.check (limits.context or null)) "AI definition requires model.limits.context to be a positive integer";
+    assert lib.assertMsg (!(model ? limits) || lib.types.ints.positive.check (limits.output or null)) "AI definition requires model.limits.output to be a positive integer";
     assert lib.assertMsg (!(model ? reasoningEfforts) || builtins.isList model.reasoningEfforts && lib.all builtins.isString model.reasoningEfforts) "AI model reasoningEfforts must be a list of strings";
     assert lib.assertMsg (vllm == null || builtins.isAttrs vllm && builtins.isList (vllm.args or null)) "AI model vllm.args must be a list when vllm is present";
       model

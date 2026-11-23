@@ -3,14 +3,9 @@ mkAiModel {
   name = "eu/gpt-6-sol";
   providerModel = "gpt-6-sol";
   version = "2026-09-22";
-  displayName = "GPT 6 Sol";
   capabilities = {
     reasoning = true;
     toolCall = true;
-  };
-  limits = {
-    context = 1050000;
-    output = 128000;
   };
   cost = {
     input = 2.4;
