@@ -12,7 +12,18 @@ _: {
         in {
           programs.vscode = {
             enable = true;
-            package = pkgs.vscode;
+            package =
+              if pkgs.stdenv.hostPlatform.isDarwin
+              then
+                pkgs.vscode.overrideAttrs (old: {
+                  postInstall =
+                    (old.postInstall or "")
+                    + ''
+                      # Upstream ships owner-only cache files, which Home Manager cannot copy as the user.
+                      chmod -R a+rX "$out/Applications/Visual Studio Code.app/Contents/Resources/app/node-compile-cache"
+                    '';
+                })
+              else pkgs.vscode;
             profiles.default = {
               extensions = with pkgs.vscode-extensions;
                 [
