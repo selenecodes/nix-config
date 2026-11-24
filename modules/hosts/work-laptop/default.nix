@@ -65,7 +65,6 @@ in {
 
     nixpkgs = {
       hostPlatform = system;
-      config.allowUnfree = true;
     };
     system.stateVersion = "26.05";
   };
