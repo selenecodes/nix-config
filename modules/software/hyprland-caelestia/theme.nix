@@ -97,7 +97,7 @@
             return {
               terminal = "ghostty",
               browser = "zen-beta",
-              editor = "code",
+              editor = "zeditor",
               fileExplorer = "thunar",
               audioSettings = "pavucontrol",
               cursorTheme = "Sweet-cursors",
