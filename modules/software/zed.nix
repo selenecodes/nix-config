@@ -107,9 +107,12 @@ _: {
                 };
                 Markdown.remove_trailing_whitespace_on_save = true;
               };
-              lsp.pyrefly.binary = {
-                path = "${pkgsStable.pyrefly}/bin/pyrefly";
-                arguments = ["lsp"];
+              lsp = {
+                pyrefly.binary = {
+                  path = "${pkgsStable.pyrefly}/bin/pyrefly";
+                  arguments = ["lsp"];
+                };
+                nil.binary.path = "${pkgs.nil}/bin/nil";
               };
 
               # AI Config
