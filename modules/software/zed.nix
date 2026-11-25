@@ -68,12 +68,8 @@ _: {
               show_wrap_guides = true;
               diagnostics.inline.enabled = true;
               lsp_document_colors = "background";
-              code_lens = true;
+              code_lens = "on";
               suggest_extensions = false;
-              experimental.theme_overrides.syntax = {
-                comment.font_style = "italic";
-                "comment.doc".font_style = "italic";
-              };
 
               # Panels
               project_panel = {
@@ -90,7 +86,6 @@ _: {
                 };
               };
               collaboration_panel.button = false;
-              notification_panel.button = false;
 
               # File associations
               file_types = {
