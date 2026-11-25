@@ -9,6 +9,35 @@
   nativeHosts =
     lib.filterAttrs (_: host:
       evaluationSystem == null || host.pkgs.stdenv.hostPlatform.system == evaluationSystem);
+  editorTestsForHost = host: let
+    inherit (host.config.home-manager.users.selene) programs;
+  in {
+    testZedReplacesVscode = {
+      expr = programs.zed-editor.enable && !programs.vscode.enable;
+      expected = true;
+    };
+    testNeovimRemainsDefaultEditor = {
+      expr = programs.neovim.defaultEditor && !programs.zed-editor.defaultEditor;
+      expected = true;
+    };
+    testZedPreservesEditorPreferences = {
+      expr = let
+        inherit (programs.zed-editor.userSettings) ui_font_family buffer_font_family buffer_font_size disable_ai telemetry;
+      in {
+        inherit ui_font_family buffer_font_family buffer_font_size disable_ai telemetry;
+      };
+      expected = {
+        ui_font_family = "JetBrainsMono Nerd Font";
+        buffer_font_family = "JetBrainsMono Nerd Font";
+        buffer_font_size = 13;
+        disable_ai = true;
+        telemetry = {
+          diagnostics = false;
+          metrics = false;
+        };
+      };
+    };
+  };
 in {
   sharedNixSettings = let
     expectedSubstituters = [
@@ -73,7 +102,26 @@ in {
         expr = host.config.virtualisation.docker.enable;
         expected = true;
       };
+      testZedUsesNixPackage = {
+        expr = host.config.home-manager.users.selene.programs.zed-editor.package != null;
+        expected = true;
+      };
+      testCaelestiaUsesZedEditor = {
+        expr = let
+          home = host.config.home-manager.users.selene;
+        in {
+          launcher = lib.hasInfix ''editor = "zeditor"'' home.xdg.configFile."caelestia/hypr-vars.lua".text;
+          zedThemeDisabled = !home.programs.caelestia.cli.settings.theme.enableZed;
+          noVscodeActivation = !(home.home.activation ? installCaelestiaVscodeExtension);
+        };
+        expected = {
+          launcher = true;
+          zedThemeDisabled = true;
+          noVscodeActivation = true;
+        };
+      };
     }
+    // editorTestsForHost host
     // lib.optionalAttrs includeSystemEvaluation {
       testSystemEvaluates = {
         expr = builtins.isString host.config.system.build.toplevel.drvPath;
@@ -87,7 +135,18 @@ in {
         expr = host.config.programs.zsh.enable;
         expected = true;
       };
+      testStudioInstallsZedCask = {
+        expr = {
+          cask = lib.any (cask: cask.name == "zed") host.config.homebrew.casks;
+          noNixPackage = host.config.home-manager.users.selene.programs.zed-editor.package == null;
+        };
+        expected = {
+          cask = true;
+          noNixPackage = true;
+        };
+      };
     }
+    // editorTestsForHost host
     // lib.optionalAttrs includeSystemEvaluation {
       testSystemEvaluates = {
         expr = builtins.isString host.system.drvPath;
