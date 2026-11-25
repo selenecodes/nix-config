@@ -1,4 +1,5 @@
 _: let
+  topology = import ../../../lib/ai/topology.nix;
   shared = {
     nix.settings = {
       experimental-features = ["nix-command" "flakes"];
@@ -23,6 +24,15 @@ in {
       darwin = {
         targets = ["*"];
         module = shared;
+      };
+      homeManager = {
+        targets = ["*"];
+        module = {
+          programs.mcp = {
+            enable = true;
+            servers.bifrost.url = topology.bifrost.mcpUrl;
+          };
+        };
       };
     }
   ];

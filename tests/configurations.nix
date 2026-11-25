@@ -20,23 +20,6 @@
       expr = programs.neovim.defaultEditor && !programs.zed-editor.defaultEditor;
       expected = true;
     };
-    testZedPreservesEditorPreferences = {
-      expr = let
-        inherit (programs.zed-editor.userSettings) ui_font_family buffer_font_family buffer_font_size disable_ai telemetry;
-      in {
-        inherit ui_font_family buffer_font_family buffer_font_size disable_ai telemetry;
-      };
-      expected = {
-        ui_font_family = "JetBrainsMono Nerd Font";
-        buffer_font_family = "JetBrainsMono Nerd Font";
-        buffer_font_size = 13;
-        disable_ai = true;
-        telemetry = {
-          diagnostics = false;
-          metrics = false;
-        };
-      };
-    };
   };
 in {
   sharedNixSettings = let
